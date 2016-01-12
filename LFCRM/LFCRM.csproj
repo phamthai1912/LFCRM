@@ -263,7 +263,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Class\csLogin.cs" />
-    <Compile Include="Class\DBConnect.cs" />
+    <Compile Include="Class\csDBConnect.cs" />
     <Compile Include="WebFormUserControl\Footer.ascx.cs">
       <DependentUpon>Footer.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

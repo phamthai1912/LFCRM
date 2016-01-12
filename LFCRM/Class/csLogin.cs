@@ -13,7 +13,7 @@ namespace LFCRM.Class
         SqlDataSource sqlDS = new SqlDataSource();
         SqlConnection Connection;
 
-        DBConnect dbconnect = new DBConnect();
+        csDBConnect dbconnect = new csDBConnect();
 
         public csLogin()
         {
