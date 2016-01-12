@@ -1,0 +1,861 @@
+﻿<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{AAE75B84-035E-400C-911A-559AEFA23479}</ProjectGuid>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <OutputType>Exe</OutputType>
+    <NoStandardLibraries>false</NoStandardLibraries>
+    <AssemblyName>HTBHTT</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <RootNamespace>HTBHTT</RootNamespace>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Abstractions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Web.DynamicData">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Web.DynamicData.Design">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Web.Entity">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Web.Entity.Design">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Web.Extensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Web.Extensions.Design">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Web.Mobile" />
+    <Reference Include="System.Web.RegularExpressions" />
+    <Reference Include="System.Web.Routing">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="AnhSP\1.png" />
+    <Content Include="AnhSP\2.png" />
+    <Content Include="AnhSP\3.png" />
+    <Content Include="AnhSP\4.jpg" />
+    <Content Include="AnhSP\5.jpg" />
+    <Content Include="AnhSP\8.jpg" />
+    <Content Include="AnhSP\9800-red.png" />
+    <Content Include="AnhSP\BlackBerry-9810_1.png" />
+    <Content Include="AnhSP\BlackBerry-Bold-9780-1.png" />
+    <Content Include="AnhSP\BlackBerry-Curve-3G-9300_2.png" />
+    <Content Include="AnhSP\BlackBerry-Curve-8520_2.png" />
+    <Content Include="AnhSP\camera-mayanh-Nikon-D7000-dienmay.com-L.jpg" />
+    <Content Include="AnhSP\DELL-INSPIRON-14R-N4110-5982J5-dienmay.com-185.jpg" />
+    <Content Include="AnhSP\dien-thoai-di-dong-Samsung-Galaxy-Note-dienmay.com-b.jpg" />
+    <Content Include="AnhSP\ip1.png" />
+    <Content Include="AnhSP\i_love_what_i_do_cool_480_360.jpg" />
+    <Content Include="AnhSP\lt1.png" />
+    <Content Include="AnhSP\ma1.png" />
+    <Content Include="AnhSP\mb1.png" />
+    <Content Include="Anh\apple-logo.jpg" />
+    <Content Include="Anh\asus_logo.jpg" />
+    <Content Include="Anh\banner bao hanh moi.JPG" />
+    <Content Include="Anh\black_purple.gif" />
+    <Content Include="Anh\black_red.gif" />
+    <Content Include="Anh\Body_Web.png" />
+    <Content Include="Anh\buynow_button.png" />
+    <Content Include="Anh\buy_now.png" />
+    <Content Include="Anh\Dock.gif" />
+    <Content Include="Anh\Dock.png" />
+    <Content Include="Anh\fpt.jpg" />
+    <Content Include="Anh\grey.gif" />
+    <Content Include="Anh\heart_beat.gif" />
+    <Content Include="Anh\heart_beat2.gif" />
+    <Content Include="Anh\heart_beat3.gif" />
+    <Content Include="Anh\heart_beat4.gif" />
+    <Content Include="Anh\icon_black.gif" />
+    <Content Include="Anh\index_0.jpeg" />
+    <Content Include="Anh\layout_web.jpg" />
+    <Content Include="Anh\layout_web_admin.jpg" />
+    <Content Include="Anh\layout_web_dock.jpg" />
+    <Content Include="Anh\lenovo-logo.JPG" />
+    <Content Include="Anh\Loa.gif" />
+    <Content Include="Anh\logo aser.jpg" />
+    <Content Include="Anh\logo dell_3.jpg" />
+    <Content Include="Anh\logo HTC Mobile_0.jpg" />
+    <Content Include="Anh\logo LG.jpg" />
+    <Content Include="Anh\logo motorola.jpg" />
+    <Content Include="Anh\logo samsung.JPG" />
+    <Content Include="Anh\logo sony Ericsson_0.jpg" />
+    <Content Include="Anh\logo toshiba.jpeg" />
+    <Content Include="Anh\new.gif" />
+    <Content Include="Anh\nokia_0.jpg" />
+    <Content Include="Anh\quangcao.mp4" />
+    <Content Include="Anh\quangcao1.swf" />
+    <Content Include="Anh\quangcao2.swf" />
+    <Content Include="Anh\Refresh.png" />
+    <Content Include="Anh\sanphambanchay.png" />
+    <Content Include="Anh\sanphamhot.png" />
+    <Content Include="Anh\sanphamoi.png" />
+    <Content Include="Anh\test.jpg" />
+    <Content Include="Anh\trang.png" />
+    <Content Include="Anh\white.gif" />
+    <Content Include="Anh\white_blue.gif" />
+    <Content Include="AutoComplete.asmx" />
+    <Content Include="Cart.aspx" />
+    <Content Include="ChangeUserInfomation.aspx" />
+    <Content Include="ckeditor\adapters\jquery.js" />
+    <Content Include="ckeditor\CHANGES.html" />
+    <Content Include="ckeditor\ckeditor.js" />
+    <Content Include="ckeditor\ckeditor_basic.js" />
+    <Content Include="ckeditor\config.js" />
+    <Content Include="ckeditor\contents.css" />
+    <Content Include="ckeditor\images\spacer.gif" />
+    <Content Include="ckeditor\INSTALL.html" />
+    <Content Include="ckeditor\lang\af.js" />
+    <Content Include="ckeditor\lang\ar.js" />
+    <Content Include="ckeditor\lang\bg.js" />
+    <Content Include="ckeditor\lang\bn.js" />
+    <Content Include="ckeditor\lang\bs.js" />
+    <Content Include="ckeditor\lang\ca.js" />
+    <Content Include="ckeditor\lang\cs.js" />
+    <Content Include="ckeditor\lang\cy.js" />
+    <Content Include="ckeditor\lang\da.js" />
+    <Content Include="ckeditor\lang\de.js" />
+    <Content Include="ckeditor\lang\el.js" />
+    <Content Include="ckeditor\lang\en-au.js" />
+    <Content Include="ckeditor\lang\en-ca.js" />
+    <Content Include="ckeditor\lang\en-gb.js" />
+    <Content Include="ckeditor\lang\en.js" />
+    <Content Include="ckeditor\lang\eo.js" />
+    <Content Include="ckeditor\lang\es.js" />
+    <Content Include="ckeditor\lang\et.js" />
+    <Content Include="ckeditor\lang\eu.js" />
+    <Content Include="ckeditor\lang\fa.js" />
+    <Content Include="ckeditor\lang\fi.js" />
+    <Content Include="ckeditor\lang\fo.js" />
+    <Content Include="ckeditor\lang\fr-ca.js" />
+    <Content Include="ckeditor\lang\fr.js" />
+    <Content Include="ckeditor\lang\gl.js" />
+    <Content Include="ckeditor\lang\gu.js" />
+    <Content Include="ckeditor\lang\he.js" />
+    <Content Include="ckeditor\lang\hi.js" />
+    <Content Include="ckeditor\lang\hr.js" />
+    <Content Include="ckeditor\lang\hu.js" />
+    <Content Include="ckeditor\lang\is.js" />
+    <Content Include="ckeditor\lang\it.js" />
+    <Content Include="ckeditor\lang\ja.js" />
+    <Content Include="ckeditor\lang\ka.js" />
+    <Content Include="ckeditor\lang\km.js" />
+    <Content Include="ckeditor\lang\ko.js" />
+    <Content Include="ckeditor\lang\lt.js" />
+    <Content Include="ckeditor\lang\lv.js" />
+    <Content Include="ckeditor\lang\mn.js" />
+    <Content Include="ckeditor\lang\ms.js" />
+    <Content Include="ckeditor\lang\nb.js" />
+    <Content Include="ckeditor\lang\nl.js" />
+    <Content Include="ckeditor\lang\no.js" />
+    <Content Include="ckeditor\lang\pl.js" />
+    <Content Include="ckeditor\lang\pt-br.js" />
+    <Content Include="ckeditor\lang\pt.js" />
+    <Content Include="ckeditor\lang\ro.js" />
+    <Content Include="ckeditor\lang\ru.js" />
+    <Content Include="ckeditor\lang\sk.js" />
+    <Content Include="ckeditor\lang\sl.js" />
+    <Content Include="ckeditor\lang\sr-latn.js" />
+    <Content Include="ckeditor\lang\sr.js" />
+    <Content Include="ckeditor\lang\sv.js" />
+    <Content Include="ckeditor\lang\th.js" />
+    <Content Include="ckeditor\lang\tr.js" />
+    <Content Include="ckeditor\lang\uk.js" />
+    <Content Include="ckeditor\lang\vi.js" />
+    <Content Include="ckeditor\lang\zh-cn.js" />
+    <Content Include="ckeditor\lang\zh.js" />
+    <Content Include="ckeditor\lang\_languages.js" />
+    <Content Include="ckeditor\lang\_translationstatus.txt" />
+    <Content Include="ckeditor\LICENSE.html" />
+    <Content Include="ckeditor\plugins\a11yhelp\dialogs\a11yhelp.js" />
+    <Content Include="ckeditor\plugins\a11yhelp\lang\en.js" />
+    <Content Include="ckeditor\plugins\a11yhelp\lang\he.js" />
+    <Content Include="ckeditor\plugins\about\dialogs\about.js" />
+    <Content Include="ckeditor\plugins\about\dialogs\logo_ckeditor.png" />
+    <Content Include="ckeditor\plugins\adobeair\plugin.js" />
+    <Content Include="ckeditor\plugins\ajax\plugin.js" />
+    <Content Include="ckeditor\plugins\autogrow\plugin.js" />
+    <Content Include="ckeditor\plugins\bbcode\plugin.js" />
+    <Content Include="ckeditor\plugins\clipboard\dialogs\paste.js" />
+    <Content Include="ckeditor\plugins\colordialog\dialogs\colordialog.js" />
+    <Content Include="ckeditor\plugins\devtools\lang\en.js" />
+    <Content Include="ckeditor\plugins\devtools\plugin.js" />
+    <Content Include="ckeditor\plugins\dialog\dialogDefinition.js" />
+    <Content Include="ckeditor\plugins\div\dialogs\div.js" />
+    <Content Include="ckeditor\plugins\docprops\dialogs\docprops.js" />
+    <Content Include="ckeditor\plugins\docprops\plugin.js" />
+    <Content Include="ckeditor\plugins\find\dialogs\find.js" />
+    <Content Include="ckeditor\plugins\flash\dialogs\flash.js" />
+    <Content Include="ckeditor\plugins\flash\images\placeholder.png" />
+    <Content Include="ckeditor\plugins\forms\dialogs\button.js" />
+    <Content Include="ckeditor\plugins\forms\dialogs\checkbox.js" />
+    <Content Include="ckeditor\plugins\forms\dialogs\form.js" />
+    <Content Include="ckeditor\plugins\forms\dialogs\hiddenfield.js" />
+    <Content Include="ckeditor\plugins\forms\dialogs\radio.js" />
+    <Content Include="ckeditor\plugins\forms\dialogs\select.js" />
+    <Content Include="ckeditor\plugins\forms\dialogs\textarea.js" />
+    <Content Include="ckeditor\plugins\forms\dialogs\textfield.js" />
+    <Content Include="ckeditor\plugins\forms\images\hiddenfield.gif" />
+    <Content Include="ckeditor\plugins\iframedialog\plugin.js" />
+    <Content Include="ckeditor\plugins\iframe\dialogs\iframe.js" />
+    <Content Include="ckeditor\plugins\iframe\images\placeholder.png" />
+    <Content Include="ckeditor\plugins\image\dialogs\image.js" />
+    <Content Include="ckeditor\plugins\link\dialogs\anchor.js" />
+    <Content Include="ckeditor\plugins\link\dialogs\link.js" />
+    <Content Include="ckeditor\plugins\link\images\anchor.gif" />
+    <Content Include="ckeditor\plugins\liststyle\dialogs\liststyle.js" />
+    <Content Include="ckeditor\plugins\pagebreak\images\pagebreak.gif" />
+    <Content Include="ckeditor\plugins\pastefromword\filter\default.js" />
+    <Content Include="ckeditor\plugins\pastetext\dialogs\pastetext.js" />
+    <Content Include="ckeditor\plugins\placeholder\dialogs\placeholder.js" />
+    <Content Include="ckeditor\plugins\placeholder\lang\en.js" />
+    <Content Include="ckeditor\plugins\placeholder\lang\he.js" />
+    <Content Include="ckeditor\plugins\placeholder\placeholder.gif" />
+    <Content Include="ckeditor\plugins\placeholder\plugin.js" />
+    <Content Include="ckeditor\plugins\scayt\dialogs\options.js" />
+    <Content Include="ckeditor\plugins\scayt\dialogs\toolbar.css" />
+    <Content Include="ckeditor\plugins\showblocks\images\block_address.png" />
+    <Content Include="ckeditor\plugins\showblocks\images\block_blockquote.png" />
+    <Content Include="ckeditor\plugins\showblocks\images\block_div.png" />
+    <Content Include="ckeditor\plugins\showblocks\images\block_h1.png" />
+    <Content Include="ckeditor\plugins\showblocks\images\block_h2.png" />
+    <Content Include="ckeditor\plugins\showblocks\images\block_h3.png" />
+    <Content Include="ckeditor\plugins\showblocks\images\block_h4.png" />
+    <Content Include="ckeditor\plugins\showblocks\images\block_h5.png" />
+    <Content Include="ckeditor\plugins\showblocks\images\block_h6.png" />
+    <Content Include="ckeditor\plugins\showblocks\images\block_p.png" />
+    <Content Include="ckeditor\plugins\showblocks\images\block_pre.png" />
+    <Content Include="ckeditor\plugins\smiley\dialogs\smiley.js" />
+    <Content Include="ckeditor\plugins\smiley\images\angel_smile.gif" />
+    <Content Include="ckeditor\plugins\smiley\images\angry_smile.gif" />
+    <Content Include="ckeditor\plugins\smiley\images\broken_heart.gif" />
+    <Content Include="ckeditor\plugins\smiley\images\confused_smile.gif" />
+    <Content Include="ckeditor\plugins\smiley\images\cry_smile.gif" />
+    <Content Include="ckeditor\plugins\smiley\images\devil_smile.gif" />
+    <Content Include="ckeditor\plugins\smiley\images\embaressed_smile.gif" />
+    <Content Include="ckeditor\plugins\smiley\images\envelope.gif" />
+    <Content Include="ckeditor\plugins\smiley\images\heart.gif" />
+    <Content Include="ckeditor\plugins\smiley\images\kiss.gif" />
+    <Content Include="ckeditor\plugins\smiley\images\lightbulb.gif" />
+    <Content Include="ckeditor\plugins\smiley\images\omg_smile.gif" />
+    <Content Include="ckeditor\plugins\smiley\images\regular_smile.gif" />
+    <Content Include="ckeditor\plugins\smiley\images\sad_smile.gif" />
+    <Content Include="ckeditor\plugins\smiley\images\shades_smile.gif" />
+    <Content Include="ckeditor\plugins\smiley\images\teeth_smile.gif" />
+    <Content Include="ckeditor\plugins\smiley\images\thumbs_down.gif" />
+    <Content Include="ckeditor\plugins\smiley\images\thumbs_up.gif" />
+    <Content Include="ckeditor\plugins\smiley\images\tounge_smile.gif" />
+    <Content Include="ckeditor\plugins\smiley\images\whatchutalkingabout_smile.gif" />
+    <Content Include="ckeditor\plugins\smiley\images\wink_smile.gif" />
+    <Content Include="ckeditor\plugins\specialchar\dialogs\specialchar.js" />
+    <Content Include="ckeditor\plugins\specialchar\lang\en.js" />
+    <Content Include="ckeditor\plugins\stylesheetparser\plugin.js" />
+    <Content Include="ckeditor\plugins\styles\styles\default.js" />
+    <Content Include="ckeditor\plugins\tableresize\plugin.js" />
+    <Content Include="ckeditor\plugins\tabletools\dialogs\tableCell.js" />
+    <Content Include="ckeditor\plugins\table\dialogs\table.js" />
+    <Content Include="ckeditor\plugins\templates\dialogs\templates.js" />
+    <Content Include="ckeditor\plugins\templates\templates\default.js" />
+    <Content Include="ckeditor\plugins\templates\templates\images\template1.gif" />
+    <Content Include="ckeditor\plugins\templates\templates\images\template2.gif" />
+    <Content Include="ckeditor\plugins\templates\templates\images\template3.gif" />
+    <Content Include="ckeditor\plugins\uicolor\dialogs\uicolor.js" />
+    <Content Include="ckeditor\plugins\uicolor\lang\en.js" />
+    <Content Include="ckeditor\plugins\uicolor\lang\he.js" />
+    <Content Include="ckeditor\plugins\uicolor\plugin.js" />
+    <Content Include="ckeditor\plugins\uicolor\uicolor.gif" />
+    <Content Include="ckeditor\plugins\uicolor\yui\assets\hue_bg.png" />
+    <Content Include="ckeditor\plugins\uicolor\yui\assets\hue_thumb.png" />
+    <Content Include="ckeditor\plugins\uicolor\yui\assets\picker_mask.png" />
+    <Content Include="ckeditor\plugins\uicolor\yui\assets\picker_thumb.png" />
+    <Content Include="ckeditor\plugins\uicolor\yui\assets\yui.css" />
+    <Content Include="ckeditor\plugins\uicolor\yui\yui.js" />
+    <Content Include="ckeditor\plugins\wsc\dialogs\ciframe.html" />
+    <Content Include="ckeditor\plugins\wsc\dialogs\tmpFrameset.html" />
+    <Content Include="ckeditor\plugins\wsc\dialogs\wsc.css" />
+    <Content Include="ckeditor\plugins\wsc\dialogs\wsc.js" />
+    <Content Include="ckeditor\plugins\xml\plugin.js" />
+    <Content Include="ckeditor\skins\kama\dialog.css" />
+    <Content Include="ckeditor\skins\kama\editor.css" />
+    <Content Include="ckeditor\skins\kama\icons.png" />
+    <Content Include="ckeditor\skins\kama\icons_rtl.png" />
+    <Content Include="ckeditor\skins\kama\images\dialog_sides.gif" />
+    <Content Include="ckeditor\skins\kama\images\dialog_sides.png" />
+    <Content Include="ckeditor\skins\kama\images\dialog_sides_rtl.png" />
+    <Content Include="ckeditor\skins\kama\images\mini.gif" />
+    <Content Include="ckeditor\skins\kama\images\noimage.png" />
+    <Content Include="ckeditor\skins\kama\images\sprites.png" />
+    <Content Include="ckeditor\skins\kama\images\sprites_ie6.png" />
+    <Content Include="ckeditor\skins\kama\images\toolbar_start.gif" />
+    <Content Include="ckeditor\skins\kama\skin.js" />
+    <Content Include="ckeditor\skins\kama\templates.css" />
+    <Content Include="ckeditor\skins\office2003\dialog.css" />
+    <Content Include="ckeditor\skins\office2003\editor.css" />
+    <Content Include="ckeditor\skins\office2003\icons.png" />
+    <Content Include="ckeditor\skins\office2003\icons_rtl.png" />
+    <Content Include="ckeditor\skins\office2003\images\dialog_sides.gif" />
+    <Content Include="ckeditor\skins\office2003\images\dialog_sides.png" />
+    <Content Include="ckeditor\skins\office2003\images\dialog_sides_rtl.png" />
+    <Content Include="ckeditor\skins\office2003\images\mini.gif" />
+    <Content Include="ckeditor\skins\office2003\images\noimage.png" />
+    <Content Include="ckeditor\skins\office2003\images\sprites.png" />
+    <Content Include="ckeditor\skins\office2003\images\sprites_ie6.png" />
+    <Content Include="ckeditor\skins\office2003\skin.js" />
+    <Content Include="ckeditor\skins\office2003\templates.css" />
+    <Content Include="ckeditor\skins\v2\dialog.css" />
+    <Content Include="ckeditor\skins\v2\editor.css" />
+    <Content Include="ckeditor\skins\v2\icons.png" />
+    <Content Include="ckeditor\skins\v2\icons_rtl.png" />
+    <Content Include="ckeditor\skins\v2\images\dialog_sides.gif" />
+    <Content Include="ckeditor\skins\v2\images\dialog_sides.png" />
+    <Content Include="ckeditor\skins\v2\images\dialog_sides_rtl.png" />
+    <Content Include="ckeditor\skins\v2\images\mini.gif" />
+    <Content Include="ckeditor\skins\v2\images\noimage.png" />
+    <Content Include="ckeditor\skins\v2\images\sprites.png" />
+    <Content Include="ckeditor\skins\v2\images\sprites_ie6.png" />
+    <Content Include="ckeditor\skins\v2\images\toolbar_start.gif" />
+    <Content Include="ckeditor\skins\v2\skin.js" />
+    <Content Include="ckeditor\skins\v2\templates.css" />
+    <Content Include="ckeditor\themes\default\theme.js" />
+    <Content Include="ComposeMessage.aspx" />
+    <Content Include="Contact.aspx" />
+    <Content Include="Default.aspx" />
+    <Content Include="DefaultAdmin.aspx" />
+    <Content Include="development-bundle\jquery-1.6.2.js" />
+    <Content Include="development-bundle\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="development-bundle\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="development-bundle\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="development-bundle\themes\base\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="development-bundle\themes\base\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="development-bundle\themes\base\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="development-bundle\themes\base\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="development-bundle\themes\base\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="development-bundle\themes\base\images\ui-icons_222222_256x240.png" />
+    <Content Include="development-bundle\themes\base\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="development-bundle\themes\base\images\ui-icons_454545_256x240.png" />
+    <Content Include="development-bundle\themes\base\images\ui-icons_888888_256x240.png" />
+    <Content Include="development-bundle\themes\base\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="development-bundle\themes\base\jquery.ui.accordion.css" />
+    <Content Include="development-bundle\themes\base\jquery.ui.all.css" />
+    <Content Include="development-bundle\themes\base\jquery.ui.autocomplete.css" />
+    <Content Include="development-bundle\themes\base\jquery.ui.base.css" />
+    <Content Include="development-bundle\themes\base\jquery.ui.button.css" />
+    <Content Include="development-bundle\themes\base\jquery.ui.core.css" />
+    <Content Include="development-bundle\themes\base\jquery.ui.datepicker.css" />
+    <Content Include="development-bundle\themes\base\jquery.ui.dialog.css" />
+    <Content Include="development-bundle\themes\base\jquery.ui.progressbar.css" />
+    <Content Include="development-bundle\themes\base\jquery.ui.resizable.css" />
+    <Content Include="development-bundle\themes\base\jquery.ui.selectable.css" />
+    <Content Include="development-bundle\themes\base\jquery.ui.slider.css" />
+    <Content Include="development-bundle\themes\base\jquery.ui.tabs.css" />
+    <Content Include="development-bundle\themes\base\jquery.ui.theme.css" />
+    <Content Include="development-bundle\themes\custom-theme\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="development-bundle\themes\custom-theme\images\ui-bg_flat_0_ffffff_40x100.png" />
+    <Content Include="development-bundle\themes\custom-theme\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="development-bundle\themes\custom-theme\images\ui-bg_glass_0_ffffff_1x400.png" />
+    <Content Include="development-bundle\themes\custom-theme\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="development-bundle\themes\custom-theme\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="development-bundle\themes\custom-theme\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="development-bundle\themes\custom-theme\images\ui-bg_inset-soft_95_fef1ec_1x100.png" />
+    <Content Include="development-bundle\themes\custom-theme\images\ui-icons_213943_256x240.png" />
+    <Content Include="development-bundle\themes\custom-theme\images\ui-icons_222222_256x240.png" />
+    <Content Include="development-bundle\themes\custom-theme\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="development-bundle\themes\custom-theme\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="development-bundle\themes\custom-theme\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="development-bundle\themes\custom-theme\jquery-ui-1.8.16.custom.css" />
+    <Content Include="development-bundle\themes\custom-theme\jquery.ui.accordion.css" />
+    <Content Include="development-bundle\themes\custom-theme\jquery.ui.all.css" />
+    <Content Include="development-bundle\themes\custom-theme\jquery.ui.autocomplete.css" />
+    <Content Include="development-bundle\themes\custom-theme\jquery.ui.base.css" />
+    <Content Include="development-bundle\themes\custom-theme\jquery.ui.button.css" />
+    <Content Include="development-bundle\themes\custom-theme\jquery.ui.core.css" />
+    <Content Include="development-bundle\themes\custom-theme\jquery.ui.datepicker.css" />
+    <Content Include="development-bundle\themes\custom-theme\jquery.ui.dialog.css" />
+    <Content Include="development-bundle\themes\custom-theme\jquery.ui.progressbar.css" />
+    <Content Include="development-bundle\themes\custom-theme\jquery.ui.resizable.css" />
+    <Content Include="development-bundle\themes\custom-theme\jquery.ui.selectable.css" />
+    <Content Include="development-bundle\themes\custom-theme\jquery.ui.slider.css" />
+    <Content Include="development-bundle\themes\custom-theme\jquery.ui.tabs.css" />
+    <Content Include="development-bundle\themes\custom-theme\jquery.ui.theme.css" />
+    <Content Include="development-bundle\themes\smoothness\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="development-bundle\themes\smoothness\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="development-bundle\themes\smoothness\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="development-bundle\themes\smoothness\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="development-bundle\themes\smoothness\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="development-bundle\themes\smoothness\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="development-bundle\themes\smoothness\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="development-bundle\themes\smoothness\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="development-bundle\themes\smoothness\images\ui-icons_222222_256x240.png" />
+    <Content Include="development-bundle\themes\smoothness\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="development-bundle\themes\smoothness\images\ui-icons_454545_256x240.png" />
+    <Content Include="development-bundle\themes\smoothness\images\ui-icons_888888_256x240.png" />
+    <Content Include="development-bundle\themes\smoothness\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="development-bundle\themes\smoothness\jquery-ui-1.8.16.custom.css" />
+    <Content Include="development-bundle\themes\smoothness\jquery.ui.accordion.css" />
+    <Content Include="development-bundle\themes\smoothness\jquery.ui.all.css" />
+    <Content Include="development-bundle\themes\smoothness\jquery.ui.autocomplete.css" />
+    <Content Include="development-bundle\themes\smoothness\jquery.ui.base.css" />
+    <Content Include="development-bundle\themes\smoothness\jquery.ui.button.css" />
+    <Content Include="development-bundle\themes\smoothness\jquery.ui.core.css" />
+    <Content Include="development-bundle\themes\smoothness\jquery.ui.datepicker.css" />
+    <Content Include="development-bundle\themes\smoothness\jquery.ui.dialog.css" />
+    <Content Include="development-bundle\themes\smoothness\jquery.ui.progressbar.css" />
+    <Content Include="development-bundle\themes\smoothness\jquery.ui.resizable.css" />
+    <Content Include="development-bundle\themes\smoothness\jquery.ui.selectable.css" />
+    <Content Include="development-bundle\themes\smoothness\jquery.ui.slider.css" />
+    <Content Include="development-bundle\themes\smoothness\jquery.ui.tabs.css" />
+    <Content Include="development-bundle\themes\smoothness\jquery.ui.theme.css" />
+    <Content Include="development-bundle\ui\i18n\jquery-ui-i18n.js" />
+    <Content Include="development-bundle\ui\i18n\jquery.ui.datepicker-af.js" />
+    <Content Include="development-bundle\ui\i18n\jquery.ui.datepicker-ar-DZ.js" />
+    <Content Include="development-bundle\ui\i18n\jquery.ui.datepicker-ar.js" />
+    <Content Include="development-bundle\ui\i18n\jquery.ui.datepicker-az.js" />
+    <Content Include="development-bundle\ui\i18n\jquery.ui.datepicker-bg.js" />
+    <Content Include="development-bundle\ui\i18n\jquery.ui.datepicker-bs.js" />
+    <Content Include="development-bundle\ui\i18n\jquery.ui.datepicker-ca.js" />
+    <Content Include="development-bundle\ui\i18n\jquery.ui.datepicker-cs.js" />
+    <Content Include="development-bundle\ui\i18n\jquery.ui.datepicker-da.js" />
+    <Content Include="development-bundle\ui\i18n\jquery.ui.datepicker-de.js" />
+    <Content Include="development-bundle\ui\i18n\jquery.ui.datepicker-el.js" />
+    <Content Include="development-bundle\ui\i18n\jquery.ui.datepicker-en-AU.js" />
+    <Content Include="development-bundle\ui\i18n\jquery.ui.datepicker-en-GB.js" />
+    <Content Include="development-bundle\ui\i18n\jquery.ui.datepicker-en-NZ.js" />
+    <Content Include="development-bundle\ui\i18n\jquery.ui.datepicker-eo.js" />
+    <Content Include="development-bundle\ui\i18n\jquery.ui.datepicker-es.js" />
+    <Content Include="development-bundle\ui\i18n\jquery.ui.datepicker-et.js" />
+    <Content Include="development-bundle\ui\i18n\jquery.ui.datepicker-eu.js" />
+    <Content Include="development-bundle\ui\i18n\jquery.ui.datepicker-fa.js" />
+    <Content Include="development-bundle\ui\i18n\jquery.ui.datepicker-fi.js" />
+    <Content Include="development-bundle\ui\i18n\jquery.ui.datepicker-fo.js" />
+    <Content Include="development-bundle\ui\i18n\jquery.ui.datepicker-fr-CH.js" />
+    <Content Include="development-bundle\ui\i18n\jquery.ui.datepicker-fr.js" />
+    <Content Include="development-bundle\ui\i18n\jquery.ui.datepicker-gl.js" />
+    <Content Include="development-bundle\ui\i18n\jquery.ui.datepicker-he.js" />
+    <Content Include="development-bundle\ui\i18n\jquery.ui.datepicker-hr.js" />
+    <Content Include="development-bundle\ui\i18n\jquery.ui.datepicker-hu.js" />
+    <Content Include="development-bundle\ui\i18n\jquery.ui.datepicker-hy.js" />
+    <Content Include="development-bundle\ui\i18n\jquery.ui.datepicker-id.js" />
+    <Content Include="development-bundle\ui\i18n\jquery.ui.datepicker-is.js" />
+    <Content Include="development-bundle\ui\i18n\jquery.ui.datepicker-it.js" />
+    <Content Include="development-bundle\ui\i18n\jquery.ui.datepicker-ja.js" />
+    <Content Include="development-bundle\ui\i18n\jquery.ui.datepicker-ko.js" />
+    <Content Include="development-bundle\ui\i18n\jquery.ui.datepicker-kz.js" />
+    <Content Include="development-bundle\ui\i18n\jquery.ui.datepicker-lt.js" />
+    <Content Include="development-bundle\ui\i18n\jquery.ui.datepicker-lv.js" />
+    <Content Include="development-bundle\ui\i18n\jquery.ui.datepicker-ml.js" />
+    <Content Include="development-bundle\ui\i18n\jquery.ui.datepicker-ms.js" />
+    <Content Include="development-bundle\ui\i18n\jquery.ui.datepicker-nl.js" />
+    <Content Include="development-bundle\ui\i18n\jquery.ui.datepicker-no.js" />
+    <Content Include="development-bundle\ui\i18n\jquery.ui.datepicker-pl.js" />
+    <Content Include="development-bundle\ui\i18n\jquery.ui.datepicker-pt-BR.js" />
+    <Content Include="development-bundle\ui\i18n\jquery.ui.datepicker-pt.js" />
+    <Content Include="development-bundle\ui\i18n\jquery.ui.datepicker-rm.js" />
+    <Content Include="development-bundle\ui\i18n\jquery.ui.datepicker-ro.js" />
+    <Content Include="development-bundle\ui\i18n\jquery.ui.datepicker-ru.js" />
+    <Content Include="development-bundle\ui\i18n\jquery.ui.datepicker-sk.js" />
+    <Content Include="development-bundle\ui\i18n\jquery.ui.datepicker-sl.js" />
+    <Content Include="development-bundle\ui\i18n\jquery.ui.datepicker-sq.js" />
+    <Content Include="development-bundle\ui\i18n\jquery.ui.datepicker-sr-SR.js" />
+    <Content Include="development-bundle\ui\i18n\jquery.ui.datepicker-sr.js" />
+    <Content Include="development-bundle\ui\i18n\jquery.ui.datepicker-sv.js" />
+    <Content Include="development-bundle\ui\i18n\jquery.ui.datepicker-ta.js" />
+    <Content Include="development-bundle\ui\i18n\jquery.ui.datepicker-th.js" />
+    <Content Include="development-bundle\ui\i18n\jquery.ui.datepicker-tj.js" />
+    <Content Include="development-bundle\ui\i18n\jquery.ui.datepicker-tr.js" />
+    <Content Include="development-bundle\ui\i18n\jquery.ui.datepicker-uk.js" />
+    <Content Include="development-bundle\ui\i18n\jquery.ui.datepicker-vi.js" />
+    <Content Include="development-bundle\ui\i18n\jquery.ui.datepicker-zh-CN.js" />
+    <Content Include="development-bundle\ui\i18n\jquery.ui.datepicker-zh-HK.js" />
+    <Content Include="development-bundle\ui\i18n\jquery.ui.datepicker-zh-TW.js" />
+    <Content Include="development-bundle\ui\jquery-ui-1.8.16.custom.js" />
+    <Content Include="development-bundle\ui\jquery.effects.blind.js" />
+    <Content Include="development-bundle\ui\jquery.effects.bounce.js" />
+    <Content Include="development-bundle\ui\jquery.effects.clip.js" />
+    <Content Include="development-bundle\ui\jquery.effects.core.js" />
+    <Content Include="development-bundle\ui\jquery.effects.drop.js" />
+    <Content Include="development-bundle\ui\jquery.effects.explode.js" />
+    <Content Include="development-bundle\ui\jquery.effects.fade.js" />
+    <Content Include="development-bundle\ui\jquery.effects.fold.js" />
+    <Content Include="development-bundle\ui\jquery.effects.highlight.js" />
+    <Content Include="development-bundle\ui\jquery.effects.pulsate.js" />
+    <Content Include="development-bundle\ui\jquery.effects.scale.js" />
+    <Content Include="development-bundle\ui\jquery.effects.shake.js" />
+    <Content Include="development-bundle\ui\jquery.effects.slide.js" />
+    <Content Include="development-bundle\ui\jquery.effects.transfer.js" />
+    <Content Include="development-bundle\ui\jquery.ui.accordion.js" />
+    <Content Include="development-bundle\ui\jquery.ui.autocomplete.js" />
+    <Content Include="development-bundle\ui\jquery.ui.button.js" />
+    <Content Include="development-bundle\ui\jquery.ui.core.js" />
+    <Content Include="development-bundle\ui\jquery.ui.datepicker.js" />
+    <Content Include="development-bundle\ui\jquery.ui.dialog.js" />
+    <Content Include="development-bundle\ui\jquery.ui.draggable.js" />
+    <Content Include="development-bundle\ui\jquery.ui.droppable.js" />
+    <Content Include="development-bundle\ui\jquery.ui.mouse.js" />
+    <Content Include="development-bundle\ui\jquery.ui.position.js" />
+    <Content Include="development-bundle\ui\jquery.ui.progressbar.js" />
+    <Content Include="development-bundle\ui\jquery.ui.resizable.js" />
+    <Content Include="development-bundle\ui\jquery.ui.selectable.js" />
+    <Content Include="development-bundle\ui\jquery.ui.slider.js" />
+    <Content Include="development-bundle\ui\jquery.ui.sortable.js" />
+    <Content Include="development-bundle\ui\jquery.ui.tabs.js" />
+    <Content Include="development-bundle\ui\jquery.ui.widget.js" />
+    <Content Include="development-bundle\ui\minified\jquery.effects.blind.min.js" />
+    <Content Include="development-bundle\ui\minified\jquery.effects.bounce.min.js" />
+    <Content Include="development-bundle\ui\minified\jquery.effects.clip.min.js" />
+    <Content Include="development-bundle\ui\minified\jquery.effects.core.min.js" />
+    <Content Include="development-bundle\ui\minified\jquery.effects.drop.min.js" />
+    <Content Include="development-bundle\ui\minified\jquery.effects.explode.min.js" />
+    <Content Include="development-bundle\ui\minified\jquery.effects.fade.min.js" />
+    <Content Include="development-bundle\ui\minified\jquery.effects.fold.min.js" />
+    <Content Include="development-bundle\ui\minified\jquery.effects.highlight.min.js" />
+    <Content Include="development-bundle\ui\minified\jquery.effects.pulsate.min.js" />
+    <Content Include="development-bundle\ui\minified\jquery.effects.scale.min.js" />
+    <Content Include="development-bundle\ui\minified\jquery.effects.shake.min.js" />
+    <Content Include="development-bundle\ui\minified\jquery.effects.slide.min.js" />
+    <Content Include="development-bundle\ui\minified\jquery.effects.transfer.min.js" />
+    <Content Include="development-bundle\ui\minified\jquery.ui.accordion.min.js" />
+    <Content Include="development-bundle\ui\minified\jquery.ui.autocomplete.min.js" />
+    <Content Include="development-bundle\ui\minified\jquery.ui.button.min.js" />
+    <Content Include="development-bundle\ui\minified\jquery.ui.core.min.js" />
+    <Content Include="development-bundle\ui\minified\jquery.ui.datepicker.min.js" />
+    <Content Include="development-bundle\ui\minified\jquery.ui.dialog.min.js" />
+    <Content Include="development-bundle\ui\minified\jquery.ui.draggable.min.js" />
+    <Content Include="development-bundle\ui\minified\jquery.ui.droppable.min.js" />
+    <Content Include="development-bundle\ui\minified\jquery.ui.mouse.min.js" />
+    <Content Include="development-bundle\ui\minified\jquery.ui.position.min.js" />
+    <Content Include="development-bundle\ui\minified\jquery.ui.progressbar.min.js" />
+    <Content Include="development-bundle\ui\minified\jquery.ui.resizable.min.js" />
+    <Content Include="development-bundle\ui\minified\jquery.ui.selectable.min.js" />
+    <Content Include="development-bundle\ui\minified\jquery.ui.slider.min.js" />
+    <Content Include="development-bundle\ui\minified\jquery.ui.sortable.min.js" />
+    <Content Include="development-bundle\ui\minified\jquery.ui.tabs.min.js" />
+    <Content Include="development-bundle\ui\minified\jquery.ui.widget.min.js" />
+    <Content Include="ExportProduct.aspx" />
+    <Content Include="frmExchangeRate.ascx" />
+    <Content Include="frmHeartBeat.ascx" />
+    <Content Include="frmLogin.ascx" />
+    <Content Include="frmMenuDoc.ascx" />
+    <Content Include="frmMenuDoc_Admin.ascx" />
+    <Content Include="frmMenuNgang.ascx" />
+    <Content Include="frmQuangCao.ascx" />
+    <Content Include="frmSpeaker.ascx" />
+    <Content Include="frmTruyCap.ascx" />
+    <Content Include="Global.asax" />
+    <Content Include="ImportProduct.aspx" />
+    <Content Include="js\jquery-1.6.2.min.js" />
+    <Content Include="js\jquery-ui-1.8.16.custom.min.js" />
+    <Content Include="ManagementCatalogue.aspx" />
+    <Content Include="ManagementOrder.aspx" />
+    <Content Include="ManagementProduct.aspx" />
+    <Content Include="ManagementProduction.aspx" />
+    <Content Include="ManagementProvider.aspx" />
+    <Content Include="ManagementRole.aspx" />
+    <Content Include="ManagementUser.aspx" />
+    <Content Include="MenuDoc\blank.gif" />
+    <Content Include="MenuDoc\collapse.mp3" />
+    <Content Include="MenuDoc\expand.mp3" />
+    <Content Include="MenuDoc\link.mp3" />
+    <Content Include="MenuDoc\out-1.gif" />
+    <Content Include="MenuDoc\over-1.gif" />
+    <Content Include="MenuDoc\over.mp3" />
+    <Content Include="MenuDoc\sothinktreesound.swf" />
+    <Content Include="MenuDoc\steffie.js" />
+    <Content Include="MenuDoc\stlib.js" />
+    <Content Include="MenuDoc\sttree.js" />
+    <Content Include="MenuNgang\blank.gif" />
+    <Content Include="MenuNgang\line.jpg" />
+    <Content Include="MenuNgang\stcode.js" />
+    <Content Include="MenuNgang\steffie.js" />
+    <Content Include="MenuNgang\steffrect.js" />
+    <Content Include="MenuNgang\steffslip.js" />
+    <Content Include="MenuNgang\stmenu.js" />
+    <Content Include="Notification.aspx" />
+    <Content Include="player\jwplayer.js" />
+    <Content Include="player\license.txt" />
+    <Content Include="player\player.swf" />
+    <Content Include="player\preview.jpg" />
+    <Content Include="player\readme.html" />
+    <Content Include="player\swfobject.js" />
+    <Content Include="player\video.mp4" />
+    <Content Include="Print.aspx" />
+    <Content Include="PrintWarrantyNote.aspx" />
+    <Content Include="PrintWarrantyReceiptNote.aspx" />
+    <Content Include="Product.aspx" />
+    <Content Include="Register.aspx" />
+    <Content Include="SetPrice.aspx" />
+    <Content Include="StatisticalInventory.aspx" />
+    <Content Include="StatisticsExport.aspx" />
+    <Content Include="StatisticsImport.aspx" />
+    <Content Include="StatisticsSale.aspx" />
+    <Content Include="StatisticWarranty.aspx" />
+    <Content Include="Store Procedure\QuerySearch.txt" />
+    <Content Include="test.aspx" />
+    <Content Include="ViewExport.aspx" />
+    <Content Include="ViewImport.aspx" />
+    <Content Include="Warranty.aspx" />
+    <Content Include="WarrantyIntroduction.aspx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Code\AutoComplete.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="App_Code\csCatalogue.cs" />
+    <Compile Include="App_Code\csDoiSoThanhChu.cs" />
+    <Compile Include="App_Code\csExport.cs" />
+    <Compile Include="App_Code\csImport.cs" />
+    <Compile Include="App_Code\csLogin.cs" />
+    <Compile Include="App_Code\csMenu.cs" />
+    <Compile Include="App_Code\csMessageBox.cs" />
+    <Compile Include="App_Code\csNotification.cs" />
+    <Compile Include="App_Code\csOrder.cs" />
+    <Compile Include="App_Code\csPrice.cs" />
+    <Compile Include="App_Code\csPrintHelper.cs" />
+    <Compile Include="App_Code\csProduct.cs" />
+    <Compile Include="App_Code\csProduction.cs" />
+    <Compile Include="App_Code\csProvider.cs" />
+    <Compile Include="App_Code\csRegister.cs" />
+    <Compile Include="App_Code\csRole.cs" />
+    <Compile Include="App_Code\csShoppingCart.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="App_Code\csStatistics.cs" />
+    <Compile Include="App_Code\csStatisticSale.cs" />
+    <Compile Include="App_Code\csStatisticWarranty.cs" />
+    <Compile Include="App_Code\csUser.cs" />
+    <Compile Include="App_Code\csWarranty.cs" />
+    <Compile Include="Cart.aspx.cs">
+      <DependentUpon>Cart.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ChangeUserInfomation.aspx.cs">
+      <DependentUpon>ChangeUserInfomation.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ComposeMessage.aspx.cs">
+      <DependentUpon>ComposeMessage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Contact.aspx.cs">
+      <DependentUpon>Contact.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DefaultAdmin.aspx.cs">
+      <DependentUpon>DefaultAdmin.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ExportProduct.aspx.cs">
+      <DependentUpon>ExportProduct.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="frmExchangeRate.ascx.cs">
+      <DependentUpon>frmExchangeRate.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="frmHeartBeat.ascx.cs">
+      <DependentUpon>frmHeartBeat.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="frmLogin.ascx.cs">
+      <DependentUpon>frmLogin.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="frmMenuDoc.ascx.cs">
+      <DependentUpon>frmMenuDoc.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="frmMenuDoc_Admin.ascx.cs">
+      <DependentUpon>frmMenuDoc_Admin.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="frmMenuNgang.ascx.cs">
+      <DependentUpon>frmMenuNgang.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="frmQuangCao.ascx.cs">
+      <DependentUpon>frmQuangCao.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="frmSpeaker.ascx.cs">
+      <DependentUpon>frmSpeaker.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="frmTruyCap.ascx.cs">
+      <DependentUpon>frmTruyCap.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ImportProduct.aspx.cs">
+      <DependentUpon>ImportProduct.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ManagementCatalogue.aspx.cs">
+      <DependentUpon>ManagementCatalogue.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ManagementOrder.aspx.cs">
+      <DependentUpon>ManagementOrder.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ManagementProduct.aspx.cs">
+      <DependentUpon>ManagementProduct.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ManagementProduction.aspx.cs">
+      <DependentUpon>ManagementProduction.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ManagementProvider.aspx.cs">
+      <DependentUpon>ManagementProvider.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ManagementRole.aspx.cs">
+      <DependentUpon>ManagementRole.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ManagementUser.aspx.cs">
+      <DependentUpon>ManagementUser.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MasterPage.master.cs">
+      <DependentUpon>MasterPage.master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MPAdmin.master.cs">
+      <DependentUpon>MPAdmin.master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Notification.aspx.cs">
+      <DependentUpon>Notification.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Print.aspx.cs">
+      <DependentUpon>Print.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PrintWarrantyNote.aspx.cs">
+      <DependentUpon>PrintWarrantyNote.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PrintWarrantyReceiptNote.aspx.cs">
+      <DependentUpon>PrintWarrantyReceiptNote.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Product.aspx.cs">
+      <DependentUpon>Product.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Register.aspx.cs">
+      <DependentUpon>Register.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SetPrice.aspx.cs">
+      <DependentUpon>SetPrice.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="StatisticalInventory.aspx.cs">
+      <DependentUpon>StatisticalInventory.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="StatisticsExport.aspx.cs">
+      <DependentUpon>StatisticsExport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="StatisticsImport.aspx.cs">
+      <DependentUpon>StatisticsImport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="StatisticsSale.aspx.cs">
+      <DependentUpon>StatisticsSale.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="StatisticWarranty.aspx.cs">
+      <DependentUpon>StatisticWarranty.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="test.aspx.cs">
+      <DependentUpon>test.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewExport.aspx.cs">
+      <DependentUpon>ViewExport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewImport.aspx.cs">
+      <DependentUpon>ViewImport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Warranty.aspx.cs">
+      <DependentUpon>Warranty.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WarrantyIntroduction.aspx.cs">
+      <DependentUpon>WarrantyIntroduction.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ckeditor\.htaccess" />
+    <None Include="MasterPage.master" />
+    <None Include="MPAdmin.master" />
+    <None Include="player\JW Player Quick Start Guide.pdf" />
+    <None Include="Store Procedure\DeleteCatalogue.sql" />
+    <None Include="Store Procedure\DeleteOrder.sql" />
+    <None Include="Store Procedure\DeleteProvider.sql" />
+    <None Include="Store Procedure\DeleteRole.sql" />
+    <None Include="Store Procedure\DeleteUser.sql" />
+    <None Include="Store Procedure\DeteleProduction.sql" />
+    <None Include="Store Procedure\ExportProduct.sql" />
+    <None Include="Store Procedure\ImportProduct.sql" />
+    <None Include="Store Procedure\SelectProduct.sql" />
+    <None Include="web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSHARP.Targets" />
+  <ProjectExtensions>
+    <VisualStudio AllowExistingFolder="true" />
+  </ProjectExtensions>
+</Project>
