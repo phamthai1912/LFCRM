@@ -23,7 +23,7 @@
 			    <ul class="menu lgray slide" id="menu">
 				    <li class="home"><a href=""><img src="../Image/home.png"></a></li>
                     <li><a href="">Resource Management</a></li>
-                    <li><a href="">Title Management</a></li>
+                    <li><a href="/AdminPage/TitleManager">Title Management</a></li>
                     <li><a href="">Performance Tracking</a></li>
                     <%--<li><a href="">PTO/DTO</a></li>
                     <li><a href="">Device/Chip</a></li>
