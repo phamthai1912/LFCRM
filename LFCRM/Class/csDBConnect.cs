@@ -6,7 +6,7 @@ using System.Web.UI.WebControls;
 
 namespace LFCRM.Class
 {
-    public class DBConnect : IHttpModule
+    public class csDBConnect : IHttpModule
     {
         /// <summary>
         /// You will need to configure this module in the Web.config file of your
