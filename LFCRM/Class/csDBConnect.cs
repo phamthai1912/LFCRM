@@ -3,11 +3,16 @@ using System.Configuration;
 using System.Data.SqlClient;
 using System.Web;
 using System.Web.UI.WebControls;
+using System.Data;
 
 namespace LFCRM.Class
 {
     public class csDBConnect : IHttpModule
     {
+        SqlConnection con;
+        SqlDataAdapter da;
+        DataSet ds;
+        SqlCommand cm;
         /// <summary>
         /// You will need to configure this module in the Web.config file of your
         /// web and register it with IIS before being able to use it. For more information
@@ -42,9 +47,30 @@ namespace LFCRM.Class
             return Connection;
         }
 
-        //public void CloseConnect(SqlConnection Connection)
-        //{
-        //    Connection.Close();
-        //}
+        //ham lay du lieu trong database
+        public DataSet get(String sql)
+        {
+            SqlDataSource sqlDS = new SqlDataSource();
+            con = InitialConnect(sqlDS, con);
+            con.Open();
+
+            da = new SqlDataAdapter(sql, con);
+            ds = new DataSet();
+            da.Fill(ds);
+            con.Close();
+            return ds;
+        }
+
+        //ham them/xoa/sua du lieu bang SQL
+        public void ExecuteQuery(String sql)
+        {
+            SqlDataSource sqlDS = new SqlDataSource();
+            con = InitialConnect(sqlDS, con);
+            con.Open();
+
+            cm = new SqlCommand(sql, con);
+            cm.ExecuteNonQuery();
+            con.Close();
+        }
     }
 }
