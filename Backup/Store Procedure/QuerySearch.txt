@@ -1,4 +1,0 @@
-select *
-FROM MatHang,NhaSanXuat,LoaiHang
- WHERE MatHang.ID_LoaiHang = LoaiHang.ID_LoaiHang and MatHang.ID_NhaSanXuat = NhaSanXuat.ID_NhaSanXuat
-AND (MatHang.TenMatHang LIKE '%%')  AND (LoaiHang.ID_LoaiHang = 2)
