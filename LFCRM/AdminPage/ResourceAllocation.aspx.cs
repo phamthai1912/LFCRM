@@ -9,9 +9,12 @@ namespace LFCRM.AdminPage
 {
     public partial class ResourceAllocation : System.Web.UI.Page
     {
+
         protected void Page_Load(object sender, EventArgs e)
         {
 
         }
+
+
     }
 }

@@ -348,7 +348,7 @@ div.quickTool {padding-right:5px;}
     <form id="main_form" runat="server">
         <div id="fullSite">
             <uc1:Banner runat="server" ID="Banner" />
-		    <div class="full-content body-ctn" style="text-align: left">222
+		    <div class="full-content body-ctn" style="text-align: left">
                 <asp:ContentPlaceHolder ID="cph_Body" runat="server"></asp:ContentPlaceHolder>
 		    </div>
 	    </div>
