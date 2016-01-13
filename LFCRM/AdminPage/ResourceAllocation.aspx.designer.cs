@@ -13,5 +13,6 @@ namespace LFCRM.AdminPage
 
     public partial class ResourceAllocation
     {
+        system
     }
 }
