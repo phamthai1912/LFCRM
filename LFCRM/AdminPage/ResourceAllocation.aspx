@@ -1,9 +1,40 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="ResourceAllocation.aspx.cs" Inherits="LFCRM.AdminPage.ResourceAllocation" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="cph_Body" runat="server">
 
-
-
-        <br />
+        <table class="table-resourceallocation">
+            <tr>
+                <td style="width: 300px">Titles</td>
+                <td style="width: 850px">Resources</td>
+            </tr>
+            <tr>
+                <td class="tr-resourceallocation"">
+                    <table>
+                        <tr>
+                            <td>Title</td>
+                            <td>Expected Resources</td>
+                            <td>Actual Resources</td>
+                            <td>Action</td>
+                        </tr>
+                        <tr>
+                            <td><asp:TextBox ID="txt_title1" runat="server"></asp:TextBox></td>
+                            <td><asp:TextBox ID="txt_expectedresouces1" runat="server"></asp:TextBox></td>
+                            <td><asp:Label ID="lbl_actualresources1" runat="server"></asp:Label></td>
+                            <td><asp:Button ID="btn_remove" runat="server" Text=" - "></asp:Button></td>
+                        </tr>
+                        <tr>
+                            <td><asp:PlaceHolder ID="ph_title" runat="server"></asp:PlaceHolder></td>
+                            <td><asp:PlaceHolder ID="ph_expectedresouces" runat="server"></asp:PlaceHolder></td>
+                            <td><asp:PlaceHolder ID="ph_actualresouces" runat="server"></asp:PlaceHolder></td>
+                            <td><asp:PlaceHolder ID="ph_remove" runat="server"></asp:PlaceHolder></td>
+                        </tr>
+                        <tr>
+                            <td colspan="4"><br /><asp:Button ID="btn_add" runat="server" Text="+" OnClick="btn_add_Click" /></td>
+                        </tr>
+                    </table>
+                </td>
+                <td class="tr-resourceallocation">3333</td>
+            </tr>
+        </table>
     <br />
     <br />
 
@@ -11,26 +42,9 @@
     <br />
     <br />
     <br />
-    <asp:GridView ID="GridView1" runat="server" CellPadding="4" DataSourceID="SqlDataSource1" ForeColor="#333333" GridLines="None">
-        <AlternatingRowStyle BackColor="White" />
-        <EditRowStyle BackColor="#7C6F57" />
-        <FooterStyle BackColor="#1C5E55" Font-Bold="True" ForeColor="White" />
-        <HeaderStyle BackColor="#1C5E55" Font-Bold="True" ForeColor="White" />
-        <PagerStyle BackColor="#666666" ForeColor="White" HorizontalAlign="Center" />
-        <RowStyle BackColor="#E3EAEB" />
-        <SelectedRowStyle BackColor="#C5BBAF" Font-Bold="True" ForeColor="#333333" />
-        <SortedAscendingCellStyle BackColor="#F8FAFA" />
-        <SortedAscendingHeaderStyle BackColor="#246B61" />
-        <SortedDescendingCellStyle BackColor="#D4DFE1" />
-        <SortedDescendingHeaderStyle BackColor="#15524A" />
-</asp:GridView>
     <br />
 
     <br />
-        <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="Data Source=LGDN14091\SQLEXPRESS;Initial Catalog=LFCRM;Persist Security Info=True;User ID=sa;Password=qwe123" ProviderName="System.Data.SqlClient" SelectCommand="SELECT TitleName, Category, ColorCode AS TitleCategory
-        FROM tbl_Title, tbl_Color, tbl_TitleCategory
-        WHERE tbl_Title.TitleCategoryID = tbl_TitleCategory.TitleCategoryID
-        AND tbl_Title.ColorID = tbl_Color.ColorID"></asp:SqlDataSource>
     <br />
     <br />
 

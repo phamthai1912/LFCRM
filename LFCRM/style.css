@@ -5463,3 +5463,17 @@ button.ui-button::-moz-focus-inner {
         font-size: 14px;
         line-height: 18px;
     }
+
+/*Resource allocation*/
+.table-resourceallocation {
+    border: 1px solid black;
+    border-collapse: collapse;
+    width: 1150px;
+    vertical-align: top;
+    text-align: left;
+}
+
+.tr-resourceallocation {
+    border: 1px solid black;
+}
+
