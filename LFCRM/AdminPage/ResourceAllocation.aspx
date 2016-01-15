@@ -32,7 +32,7 @@
                         </tr>
                     </table>
                 </td>
-                <td class="tr-resourceallocation">3333</td>
+                <td class="tr-resourceallocation">3333333</td>
             </tr>
         </table>
     <br />
