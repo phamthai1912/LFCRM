@@ -167,7 +167,6 @@
     <Content Include="Account\Register.aspx" />
     <Content Include="Account\RegisterExternalLogin.aspx" />
     <Content Include="AdminPage\ResourceAllocation.aspx" />
-    <Content Include="AdminPage\TitleManager - Copy.aspx" />
     <Content Include="AdminPage\TitleManager.aspx" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
@@ -277,13 +276,6 @@
     </Compile>
     <Compile Include="AdminPage\ResourceAllocation.aspx.designer.cs">
       <DependentUpon>ResourceAllocation.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="AdminPage\TitleManager - Copy.aspx.cs">
-      <DependentUpon>TitleManager - Copy.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="AdminPage\TitleManager - Copy.aspx.designer.cs">
-      <DependentUpon>TitleManager - Copy.aspx</DependentUpon>
     </Compile>
     <Compile Include="AdminPage\TitleManager.aspx.cs">
       <DependentUpon>TitleManager.aspx</DependentUpon>
