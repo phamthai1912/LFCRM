@@ -106,6 +106,8 @@ WHERE [TitleID] = @TitleID">
         </asp:TemplateField>
     </Columns>
 </asp:GridView>
-<br />
-    <button class="btn btn-danger">Test</button>
+    <br />
+    <center>
+        <button class="btn btn-info">Create New Title</button>
+    </center>
 </asp:Content>
