@@ -11,15 +11,23 @@
         <meta name="format-detection" content="telephone=no">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <title>Homepage - LeapFrog Content Resource Management</title>
-        <link rel="stylesheet" type="text/css" href="/style.css">
+        
+        <!--style-->
+        <link href="/style.css" rel="stylesheet" />
+        <!-- bootstrap -->
+        <link href="/Content/bootstrap.min.css" rel="stylesheet" />
+        
+
     </head>
 
 <body>
     <form id="main_form" runat="server">
         <div id="fullSite">
             <uc1:Banner runat="server" ID="Banner" />
-		    <div class="full-content body-ctn" style="text-align: left">
-                <asp:ContentPlaceHolder ID="cph_Body" runat="server"></asp:ContentPlaceHolder>
+		    <div class="fullcontent">
+                <div class="contentpage">
+                    <asp:ContentPlaceHolder ID="cph_Body" runat="server"></asp:ContentPlaceHolder>
+                </div>
 		    </div>
 	    </div>
     </form>
