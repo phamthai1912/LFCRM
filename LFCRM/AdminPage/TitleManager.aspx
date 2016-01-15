@@ -6,16 +6,11 @@
     </strong>
     <br />
     <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="Data Source=LGDN14091\SQLEXPRESS;Initial Catalog=LFCRM;User ID=sa;Password=qwe123" 
-        DeleteCommand="DELETE FROM [tbl_Title] WHERE [TitleID] = @TitleID" 
-        InsertCommand="INSERT INTO [tbl_Title] ([TitleID], [TitleCategoryID], [ColorID], [TOCKCode], [TitleName]) VALUES (@TitleID, @TitleCategoryID, @ColorID, @TOCKCode, @TitleName)" 
         ProviderName="System.Data.SqlClient" 
         SelectCommand="SELECT TitleID,TitleName,TOCKCode,Category,ColorCode
 FROM tbl_Title,tbl_TitleCategory,tbl_Color
 WHERE tbl_Title.TitleCategoryID = tbl_TitleCategory.TitleCategoryID
-AND tbl_Title.ColorID = tbl_Color.ColorID" 
-        UpdateCommand="UPDATE [tbl_Title]
-SET [TitleName] = @TitleName,[TOCKCode] = @TOCKCode 
-WHERE [TitleID] = @TitleID">
+AND tbl_Title.ColorID = tbl_Color.ColorID">
         <UpdateParameters>
             <asp:Parameter Name="TitleName" Type="String"/>
             <asp:Parameter Name="TOCKCode" Type="String"/>
@@ -24,17 +19,8 @@ WHERE [TitleID] = @TitleID">
 </asp:SqlDataSource>
     <asp:SqlDataSource ID="SqlDataSource2" runat="server" 
         ConnectionString="Data Source=LGDN14091\SQLEXPRESS;Initial Catalog=LFCRM;User ID=sa;Password=qwe123" 
-        DeleteCommand="DELETE FROM [tbl_TitleCategory] WHERE [TitleCategoryID] = @TitleCategoryID" 
-        InsertCommand="INSERT INTO [tbl_TitleCategory] ([Category], [Color]) VALUES (@Category, @Color)" 
         ProviderName="System.Data.SqlClient" 
         SelectCommand="SELECT * FROM [tbl_TitleCategory]">
-        <DeleteParameters>
-            <asp:Parameter Name="TitleCategoryID" Type="Int32" />
-        </DeleteParameters>
-        <InsertParameters>
-            <asp:Parameter Name="Category" Type="String" />
-            <asp:Parameter Name="Color" Type="String" />
-        </InsertParameters>
         <UpdateParameters>
             <asp:Parameter Name="Category" Type="String" />
             <asp:Parameter Name="Color" Type="String" />
@@ -43,24 +29,17 @@ WHERE [TitleID] = @TitleID">
     </asp:SqlDataSource>
     <asp:SqlDataSource ID="SqlDataSource3" runat="server" 
         ConnectionString="Data Source=LGDN14091\SQLEXPRESS;Initial Catalog=LFCRM;User ID=sa;Password=qwe123" 
-        DeleteCommand="DELETE FROM [tbl_Color] WHERE [ColorID] = @ColorID" 
-        InsertCommand="INSERT INTO [tbl_Color] ([ColorID], [ColorCode]) VALUES (@ColorID, @ColorCode)" 
         ProviderName="System.Data.SqlClient" 
         SelectCommand="SELECT * FROM [tbl_Color]">
-        <DeleteParameters>
-            <asp:Parameter Name="ColorID" Type="Int32" />
-        </DeleteParameters>
-        <InsertParameters>
-            <asp:Parameter Name="ColorID" Type="Int32" />
-            <asp:Parameter Name="ColorCode" Type="String" />
-        </InsertParameters>
         <UpdateParameters>
             <asp:Parameter Name="ColorCode" Type="String" />
             <asp:Parameter Name="ColorID" Type="Int32" />
         </UpdateParameters>
     </asp:SqlDataSource>
 <asp:GridView ID="GridView1" runat="server" DataSourceID="SqlDataSource1" AutoGenerateColumns="False"
-    CssClass="table table-striped table-bordered table-responsive table-condensed table-hover" >
+    CssClass="table table-striped table-bordered table-responsive table-condensed table-hover" 
+    AllowPaging="True" 
+    AllowSorting="True" >
     <Columns>
         <asp:TemplateField HeaderText="Title Name">
             <EditItemTemplate>
@@ -108,6 +87,6 @@ WHERE [TitleID] = @TitleID">
 </asp:GridView>
     <br />
     <center>
-        <button class="btn btn-info">Create New Title</button>
+        <button class="btn btn-info" ID="btn_creatnew">Create New Title</button>
     </center>
 </asp:Content>
