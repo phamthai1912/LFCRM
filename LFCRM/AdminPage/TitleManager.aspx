@@ -9,32 +9,25 @@
         DeleteCommand="DELETE FROM [tbl_Title] WHERE [TitleID] = @TitleID" 
         InsertCommand="INSERT INTO [tbl_Title] ([TitleID], [TitleCategoryID], [ColorID], [TOCKCode], [TitleName]) VALUES (@TitleID, @TitleCategoryID, @ColorID, @TOCKCode, @TitleName)" 
         ProviderName="System.Data.SqlClient" 
-        SelectCommand="SELECT TitleName,TOCKCode,Category,ColorCode
+        SelectCommand="SELECT TitleID,TitleName,TOCKCode,Category,ColorCode
 FROM tbl_Title,tbl_TitleCategory,tbl_Color
 WHERE tbl_Title.TitleCategoryID = tbl_TitleCategory.TitleCategoryID
 AND tbl_Title.ColorID = tbl_Color.ColorID" 
-        UpdateCommand="UPDATE tbl_Title
-SET SET TitleName = @TitleName,TOCKCode = @TOCKCode 
-WHERE TitleID = @TitleID">
-        <DeleteParameters>
-            <asp:Parameter Name="TitleID" Type="Int32" />
-        </DeleteParameters>
-        <InsertParameters>
-            <asp:Parameter Name="TitleID" Type="Int32" />
-            <asp:Parameter Name="TitleCategoryID" Type="Int32" />
-            <asp:Parameter Name="ColorID" Type="String" />
-            <asp:Parameter Name="TOCKCode" Type="String" />
-            <asp:Parameter Name="TitleName" Type="String" />
-        </InsertParameters>
+        UpdateCommand="UPDATE [tbl_Title]
+SET [TitleName] = @TitleName,[TOCKCode] = @TOCKCode 
+WHERE [TitleID] = @TitleID">
         <UpdateParameters>
-            <asp:Parameter Name="TitleCategoryID" Type="Int32" />
-            <asp:Parameter Name="ColorID" Type="String" />
-            <asp:Parameter Name="TOCKCode" Type="String" />
-            <asp:Parameter Name="TitleName" Type="String" />
-            <asp:Parameter Name="TitleID" Type="Int32" />
+            <asp:Parameter Name="TitleName" Type="String"/>
+            <asp:Parameter Name="TOCKCode" Type="String"/>
+            <asp:Parameter Name="TitleID" Type="Int32"/>
         </UpdateParameters>
 </asp:SqlDataSource>
-    <asp:SqlDataSource ID="SqlDataSource2" runat="server" ConnectionString="Data Source=LGDN14091\SQLEXPRESS;Initial Catalog=LFCRM;User ID=sa;Password=qwe123" DeleteCommand="DELETE FROM [tbl_TitleCategory] WHERE [TitleCategoryID] = @TitleCategoryID" InsertCommand="INSERT INTO [tbl_TitleCategory] ([Category], [Color]) VALUES (@Category, @Color)" ProviderName="System.Data.SqlClient" SelectCommand="SELECT * FROM [tbl_TitleCategory]">
+    <asp:SqlDataSource ID="SqlDataSource2" runat="server" 
+        ConnectionString="Data Source=LGDN14091\SQLEXPRESS;Initial Catalog=LFCRM;User ID=sa;Password=qwe123" 
+        DeleteCommand="DELETE FROM [tbl_TitleCategory] WHERE [TitleCategoryID] = @TitleCategoryID" 
+        InsertCommand="INSERT INTO [tbl_TitleCategory] ([Category], [Color]) VALUES (@Category, @Color)" 
+        ProviderName="System.Data.SqlClient" 
+        SelectCommand="SELECT * FROM [tbl_TitleCategory]">
         <DeleteParameters>
             <asp:Parameter Name="TitleCategoryID" Type="Int32" />
         </DeleteParameters>
@@ -48,7 +41,12 @@ WHERE TitleID = @TitleID">
             <asp:Parameter Name="TitleCategoryID" Type="Int32" />
         </UpdateParameters>
     </asp:SqlDataSource>
-    <asp:SqlDataSource ID="SqlDataSource3" runat="server" ConnectionString="Data Source=LGDN14091\SQLEXPRESS;Initial Catalog=LFCRM;User ID=sa;Password=qwe123" DeleteCommand="DELETE FROM [tbl_Color] WHERE [ColorID] = @ColorID" InsertCommand="INSERT INTO [tbl_Color] ([ColorID], [ColorCode]) VALUES (@ColorID, @ColorCode)" ProviderName="System.Data.SqlClient" SelectCommand="SELECT * FROM [tbl_Color]">
+    <asp:SqlDataSource ID="SqlDataSource3" runat="server" 
+        ConnectionString="Data Source=LGDN14091\SQLEXPRESS;Initial Catalog=LFCRM;User ID=sa;Password=qwe123" 
+        DeleteCommand="DELETE FROM [tbl_Color] WHERE [ColorID] = @ColorID" 
+        InsertCommand="INSERT INTO [tbl_Color] ([ColorID], [ColorCode]) VALUES (@ColorID, @ColorCode)" 
+        ProviderName="System.Data.SqlClient" 
+        SelectCommand="SELECT * FROM [tbl_Color]">
         <DeleteParameters>
             <asp:Parameter Name="ColorID" Type="Int32" />
         </DeleteParameters>
@@ -98,16 +96,16 @@ WHERE TitleID = @TitleID">
         </asp:TemplateField>
         <asp:TemplateField HeaderText="Modify" ShowHeader="False">
             <EditItemTemplate>
-                <asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="True" CommandName="Update" Text="Update" class="btn btn-success"></asp:LinkButton>
-                &nbsp;<asp:LinkButton ID="LinkButton2" runat="server" CausesValidation="False" CommandName="Cancel" Text="Cancel" class="btn btn-warning"></asp:LinkButton>
+                <asp:LinkButton ID="btn_update" runat="server" CausesValidation="True" CommandName="Update" Text="Update" class="btn btn-success"></asp:LinkButton>
+                &nbsp;<asp:LinkButton ID="btn_cancel" runat="server" CausesValidation="False" CommandName="Cancel" Text="Cancel" class="btn btn-warning"></asp:LinkButton>
             </EditItemTemplate>
             <ItemTemplate>
-                <asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="False" CommandName="Edit" Text="Edit" class="btn btn-info"></asp:LinkButton>
-                &nbsp;<asp:LinkButton ID="LinkButton2" runat="server" CausesValidation="False" CommandName="Delete" Text="Delete" class="btn btn-info"></asp:LinkButton>
+                <asp:LinkButton ID="btn_edit" runat="server" CausesValidation="False" CommandName="Edit" Text="Edit" class="btn btn-info"></asp:LinkButton>
+                &nbsp;<asp:LinkButton ID="btn_delete" runat="server" CausesValidation="False" CommandName="Delete" Text="Delete" class="btn btn-info"></asp:LinkButton>
             </ItemTemplate>
         </asp:TemplateField>
     </Columns>
 </asp:GridView>
 <br />
-    <button class="btn">Test</button>
+    <button class="btn btn-danger">Test</button>
 </asp:Content>
