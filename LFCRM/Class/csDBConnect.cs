@@ -4,11 +4,21 @@ using System.Data.SqlClient;
 using System.Data;
 using System.Web;
 using System.Web.UI.WebControls;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.WebControls.WebParts;
+using System.Web.UI.HtmlControls;
+using System.Data.OleDb;
 
 namespace LFCRM.Class
-{
+{    
     public class csDBConnect : IHttpModule
     {
+        SqlConnection con;
+        SqlDataAdapter da;
+        DataSet ds;
+        DataTable dt;
+        SqlCommand cmd;
         /// <summary>
         /// You will need to configure this module in the Web.config file of your
         /// web and register it with IIS before being able to use it. For more information
@@ -43,9 +53,49 @@ namespace LFCRM.Class
             return Connection;
         }
 
-        //public void CloseConnect(SqlConnection Connection)
-        //{
-        //    Connection.Close();
-        //}
+        public void conncet()
+        {
+            if (con == null)
+                con = new SqlConnection("Server=LGDN14091\\SQLEXPRESS;Database=LFCRM;User Id=sa;Password=qwe123");
+            if (con.State == ConnectionState.Closed)
+                con.Open();
+        }
+
+        public void disconnect()
+        {
+            if ((con != null) && (con.State == ConnectionState.Open))
+                con.Close();
+        }
+
+        public DataSet getDataSet(string sql)
+        {
+            conncet();
+            da = new SqlDataAdapter(sql, con);
+            ds = new DataSet();
+            da.Fill(ds);
+            disconnect();
+
+            return ds;
+        }
+
+        public DataTable getDataTable(string sql)
+        {
+            conncet();
+            da = new SqlDataAdapter(sql, con);
+            dt = new DataTable();
+            da.Fill(dt);
+            disconnect();
+
+            return dt;
+        }
+
+        public void ExeCuteNonQuery(string sql)
+        {
+            conncet();
+            cmd = new SqlCommand(sql, con);
+            cmd.ExecuteNonQuery();
+            disconnect();
+
+        }
     }
 }
