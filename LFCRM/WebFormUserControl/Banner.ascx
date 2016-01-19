@@ -19,9 +19,9 @@
             <div id='cssmenu'>
 		    <ul>
 		       <li><a href='#'><img src="../Image/home.png"></a></li>
-		       <li class='active has-sub'><a href='#'><span>Products</span></a>
+		       <li class='active has-sub'><a href='#'><span>Resource Management</span></a>
 			      <ul>
-				     <li class='has-sub'><a href='#'><span>Resource Management</span></a>
+				     <li class='has-sub'><a href='/AdminPage/ResourceAllocation'><span>Resource Allocation</span></a>
 					    <ul>
 					       <li><a href='#'><span>Sub Product</span></a></li>
 					       <li class='last'><a href='#'><span>Sub Product</span></a></li>

@@ -1,98 +1,106 @@
-﻿using System;
+﻿using LFCRM.Class;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Text.RegularExpressions;
 
 namespace LFCRM.AdminPage
 {
     public partial class ResourceAllocation : System.Web.UI.Page
     {
-        List<string> controlIDList = new List<string>();
-        int counter = 1;
-
-        protected override void LoadViewState(object savedState)
-        {
-            base.LoadViewState(savedState);
-            controlIDList = (List<string>)ViewState["controlIDList"];
-            foreach (string Id in controlIDList)
-            {
-                counter++;
-
-                TextBox tb1 = new TextBox();
-                TextBox tb2 = new TextBox();
-                Label lbl = new Label();
-                Button btn = new Button();
-
-                tb1.ID = "txt_title" + Id;
-                tb2.ID = "txt_expectedresouces" + Id;
-                lbl.ID = "lbl_actualresources" + Id;
-                btn.ID = "btn_remove" + Id;
-
-                ph_title.Controls.Add(tb1);
-                ph_expectedresouces.Controls.Add(tb2);
-                ph_actualresouces.Controls.Add(lbl);
-                ph_remove.Controls.Add(btn);
-                btn.Text = " - ";
-
-                btn.Click += new EventHandler(btnclick_event);
-            }
-        }
+        List<string> ControlTitleIDList = new List<string>();
+        List<string> ControlResourceIDList = new List<string>();
+        int TitleCounter = 0;
+        int ResourceCounter = 0;
+        csResourceAllocation RA = new csResourceAllocation();
         
         protected void Page_Load(object sender, EventArgs e)
         {
 
         }
 
-        protected void btn_add_Click(object sender, EventArgs e)
+        protected override void LoadViewState(object savedState)
         {
-            counter++;
+            base.LoadViewState(savedState);
 
-            TextBox tb1 = new TextBox();
-            TextBox tb2 = new TextBox();
-            Label lbl = new Label();
-            Button btn = new Button();
+            //------------------------Title----------------------------------//
+            //if (TitleCounter != 0)
+            //{
+            //    ControlTitleIDList = (List<string>)ViewState["ControlTitleIDList"];
+            //    foreach (string Id in ControlTitleIDList)
+            //    {
+            //        TitleCounter++;
+            //        Button btn = new Button();
+            //        var tuple = RA.AddTitle(TitleCounter.ToString());
 
-            tb1.ID = "txt_title" + counter;
-            tb2.ID = "txt_expectedresouces" + counter;
-            lbl.ID = "lbl_actualresources" + counter;
-            btn.ID = "btn_remove" + counter;
+            //        btn = tuple.Item2;
+            //        btn.Click += new EventHandler(btn_MinusTitleClick_event);
+            //        ph_DynamicTitleTableRow.Controls.Add(tuple.Item1);
+            //    }
+            //}
 
-            //LiteralControl linebreak = new LiteralControl("<br />");
-            ph_title.Controls.Add(tb1);
-            ph_expectedresouces.Controls.Add(tb2);
-            ph_actualresouces.Controls.Add(lbl);
-            ph_remove.Controls.Add(btn);
-            btn.Text = " - ";
+            //------------------------Resource--------------------------------//
+            //if (ResourceCounter != 0)
+            //{
+                ControlResourceIDList = (List<string>)ViewState["ControlResourceIDList"];
+                foreach (string Id in ControlResourceIDList)
+                {
+                    ResourceCounter++;
+                    Button btn = new Button();
+                    var tuple = RA.AddResource(ResourceCounter.ToString());
 
-            //btn.Click += new EventHandler(btnclick_event);
-            controlIDList.Add(counter.ToString());
-            ViewState["controlIDList"] = controlIDList;
+                    btn = tuple.Item2;
+                    btn.Click += new EventHandler(btn_MinusResourceClick_event);
+                    ph_DynamicResourceTableRow.Controls.Add(tuple.Item1);
+                }
+            //}
         }
 
-        protected void btnclick_event(object sender, EventArgs e)
+        protected void btn_AddTitle_Click(object sender, EventArgs e)
         {
-            TextBox tb1 = new TextBox();
-            TextBox tb2 = new TextBox();
-            Label lbl = new Label();
-            Button btn = (Button)sender;
+            TitleCounter++;
+            Button btn = new Button();
+            var tuple = RA.AddTitle(TitleCounter.ToString());
 
+            btn = tuple.Item2;
+            btn.Click += new EventHandler(btn_MinusTitleClick_event);
+            ph_DynamicTitleTableRow.Controls.Add(tuple.Item1);
+
+            ControlTitleIDList.Add(TitleCounter.ToString());
+            ViewState["ControlTitleIDList"] = ControlTitleIDList;
+        }
+
+        protected void btn_MinusTitleClick_event(object sender, EventArgs e)
+        {
+            Button btn = (Button)sender;
             string buttonId = btn.ID;
 
-            tb1.ID = "txt_title" + buttonId.Substring(buttonId.Length - 1);
-            tb2.ID = "txt_expectedresouces" + buttonId.Substring(buttonId.Length - 1);
-            lbl.ID = "lbl_actualresources1" + buttonId.Substring(buttonId.Length - 1);
+            ph_DynamicTitleTableRow.FindControl("tbr_Content" + Regex.Match(buttonId, @"\d+").Value).Visible = false;
+        }
 
-            Page.Controls.Remove(Page.FindControl(tb1.ID));
-            Page.Controls.Remove(tb2);
-            Page.Controls.Remove(lbl);
-            Page.Controls.Remove(btn);
-            lbl_actualresources1.Text = tb1.ID;
+        protected void btn_AddResource_Click(object sender, EventArgs e)
+        {
+            ResourceCounter++;
+            Button btn = new Button();
+            var tuple = RA.AddResource(ResourceCounter.ToString());
 
-            tb1.Visible = false;
+            btn = tuple.Item2;
+            btn.Click += new EventHandler(btn_MinusResourceClick_event);
+            ph_DynamicResourceTableRow.Controls.Add(tuple.Item1);
 
-            tb1.Controls.Clear();
+            ControlResourceIDList.Add(ResourceCounter.ToString());
+            ViewState["ControlResourceIDList"] = ControlResourceIDList;
+        }
+
+        protected void btn_MinusResourceClick_event(object sender, EventArgs e)
+        {
+            Button btn = (Button)sender;
+            string buttonId = btn.ID;
+
+            ph_DynamicResourceTableRow.FindControl("tbr_Content" + Regex.Match(buttonId, @"\d+").Value).Visible = false;
         }
     }
 }

@@ -13,84 +13,66 @@ namespace LFCRM.AdminPage {
     public partial class ResourceAllocation {
         
         /// <summary>
-        /// txt_title1 control.
+        /// ScriptManager1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txt_title1;
+        protected global::System.Web.UI.ScriptManager ScriptManager1;
         
         /// <summary>
-        /// txt_expectedresouces1 control.
+        /// UpdatePanel1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txt_expectedresouces1;
+        protected global::System.Web.UI.UpdatePanel UpdatePanel1;
         
         /// <summary>
-        /// lbl_actualresources1 control.
+        /// ph_DynamicTitleTableRow control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_actualresources1;
+        protected global::System.Web.UI.WebControls.PlaceHolder ph_DynamicTitleTableRow;
         
         /// <summary>
-        /// btn_remove control.
+        /// btn_AddTitle control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btn_remove;
+        protected global::System.Web.UI.WebControls.Button btn_AddTitle;
         
         /// <summary>
-        /// ph_title control.
+        /// ph_DynamicResourceTableRow control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder ph_title;
+        protected global::System.Web.UI.WebControls.PlaceHolder ph_DynamicResourceTableRow;
         
         /// <summary>
-        /// ph_expectedresouces control.
+        /// btn_AddResource control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder ph_expectedresouces;
+        protected global::System.Web.UI.WebControls.Button btn_AddResource;
         
         /// <summary>
-        /// ph_actualresouces control.
+        /// Label1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder ph_actualresouces;
-        
-        /// <summary>
-        /// ph_remove control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder ph_remove;
-        
-        /// <summary>
-        /// btn_add control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btn_add;
+        protected global::System.Web.UI.WebControls.Label Label1;
     }
 }
