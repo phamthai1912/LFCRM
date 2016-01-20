@@ -40,6 +40,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AjaxControlToolkit">
+      <HintPath>C:\Users\thai.pham\Documents\ASP.NET AJAX Control Toolkit\Bin\AjaxControlToolkit.dll</HintPath>
+    </Reference>
     <Reference Include="AspNet.ScriptManager.bootstrap, Version=3.3.6.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\AspNet.ScriptManager.bootstrap.3.3.6\lib\net45\AspNet.ScriptManager.bootstrap.dll</HintPath>
@@ -168,6 +171,7 @@
     <Content Include="Account\RegisterExternalLogin.aspx" />
     <Content Include="AdminPage\ResourceAllocation.aspx" />
     <Content Include="AdminPage\TitleManager.aspx" />
+    <Content Include="AutoComplete.asmx" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -287,7 +291,12 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="AutoComplete.asmx.cs">
+      <SubType>Component</SubType>
+      <DependentUpon>AutoComplete.asmx</DependentUpon>
+    </Compile>
     <Compile Include="Class\csAutoComplete.cs" />
+    <Compile Include="Class\csMisc.cs" />
     <Compile Include="Class\csResourceAllocation.cs" />
     <Compile Include="Class\csDBConnect.cs" />
     <Compile Include="Class\csLogin.cs" />
@@ -336,6 +345,9 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Image\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

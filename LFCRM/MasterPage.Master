@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <!-- saved from url=(0076)https://www.vietcombank.com.vn/IBanking2015/947ef356f63762672e877bfc3ac73f22 -->
 <html lang="en">
-    <head>
+    <head runat="server">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta charset="utf-8"><meta http-equiv="cache-control" content="max-age=0">
         <meta http-equiv="cache-control" content="no-cache">
