@@ -40,6 +40,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AjaxControlToolkit, Version=15.1.4.0, Culture=neutral, PublicKeyToken=28f01b0e84b6d53e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Documents\ASP.NET AJAX Control Toolkit\Bin\AjaxControlToolkit.dll</HintPath>
+    </Reference>
     <Reference Include="AspNet.ScriptManager.bootstrap, Version=3.3.6.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\AspNet.ScriptManager.bootstrap.3.3.6\lib\net45\AspNet.ScriptManager.bootstrap.dll</HintPath>
@@ -167,6 +171,7 @@
     <Content Include="Account\Register.aspx" />
     <Content Include="Account\RegisterExternalLogin.aspx" />
     <Content Include="AdminPage\ResourceAllocation.aspx" />
+    <Content Include="AdminPage\Test1.aspx" />
     <Content Include="AdminPage\TitleManager.aspx" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
@@ -276,6 +281,13 @@
     </Compile>
     <Compile Include="AdminPage\ResourceAllocation.aspx.designer.cs">
       <DependentUpon>ResourceAllocation.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AdminPage\Test1.aspx.cs">
+      <DependentUpon>Test1.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdminPage\Test1.aspx.designer.cs">
+      <DependentUpon>Test1.aspx</DependentUpon>
     </Compile>
     <Compile Include="AdminPage\TitleManager.aspx.cs">
       <DependentUpon>TitleManager.aspx</DependentUpon>

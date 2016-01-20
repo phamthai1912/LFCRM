@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <!-- saved from url=(0076)https://www.vietcombank.com.vn/IBanking2015/947ef356f63762672e877bfc3ac73f22 -->
 <html lang="en">
-    <head>
+    <head runat="server">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta charset="utf-8"><meta http-equiv="cache-control" content="max-age=0">
         <meta http-equiv="cache-control" content="no-cache">
@@ -15,16 +15,21 @@
         <!--style-->
         <link href="/style.css" rel="stylesheet" />
         <!-- bootstrap -->
-        <script src="/Scripts/jquery-1.10.2.min.js"></script>
         <link href="/Content/bootstrap.min.css" rel="stylesheet" />
-        <script src="/Scripts/bootstrap.js"></script>
-        <!--<script src="Scripts/bootstrap.js"></script>-->
+        <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+
+        <!--Change color-->
+        <script>
+            function Color_Changed(sender) {
+                sender.get_element().value = "#" + sender.get_selectedColor();
+            }
+        </script>
 
     </head>
 
 <body>
     <form id="main_form" runat="server">
-        <asp:ScriptManager ID="ScriptManager1" runat="server" />
+        
         <div id="fullSite">
             <uc1:Banner runat="server" ID="Banner" />
 		    <div class="fullcontent">
@@ -32,7 +37,8 @@
                     <asp:ContentPlaceHolder ID="cph_Body" runat="server"></asp:ContentPlaceHolder>
                 </div>
 		    </div>
+            <uc1:Footer runat="server" id="Footer" />
 	    </div>
     </form>
 </body>
-<uc1:Footer runat="server" id="Footer" />
+

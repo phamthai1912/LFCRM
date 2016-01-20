@@ -10,26 +10,85 @@ namespace LFCRM.Class
 {
     public class csTitleManager
     {
-        SqlDataSource sqlDS = new SqlDataSource();
-        SqlConnection Connection;
+        Class.csDBConnect dbconnect = new Class.csDBConnect();
 
-        csDBConnect dbconnect = new csDBConnect();
-
-        public DataSet getTitlelist() 
+        public void updateTitle(String _3ld, String titlename, String tockcode, String Category, String Color)
         {
-            
-            Connection = dbconnect.InitialConnect(sqlDS, Connection);
-            Connection.Open();
+            string CategoryID = getCateID(Category);            
 
-            sqlDS.SelectCommand = "SELECT TitleID,TitleName,TOCKCode,Category,ColorCode"+ 
-                "FROM tbl_Title,tbl_TitleCategory,tbl_Color "+
-                "WHERE tbl_Title.TitleCategoryID = tbl_TitleCategory.TitleCategoryID AND tbl_Title.ColorID = tbl_Color.ColorID";
+            string currentcolor = getColor(_3ld);
+            if (Color.Equals(currentcolor))
+                Color = currentcolor;
+            else Color = checkcolor(Color);
+
+            string update = "UPDATE tbl_Title " +
+                    "SET ColorCode = '" + Color + "', TitleName = '" + titlename + "', TOCKCode = '" + tockcode + "', TitleCategoryID = '" + CategoryID + "' " +
+                    "WHERE [3LD] = '" + _3ld + "'";
+            dbconnect.ExeCuteNonQuery(update);
             
-            DataSet ds = (DataSet)sqlDS.Select(DataSourceSelectArguments.Empty);
-            //DataView dv = (DataView)sqlDS.Select(DataSourceSelectArguments.Empty);
+        }
+
+        public String getCateID(String catename)
+        {
+            string sql1 = "SELECT TitleCategoryID FROM tbl_TitleCategory WHERE Category = '" + catename + "'";
+            DataTable tb = dbconnect.getDataTable(sql1);
+            string cateid = tb.Rows[0][0].ToString();
+            return cateid;
+        }
+
+        public void addTitle(String _3ld, String titlename, String tockcode, String Category, String Color)
+        {
+            string CategoryID = getCateID(Category);
+
+            string newcolor = checkcolor(Color);
+
+            string sql = "INSERT INTO tbl_Title ([3LD],TitleCategoryID,ColorCode,TOCKCode,TitleName) " +
+                        "VALUES ('" + _3ld + "','" + CategoryID + "','" + newcolor + "','" + tockcode + "','" + titlename + "')";
             
-            Connection.Close();
-            return ds;
+            dbconnect.ExeCuteNonQuery(sql);
+        }
+
+        public string checkcolor(String _color)
+        {
+            var random = new Random();
+            string colorrandom = String.Format("#{0:X6}", random.Next(0x1000000));
+
+            string sqlcolor = "SELECT ColorCode FROM tbl_Title";
+            DataTable tbcolor = dbconnect.getDataTable(sqlcolor);
+
+            int row = tbcolor.Rows.Count;
+            for (int i = 0; i < row; i++)
+            {
+                string temp = tbcolor.Rows[i][0].ToString();
+                if (_color.Equals(temp))
+                {
+                    _color = colorrandom;
+                    checkcolor(_color);
+                    break;
+                }
+            }
+
+            return _color;
+        }
+
+        public string getColor(String _3ld)
+        {
+            string sql = "SELECT ColorCode FROM tbl_Title WHERE [3LD] = '" + _3ld + "'";
+            DataTable tbcolor = dbconnect.getDataTable(sql);
+            string color = tbcolor.Rows[0][0].ToString();
+
+            return color;
+        }
+
+        public Boolean LDExist(string text)
+        {
+            string sql = "SELECT * FROM tbl_Title WHERE [3LD] = '" + text + "'";
+            DataTable tbcolor = dbconnect.getDataTable(sql);
+
+            if (tbcolor.Rows.Count == 0)
+                return false;
+            else
+                return true;
         }
     }
 }
