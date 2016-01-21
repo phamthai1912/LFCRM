@@ -80,6 +80,17 @@ namespace LFCRM.Class
             return color;
         }
 
+        public Boolean checkcolorExist(String color)
+        {
+            string sql = "SELECT ColorCode FROM tbl_Title WHERE ColorCode = '" + color + "'";
+            DataTable tbcolor = dbconnect.getDataTable(sql);
+            if (tbcolor.Rows.Count == 0)
+                return false;
+            else
+                return true;
+
+        }
+
         public Boolean LDExist(string text)
         {
             string sql = "SELECT * FROM tbl_Title WHERE [3LD] = '" + text + "'";

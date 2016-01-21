@@ -57,16 +57,16 @@
     margin: 0 auto;
 	padding: 0;
     clear: both;
-    height: 40px;
+    height: 30px;
 	background: #00502F;
 	color: white;
     bottom:0;
-    position:absolute;
+    position: fixed;
 }
 .footer-text{
 	width: 1000px;
     margin: 0 auto;
-	padding: 10px 10px 10px 10px;
+	padding: 5px 10px 10px 10px;
 	text-align:right;
 	padding-right: 50px;
 }
@@ -80,6 +80,45 @@
 	margin: 0 auto;
 	padding: 0;
 	display: inline-block;
+}
+
+/*Gridview*/
+#cph_Body_GridView1 tr th,td {
+    text-align: center;
+}
+
+.modal-body {
+    text-align: left;
+}
+
+/*Search section*/
+.topright-grid {   
+    position: relative;
+    float:right;
+    right: 0px;
+}
+.topright-grid ul{
+    list-style-type: none;
+}
+.topright-grid ul li {
+    display: inline;
+    float: left;
+    margin-right:10px;
+}
+
+/*Scroll bar*/
+::-webkit-scrollbar {
+    width: 12px;
+}
+::-webkit-scrollbar-track {
+    background-color: #eaeaea;
+    border-left: 1px solid #ccc;
+}
+::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+}
+::-webkit-scrollbar-thumb:hover {
+    background-color: #aaa;
 }
 
 #cssmenu ul,
