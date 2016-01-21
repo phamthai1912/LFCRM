@@ -90,16 +90,9 @@ namespace LFCRM.AdminPage
         //    }
         //}
 
-        public override void VerifyRenderingInServerForm(Control control)
-        {
-            /* Confirms that an HtmlForm control is rendered for the specified ASP.NET
-               server control at run time. */
-        }
-
         protected void btn_AddTitle_Click(object sender, EventArgs e)
         {
             ViewState["TitleCounter"] = (int)ViewState["TitleCounter"] + 1;
-            ViewState["Switcher"] = 1;
 
             Button btn = new Button();
             var tuple = RA.AddTitle(ViewState["TitleCounter"].ToString());
@@ -112,7 +105,6 @@ namespace LFCRM.AdminPage
         protected void btn_AddResource_Click(object sender, EventArgs e)
         {
             ViewState["ResourceCounter"] = (int)ViewState["ResourceCounter"] + 1;
-            ViewState["Switcher"] = 2;
 
             Button btn = new Button();
             var tuple = RA.AddResource(ViewState["ResourceCounter"].ToString());
@@ -136,6 +128,11 @@ namespace LFCRM.AdminPage
             string buttonId = btn.ID;
 
             ph_DynamicResourceTableRow.FindControl("tbr_ContentResource" + Regex.Match(buttonId, @"\d+").Value).Visible = false;
+        }
+
+        protected void DropDownList1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

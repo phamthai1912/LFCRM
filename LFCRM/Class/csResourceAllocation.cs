@@ -123,8 +123,8 @@ namespace LFCRM.Class
             autoCompleteExtender.CompletionSetCount = 5;
             autoCompleteExtender.MinimumPrefixLength = 1;
 
-            ddl1 = AddInfoToControl("SELECT ProjectRoleID, ProjectRoleName FROM tbl_ProjectRole");
-            ddl3 = AddInfoToControl("SELECT WorkingHoursID, Value FROM tbl_WorkingHours");
+            ddl1 = AddDBToDDL("SELECT ProjectRoleID, ProjectRoleName FROM tbl_ProjectRole");
+            ddl3 = AddDBToDDL("SELECT WorkingHoursID, Value FROM tbl_WorkingHours");
 
             autoCompleteExtender.CompletionListCssClass = "form-control";
             tb.ControlStyle.CssClass = "form-control";
@@ -150,7 +150,7 @@ namespace LFCRM.Class
             return new Tuple<TableRow, Button>(tbr, btn);
         }
 
-        public DropDownList AddInfoToControl(string sql)
+        public DropDownList AddDBToDDL(string sql)
         {
             DropDownList ddl = new DropDownList();
             DataTable tb = dbconnect.getDataTable(sql);

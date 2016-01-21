@@ -7,7 +7,7 @@
         <ContentTemplate>
             <table>
                 <tr>
-                    <td style="width: 480px" valign="top">
+                    <td style="width: 380px" valign="top">
                         <table class="table table-striped table-bordered table-responsive table-condensed table-hover">
                             <tr>
                                 <td>No.</td>
@@ -23,7 +23,7 @@
                         </table>
                     </td>
                     <td style="width: 20px"></td>
-                    <td style="width: 700px" valign="top">
+                    <td style="width: 800px" valign="top">
                         <table class="table table-striped table-bordered table-responsive table-condensed table-hover">
                             <tr>
                                 <td>No.</td>
@@ -41,6 +41,7 @@
                     </td>
             </table>
             <asp:Label ID="Label1" runat="server" ></asp:Label>
+            <asp:DropDownList ID="DropDownList1" runat="server" OnSelectedIndexChanged="DropDownList1_SelectedIndexChanged"></asp:DropDownList>
            </ContentTemplate>
     </asp:UpdatePanel>
 </asp:Content>
