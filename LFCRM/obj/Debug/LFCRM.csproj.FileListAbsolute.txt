@@ -110,3 +110,4 @@ C:\Users\tan.thanh.vo\Source\Repos\LFCRM\LFCRM\obj\Debug\LFCRM.dll
 C:\Users\tan.thanh.vo\Source\Repos\LFCRM\LFCRM\obj\Debug\LFCRM.pdb
 C:\Users\tan.thanh.vo\Source\Repos\LFCRM\LFCRM\bin\EntityFramework.SqlServer.dll
 C:\Users\tan.thanh.vo\Source\Repos\LFCRM\LFCRM\bin\EntityFramework.SqlServer.xml
+C:\Users\tan.thanh.vo\Source\Repos\LFCRM\LFCRM\bin\AjaxControlToolkit.dll
