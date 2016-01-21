@@ -3,10 +3,47 @@
 <%@ Register assembly="AjaxControlToolkit" namespace="AjaxControlToolkit" tagprefix="ajaxToolkit" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="cph_Body" runat="server">
-    <strong>Title Manager</strong>
     <br />
     <asp:ScriptManager ID="ScriptManager1" runat="server" EnableCdn="True" />
-    
+    <!--Searching-->
+    <script>
+        
+        $(document).ready(function () {
+            var rows;
+            var coldata;
+            $('#txtSearch').keyup(function () {
+                $('#<%=GridView1.ClientID%>').find('tr:gt(0)').hide();
+                    var data = $('#txtSearch').val();
+                    var len = data.length;
+                    if (len > 0) {
+                        $('#<%=GridView1.ClientID%>').find('tbody tr').each(function () {
+                            coldata = $(this).children().eq(1);
+                            var temp = coldata.text().toUpperCase().indexOf(data.toUpperCase());
+                            if (temp === 0) {
+                                $(this).show();
+                            }
+                        });
+                    } else {
+                        $('#<%=GridView1.ClientID%>').find('tr:gt(0)').show();
+                    }
+
+                });
+            });
+    </script>
+    <!--Tooltip-->
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('[data-toggle=tooltip]').tooltip();
+            $('[rel=tooltip]').tooltip();
+        });
+    </script>
+    <!--Change color-->
+    <script>
+            function Color_Changed(sender) {
+                sender.get_element().value = "#" + sender.get_selectedColor();
+            }
+    </script>
+
     <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="Data Source=LGDN14091\SQLEXPRESS;Initial Catalog=LFCRM;User ID=sa;Password=qwe123" 
         ProviderName="System.Data.SqlClient" 
         SelectCommand="SELECT [3LD],TitleName,TOCKCode,Category,ColorCode
@@ -18,17 +55,30 @@ WHERE [3LD] = @3LD" >
 </asp:SqlDataSource>
     <asp:SqlDataSource ID="SqlDataSource2" runat="server" ConnectionString="Data Source=LGDN14091\SQLEXPRESS;Initial Catalog=LFCRM;User ID=sa;Password=qwe123" ProviderName="System.Data.SqlClient" SelectCommand="SELECT [Category] FROM [tbl_TitleCategory] ORDER BY [Category]"></asp:SqlDataSource>
     
-    <asp:UpdatePanel ID="UpdatePanel2" runat="server" Visible="True">
+    <asp:UpdatePanel ID="UpdatePanel2" runat="server" Visible="True" onkeydown = "return (event.keyCode!=13)">
         <ContentTemplate>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+        
+        <div class="topright-grid">
+            <ul>
+                <li>
+                    <input type="text" placeholder="Search Title" id="txtSearch" class="form-control" style="width:200px;"/>
+                </li>
+                <li>
+                    <asp:Button ID="btn_addnew" 
+                        data-toggle="tooltip" data-placement="top" title="Add new Title"
+                        runat="server" Text="+" class="btn btn-success" OnClick="btn_addnew_Click"/>
+                </li>
+            </ul>
+        </div><br /><br />
+        <div style="overflow-y:scroll; height:580px; clear:both; padding-bottom:30px; margin-bottom:30px;">
         <asp:GridView ID="GridView1" runat="server" DataSourceID="SqlDataSource1" AutoGenerateColumns="False"
             OnRowCommand="GridView1_RowCommand"
             CssClass="table table-striped table-bordered table-responsive table-condensed table-hover" 
-            AllowPaging="True" 
-            AllowSorting="True"
-            DataKeyNames="3LD" OnRowDataBound="GridView1_RowDataBound">
+            DataKeyNames="3LD" OnRowDataBound="GridView1_RowDataBound"
+            >
             <Columns>
-                <asp:BoundField DataField="3LD" HeaderText="3LD" />
+                <asp:BoundField DataField="3LD" HeaderText="3LD" ItemStyle-Width="50px"/>
                 <asp:BoundField DataField="TitleName" HeaderText="Title Name" />
                 <asp:BoundField DataField="TOCKCode" HeaderText="Tock Code" />
                 <asp:BoundField DataField="Category" HeaderText="Category" />
@@ -36,6 +86,7 @@ WHERE [3LD] = @3LD" >
                 <asp:TemplateField HeaderText="Edit Title" ShowHeader="False">
                     <ItemTemplate>
                         <asp:LinkButton ID="btn_edit" runat="server" 
+                            data-toggle="tooltip" data-placement="top" title="Edit Title"
                             CommandName="edit_Title" Text="Edit" class="btn btn-success" 
                             CommandArgument="<%# ((GridViewRow) Container).RowIndex %>"></asp:LinkButton>                
                     </ItemTemplate>
@@ -43,6 +94,7 @@ WHERE [3LD] = @3LD" >
                 <asp:TemplateField HeaderText="Delete Title" ShowHeader="False">
                     <ItemTemplate>
                         <asp:LinkButton ID="btn_delete" runat="server" CausesValidation="False" 
+                            data-toggle="tooltip" data-placement="top" title="Delete Title"
                             CommandName="Delete" Text="Delete" class="btn btn-success" 
                             OnClientClick="return confirm('Are you sure you want to delete this Title?');" 
                             CommandArgument="<%# ((GridViewRow) Container).RowIndex %>"></asp:LinkButton>
@@ -50,9 +102,7 @@ WHERE [3LD] = @3LD" >
                 </asp:TemplateField>
             </Columns>
         </asp:GridView>
-            <div style="text-align:right;">
-                <asp:Button ID="btn_addnew" runat="server" Text="+" class="btn btn-success" OnClick="btn_addnew_Click"/>
-            </div>
+        </div>
     </ContentTemplate>
     </asp:UpdatePanel>
 
@@ -103,20 +153,22 @@ WHERE [3LD] = @3LD" >
                             <tr>
                                 <td>Color</td>
                                 <td>
-                                    <asp:Label ID="lb_color1" runat="server" Width="70px" Height="25px" class="label label-default"></asp:Label>
-                                    <asp:Button ID="btn_changecolor" runat="server" Text="Change Color" class="btn btn-success"/>
-                                    <asp:TextBox ID="txt_color" runat="server" ReadOnly="true" OnTextChanged="txt_color_TextChanged"></asp:TextBox> 
+                                    <div style="text-align:left;">
+                                    <asp:Label ID="lb_oricolor" runat="server" Width="70px" Height="35px" class="label"></asp:Label><br />
+                                    <asp:Label ID="lb_color1" runat="server" Width="70px" Height="35px" class="label" Text="Change To"></asp:Label><br />
+                                    <asp:Button ID="btn_changecolor" runat="server" Text="Change Color" class="btn btn-default" OnClick="btn_changecolor_Click"/>
+                                    <asp:TextBox ID="txt_color" runat="server"></asp:TextBox> 
                                     <ajaxToolkit:ColorPickerExtender 
                                         ID="txt_color_ColorPickerExtender" 
                                         runat="server" 
                                         BehaviorID="txt_color_ColorPickerExtender" 
                                         TargetControlID="txt_color" 
                                         PopupButtonID="btn_changecolor"
-                                        Enabled="True" 
-                                        OnClientColorSelectionChanged="Color_Changed"/>
-                                    
+                                        SampleControlID="lb_color1"
+                                        OnClientColorSelectionChanged="Color_Changed"/>                                   
 
                                     <asp:Label ID="lb_color" runat="server"></asp:Label>
+                                    </div>
                                 </td>
                             </tr>
                         </table>
@@ -149,21 +201,25 @@ WHERE [3LD] = @3LD" >
                             <tr>
                                 <td>3LD: </td>
                                 <td>
-                                    <asp:TextBox ID="txt_new3ld" AutoPostBack="true" runat="server" class="form-control" OnTextChanged="txt_new3ld_TextChanged"></asp:TextBox>
+                                    <asp:TextBox ID="txt_new3ld" AutoPostBack="true" runat="server" class="form-control" OnTextChanged="txt_new3ld_TextChanged"
+                                        placeholder="3LD"></asp:TextBox>
                                     <asp:Label ID="lb_new3ld" runat="server"></asp:Label>
                                 </td>
                             </tr>
                             <tr>
                                 <td>Title Name:</td>
                                 <td>
-                                    <asp:TextBox ID="txt_newtitlename" AutoPostBack="true" runat="server" class="form-control" OnTextChanged="txt_newtitlename_TextChanged"></asp:TextBox>
+                                    <asp:TextBox ID="txt_newtitlename" AutoPostBack="true" runat="server" 
+                                        class="form-control" OnTextChanged="txt_newtitlename_TextChanged"
+                                        placeholder="Title Name"></asp:TextBox>
                                     <asp:Label ID="lb_newtitlename" runat="server" Text="Label"></asp:Label>
                                 </td>
                             </tr>
                             <tr>
                                 <td>Tock Code</td>
                                 <td>
-                                    <asp:TextBox ID="txt_newtockcode" runat="server" class="form-control"></asp:TextBox>
+                                    <asp:TextBox ID="txt_newtockcode" runat="server" class="form-control"
+                                        placeholder="Tock Code"></asp:TextBox>
                                 </td>
                             </tr>
                             <tr>
@@ -172,14 +228,17 @@ WHERE [3LD] = @3LD" >
                                     <asp:DropDownList ID="drop_newcate" runat="server" 
                                         DataSourceID="SqlDataSource2" 
                                         DataTextField="Category" 
-                                        DataValueField="Category">
+                                        DataValueField="Category"
+                                        class="form-control">
                                     </asp:DropDownList>
                                 </td>
                             </tr>
                             <tr>
                                 <td>Color</td>
                                 <td>
+                                    <div style="text-align:left;">
                                     <asp:Label ID="lb_newcolor" runat="server" Width="70px" Height="25px" class="label label-default"></asp:Label>
+                                    </div>
                                 </td>
                             </tr>
                         </table>

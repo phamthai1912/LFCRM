@@ -9,7 +9,7 @@ using System.Web.UI.WebControls;
 
 namespace LFCRM.Class
 {
-    public class csAutoComplete : IHttpModule
+    public class csCommonClass : IHttpModule
     {
         /// <summary>
         /// You will need to configure this module in the Web.config file of your
@@ -42,23 +42,6 @@ namespace LFCRM.Class
             //custom logging logic can go here
         }
 
-        [WebMethod]
-        public string[] GetCompletionList3LD(string prefixText)
-        {
-            Connection = dbconnect.InitialConnect(sqlDS, Connection);
-            Connection.Open();
-
-            sqlDS.SelectCommand = "SELECT [3LD] FROM tbl_Title WHERE [3LD] LIKE N'%" + prefixText + "%'";
-            DataView dv = (DataView)sqlDS.Select(DataSourceSelectArguments.Empty);
-
-            List<string> items = new List<string>(dv.Count);
-            for (int i = 0; i < dv.Count; i++)
-            {
-                items.Add(Convert.ToString(dv.Table.Rows[i]["[3LD]"]));
-            }
-
-            Connection.Close();
-            return items.ToArray();
-        }
+        
     }
 }

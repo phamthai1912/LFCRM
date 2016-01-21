@@ -38,7 +38,7 @@ namespace LFCRM.Class
             //custom logging logic can go here
         }
 
-        public Tuple<TableRow, Button> AddTitle(string Id)
+        public Tuple<TableRow, Button, TextBox> AddTitle(string Id)
         {
             TextBox tb1 = new TextBox();
             TextBox tb2 = new TextBox();
@@ -54,6 +54,7 @@ namespace LFCRM.Class
             AutoCompleteExtender autoCompleteExtender = new AjaxControlToolkit.AutoCompleteExtender();
 
             tb1.ID = "txt_Title" + Id;
+            tb1.AutoPostBack = true;
             tb2.ID = "txt_ExpectedResouces" + Id;
             lbl1.Text = Id;
             lbl2.ID = "lbl_ActualResources" + Id;
@@ -86,7 +87,7 @@ namespace LFCRM.Class
             tbr.Cells.Add(tbc4);
             tbr.Cells.Add(tbc5);
 
-            return new Tuple<TableRow, Button>(tbr, btn);
+            return new Tuple<TableRow, Button, TextBox>(tbr, btn, tb1);
         }
 
         public Tuple<TableRow, Button> AddResource(string Id)

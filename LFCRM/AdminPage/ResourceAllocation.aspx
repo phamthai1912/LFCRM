@@ -12,7 +12,7 @@
                             <tr>
                                 <td>No.</td>
                                 <td>3LD</td>
-                                <td>Expected</td>
+                                <td style="width: 52px">Expected</td>
                                 <td>Actual</td>
                                 <td>Action</td>
                             </tr>
@@ -41,7 +41,6 @@
                     </td>
             </table>
             <asp:Label ID="Label1" runat="server" ></asp:Label>
-            <asp:DropDownList ID="DropDownList1" runat="server" OnSelectedIndexChanged="DropDownList1_SelectedIndexChanged"></asp:DropDownList>
            </ContentTemplate>
     </asp:UpdatePanel>
 </asp:Content>

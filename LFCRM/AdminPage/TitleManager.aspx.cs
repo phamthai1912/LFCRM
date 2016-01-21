@@ -16,7 +16,7 @@ namespace LFCRM.AdminPage
         Class.csTitleManager _titleManager = new Class.csTitleManager();
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            //if (!IsPostBack)
         }
         protected void GridView1_RowCommand(object sender, GridViewCommandEventArgs e)
         {
@@ -28,8 +28,9 @@ namespace LFCRM.AdminPage
                 txt_titlename.Text = HttpUtility.HtmlDecode(gvrow.Cells[1].Text).ToString();
                 txt_tockcode.Text = HttpUtility.HtmlDecode(gvrow.Cells[2].Text).ToString();
                 drop_category.Text = HttpUtility.HtmlDecode(gvrow.Cells[3].Text).ToString();
-                lb_color1.Text = HttpUtility.HtmlDecode(gvrow.Cells[4].Text).ToString();
-                lb_color1.Attributes["style"] = "background-color: " + lb_color1.Text.ToString() + ";";
+                lb_oricolor.Text = HttpUtility.HtmlDecode(gvrow.Cells[4].Text).ToString();
+                lb_oricolor.Attributes["style"] = "background-color: " + lb_oricolor.Text + ";";
+                //txt_color.Text = HttpUtility.HtmlDecode(gvrow.Cells[4].Text).ToString();
 
                 //string sql = "SELECT Category FROM tbl_TitleCategory";
                 //drop_category.DataSource = dbconnect.getDataTable(sql);
@@ -38,7 +39,7 @@ namespace LFCRM.AdminPage
 
                 lb_titlename.Visible = false;
                 lb_color.Visible = false;
-                txt_color.Style.Add("display", "none");
+                txt_color.Style.Add("visibility", "hidden");
 
                 System.Text.StringBuilder sb = new System.Text.StringBuilder();
                 sb.Append(@"<script type='text/javascript'>");
@@ -63,7 +64,8 @@ namespace LFCRM.AdminPage
             string titlename = txt_titlename.Text;
             string code = txt_tockcode.Text;
             string cate = drop_category.SelectedItem.Text;
-            string colorcode = lb_color1.Text;
+            string colorcode = txt_color.Text;
+            string oricolor = lb_oricolor.Text;
 
             if (titlename == "")
             {
@@ -73,20 +75,33 @@ namespace LFCRM.AdminPage
             }
             else if (colorcode != "")
             {
-                string currentcolor = lb_color1.Text;
-                string check = _titleManager.checkcolor(currentcolor);
-                if (currentcolor.Equals(check))
+                if (_titleManager.checkcolorExist(colorcode) == false)
+                {
                     lb_color.Visible = false;
+
+                    //Update Title
+                    _titleManager.updateTitle(_3ld, titlename, code, cate, colorcode);
+                    GridView1.DataBind();
+
+                    //Close modal
+                    System.Text.StringBuilder sb = new System.Text.StringBuilder();
+                    sb.Append(@"<script type='text/javascript'>");
+                    sb.Append("$('#editModal').modal('hide');");
+                    sb.Append(@"</script>");
+                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "EditHideModalScript", sb.ToString(), false);
+                }
                 else
                 {
                     lb_color.Visible = true;
-                    lb_color.Text = "This color exists. Please try other color";
+                    lb_color.Text = "This color exists for other Title. Please try other color";
                     lb_color.Attributes["class"] = "label label-danger";
                 }
             }
             else
             {
-                _titleManager.updateTitle(_3ld, titlename, code, cate, colorcode);
+                lb_color.Visible = false;
+                //Update Title
+                _titleManager.updateTitle(_3ld, titlename, code, cate, oricolor);
                 GridView1.DataBind();
 
                 //Close modal
@@ -95,7 +110,7 @@ namespace LFCRM.AdminPage
                 sb.Append("$('#editModal').modal('hide');");
                 sb.Append(@"</script>");
                 ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "EditHideModalScript", sb.ToString(), false);
-            }            
+            }
         }
 
         protected void btn_add_Click(object sender, EventArgs e)
@@ -207,9 +222,9 @@ namespace LFCRM.AdminPage
             }
         }
 
-        protected void txt_color_TextChanged(object sender, EventArgs e)
+        protected void btn_changecolor_Click(object sender, EventArgs e)
         {
-            string currentcolor = lb_color1.Text;
+            lb_color1.Text = "";
         }       
     }
 }
