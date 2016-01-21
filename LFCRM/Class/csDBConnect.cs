@@ -53,7 +53,7 @@ namespace LFCRM.Class
             return Connection;
         }
 
-        public void connect()
+        public void conncet()
         {
             if (con == null)
                 con = new SqlConnection("Server=LGDN14091\\SQLEXPRESS;Database=LFCRM;User Id=sa;Password=qwe123");
@@ -69,7 +69,7 @@ namespace LFCRM.Class
 
         public DataSet getDataSet(string sql)
         {
-            connect();
+            conncet();
             da = new SqlDataAdapter(sql, con);
             ds = new DataSet();
             da.Fill(ds);
@@ -80,7 +80,7 @@ namespace LFCRM.Class
 
         public DataTable getDataTable(string sql)
         {
-            connect();
+            conncet();
             da = new SqlDataAdapter(sql, con);
             dt = new DataTable();
             da.Fill(dt);
@@ -91,7 +91,7 @@ namespace LFCRM.Class
 
         public void ExeCuteNonQuery(string sql)
         {
-            connect();
+            conncet();
             cmd = new SqlCommand(sql, con);
             cmd.ExecuteNonQuery();
             disconnect();

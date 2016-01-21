@@ -5,7 +5,7 @@
 	padding: 0px;
 	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
 	font-size: 14px;
-	clear: both;
+	height:100%;
 	background: transparent url("https://www.vietcombank.com.vn/IBanking2015/Content/web/images/v2/body_bg.png") repeat scroll left top;
 		
 }
@@ -14,7 +14,9 @@
 .fullcontent{
 	/*width: 100%;*/
 	clear: both;
-	padding: 0px;
+	padding: 0px;   
+	border-bottom: 10px;
+	position:relative;
 }
 .contentpage{
 	width: 1200px;
@@ -24,7 +26,6 @@
 	padding-right: 10px;
 	padding-left: 10px;
 	padding-top: 10px;
-	padding-bottom: 10px;
 }
 
 /*Welcome*/
