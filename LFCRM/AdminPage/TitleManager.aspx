@@ -62,7 +62,9 @@ WHERE [3LD] = @3LD" >
         <div class="topright-grid">
             <ul>
                 <li>
-                    <input type="text" placeholder="Search Title" id="txtSearch" class="form-control" style="width:200px;"/>
+                    <input type="text" 
+                        placeholder="Search Title" id="txtSearch" 
+                        class="form-control" style="width:200px;"/>
                 </li>
                 <li>
                     <asp:Button ID="btn_addnew" 

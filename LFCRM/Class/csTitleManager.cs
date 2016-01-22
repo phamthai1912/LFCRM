@@ -19,7 +19,7 @@ namespace LFCRM.Class
             string currentcolor = getColor(_3ld);
             if (Color.Equals(currentcolor))
                 Color = currentcolor;
-            else Color = checkcolor(Color);
+            else Color = getRandomColor(Color);
 
             string update = "UPDATE tbl_Title " +
                     "SET ColorCode = '" + Color + "', TitleName = '" + titlename + "', TOCKCode = '" + tockcode + "', TitleCategoryID = '" + CategoryID + "' " +
@@ -40,7 +40,7 @@ namespace LFCRM.Class
         {
             string CategoryID = getCateID(Category);
 
-            string newcolor = checkcolor(Color);
+            string newcolor = getRandomColor(Color);
 
             string sql = "INSERT INTO tbl_Title ([3LD],TitleCategoryID,ColorCode,TOCKCode,TitleName) " +
                         "VALUES ('" + _3ld + "','" + CategoryID + "','" + newcolor + "','" + tockcode + "','" + titlename + "')";
@@ -48,7 +48,7 @@ namespace LFCRM.Class
             dbconnect.ExeCuteNonQuery(sql);
         }
 
-        public string checkcolor(String _color)
+        public string getRandomColor(String _color)
         {
             var random = new Random();
             string colorrandom = String.Format("#{0:X6}", random.Next(0x1000000));
@@ -63,7 +63,7 @@ namespace LFCRM.Class
                 if (_color.Equals(temp))
                 {
                     _color = colorrandom;
-                    checkcolor(_color);
+                    getRandomColor(_color);
                     break;
                 }
             }
