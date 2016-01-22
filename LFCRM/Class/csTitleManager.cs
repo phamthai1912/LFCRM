@@ -48,7 +48,7 @@ namespace LFCRM.Class
             dbconnect.ExeCuteNonQuery(sql);
         }
 
-        public string getRandomColor(String _color)
+        public String getRandomColor(String _color)
         {
             var random = new Random();
             string colorrandom = String.Format("#{0:X6}", random.Next(0x1000000));
@@ -71,7 +71,7 @@ namespace LFCRM.Class
             return _color;
         }
 
-        public string getColor(String _3ld)
+        public String getColor(String _3ld)
         {
             string sql = "SELECT ColorCode FROM tbl_Title WHERE [3LD] = '" + _3ld + "'";
             DataTable tbcolor = dbconnect.getDataTable(sql);

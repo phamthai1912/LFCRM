@@ -6,29 +6,25 @@
     <br />
     <asp:ScriptManager ID="ScriptManager1" runat="server" EnableCdn="True" />
     <!--Searching-->
-    <script>
-        
-        $(document).ready(function () {
-            var rows;
-            var coldata;
-            $('#txtSearch').keyup(function () {
-                $('#<%=GridView1.ClientID%>').find('tr:gt(0)').hide();
-                    var data = $('#txtSearch').val();
-                    var len = data.length;
-                    if (len > 0) {
-                        $('#<%=GridView1.ClientID%>').find('tbody tr').each(function () {
-                            coldata = $(this).children().eq(1);
-                            var temp = coldata.text().toUpperCase().indexOf(data.toUpperCase());
-                            if (temp === 0) {
-                                $(this).show();
-                            }
-                        });
-                    } else {
-                        $('#<%=GridView1.ClientID%>').find('tr:gt(0)').show();
+    <script type="text/javascript">
+        function Search_Gridview(strKey, strGV) {
+            var strData = strKey.value.toLowerCase().split(" ");
+            var tblData = document.getElementById("<%= GridView1.ClientID %>");
+            var rowData;
+            for (var i = 2; i < tblData.rows.length; i++) {
+                rowData = tblData.rows[i].innerHTML;
+                var styleDisplay = 'none';
+                for (var j = 0; j < strData.length; j++) {
+                    if (rowData.toLowerCase().indexOf(strData[j]) >= 0)
+                        styleDisplay = '';
+                    else {
+                        styleDisplay = 'none';
+                        break;
                     }
-
-                });
-            });
+                }
+                tblData.rows[i].style.display = styleDisplay;
+            }
+        }
     </script>
     <!--Tooltip-->
     <script type="text/javascript">
@@ -62,9 +58,11 @@ WHERE [3LD] = @3LD" >
         <div class="topright-grid">
             <ul>
                 <li>
-                    <input type="text" 
-                        placeholder="Search Title" id="txtSearch" 
-                        class="form-control" style="width:200px;"/>
+                    <asp:TextBox runat="server"
+                            type="text"  AutoPostBack="true"
+                            placeholder="Search " id="TextBox1" 
+                            onkeyup="Search_Gridview(this, 'GridView1')"
+                            class="form-control" style="width:300px;"></asp:TextBox>
                 </li>
                 <li>
                     <asp:Button ID="btn_addnew" 
@@ -89,17 +87,21 @@ WHERE [3LD] = @3LD" >
                     <ItemTemplate>
                         <asp:LinkButton ID="btn_edit" runat="server" 
                             data-toggle="tooltip" data-placement="top" title="Edit Title"
-                            CommandName="edit_Title" Text="Edit" class="btn btn-success" 
-                            CommandArgument="<%# ((GridViewRow) Container).RowIndex %>"></asp:LinkButton>                
+                            CommandName="edit_Title" class="btn btn-success" 
+                            CommandArgument="<%# ((GridViewRow) Container).RowIndex %>">
+                            <span class="glyphicon glyphicon-pencil"></span>
+                        </asp:LinkButton>                
                     </ItemTemplate>
                 </asp:TemplateField>
                 <asp:TemplateField HeaderText="Delete Title" ShowHeader="False">
                     <ItemTemplate>
                         <asp:LinkButton ID="btn_delete" runat="server" CausesValidation="False" 
                             data-toggle="tooltip" data-placement="top" title="Delete Title"
-                            CommandName="Delete" Text="Delete" class="btn btn-success" 
+                            CommandName="Delete" class="btn btn-success" 
                             OnClientClick="return confirm('Are you sure you want to delete this Title?');" 
-                            CommandArgument="<%# ((GridViewRow) Container).RowIndex %>"></asp:LinkButton>
+                            CommandArgument="<%# ((GridViewRow) Container).RowIndex %>">
+                            <span class="glyphicon glyphicon-trash"></span>
+                        </asp:LinkButton>
                     </ItemTemplate>
                 </asp:TemplateField>
             </Columns>
