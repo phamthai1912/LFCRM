@@ -16,8 +16,9 @@ namespace LFCRM.AdminPage
         Class.csTitleManager _titleManager = new Class.csTitleManager();
         protected void Page_Load(object sender, EventArgs e)
         {
-            //if (!IsPostBack)
+                //load();
         }
+
         protected void GridView1_RowCommand(object sender, GridViewCommandEventArgs e)
         {
             int index = Convert.ToInt32(e.CommandArgument.ToString());
@@ -30,7 +31,6 @@ namespace LFCRM.AdminPage
                 drop_category.Text = HttpUtility.HtmlDecode(gvrow.Cells[3].Text).ToString();
                 lb_oricolor.Text = HttpUtility.HtmlDecode(gvrow.Cells[4].Text).ToString();
                 lb_oricolor.Attributes["style"] = "background-color: " + lb_oricolor.Text + ";";
-                //txt_color.Text = HttpUtility.HtmlDecode(gvrow.Cells[4].Text).ToString();
 
                 //string sql = "SELECT Category FROM tbl_TitleCategory";
                 //drop_category.DataSource = dbconnect.getDataTable(sql);
@@ -55,6 +55,9 @@ namespace LFCRM.AdminPage
             {
                 string color = e.Row.Cells[4].Text.ToString();
                 e.Row.Cells[4].Attributes["style"] = "background-color: " + color + ";";
+
+                GridViewRow row = e.Row;
+                row.Attributes["id"] = "gridrow";
             }
         }
 
@@ -111,6 +114,7 @@ namespace LFCRM.AdminPage
                 sb.Append(@"</script>");
                 ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "EditHideModalScript", sb.ToString(), false);
             }
+            txt_color.Text = "";
         }
 
         protected void btn_add_Click(object sender, EventArgs e)
@@ -162,7 +166,7 @@ namespace LFCRM.AdminPage
             lb_new3ld.Visible = false;
             lb_newtitlename.Visible = false;
 
-            string color = _titleManager.checkcolor("#9900CC");
+            string color = _titleManager.getRandomColor("#9900CC");
             lb_newcolor.Text = color;
             lb_newcolor.Attributes["style"] = "background-color:"+color;
 

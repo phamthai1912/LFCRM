@@ -42,6 +42,20 @@ namespace LFCRM.Class
             //custom logging logic can go here
         }
 
+        public DropDownList AddDBToDDL(DropDownList ddl, string sql)
+        {
+            DataTable tb = dbconnect.getDataTable(sql);
+
+            foreach (DataRow dr in tb.Rows)
+            {
+                ListItem l = new ListItem();
+                l.Value = dr[0].ToString();
+                l.Text = dr[1].ToString();
+                ddl.Items.Add(l);
+            }
+
+            return ddl;
+        }
         
     }
 }

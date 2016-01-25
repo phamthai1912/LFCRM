@@ -11,7 +11,7 @@ namespace LFCRM.Class
     public class csResourceAllocation : IHttpModule
     {
         Class.csDBConnect dbconnect = new Class.csDBConnect();
-
+        Class.csCommonClass commonClass = new Class.csCommonClass();
         /// <summary>
         /// You will need to configure this module in the Web.config file of your
         /// web and register it with IIS before being able to use it. For more information
@@ -38,7 +38,7 @@ namespace LFCRM.Class
             //custom logging logic can go here
         }
 
-        public Tuple<TableRow, Button, TextBox> AddTitle(string Id)
+        public Tuple<TableRow, Button, TextBox, TextBox> AddTitle(string Id)
         {
             TextBox tb1 = new TextBox();
             TextBox tb2 = new TextBox();
@@ -52,12 +52,17 @@ namespace LFCRM.Class
             TableCell tbc4 = new TableCell();
             TableCell tbc5 = new TableCell();
             AutoCompleteExtender autoCompleteExtender = new AjaxControlToolkit.AutoCompleteExtender();
+            FilteredTextBoxExtender fteExpectedResouces = new FilteredTextBoxExtender();
+            //RegularExpressionValidator revExpectedResouces = new RegularExpressionValidator();
 
             tb1.ID = "txt_Title" + Id;
             tb1.AutoPostBack = true;
             tb2.ID = "txt_ExpectedResouces" + Id;
+            tb2.AutoPostBack = true;
             lbl1.Text = Id;
             lbl2.ID = "lbl_ActualResources" + Id;
+            lbl2.Font.Bold = true;
+            lbl2.Text = "0";
             btn.ID = "btn_RemoveTitle" + Id;
             tbr.ID = "tbr_ContentTitle" + Id;
             btn.Text = " - ";
@@ -70,6 +75,10 @@ namespace LFCRM.Class
             autoCompleteExtender.CompletionSetCount = 5;
             autoCompleteExtender.MinimumPrefixLength=1;
 
+            fteExpectedResouces.ID = "fte_ExpectedResouces" + Id;
+            fteExpectedResouces.TargetControlID = "txt_ExpectedResouces" + Id;
+            fteExpectedResouces.FilterType = FilterTypes.Numbers;
+
             autoCompleteExtender.CompletionListCssClass = "form-control";
             tb1.ControlStyle.CssClass = "form-control";
             tb2.ControlStyle.CssClass = "form-control";
@@ -79,6 +88,7 @@ namespace LFCRM.Class
             tbc1.Controls.Add(autoCompleteExtender);
             tbc2.Controls.Add(tb1);
             tbc3.Controls.Add(tb2);
+            tbc3.Controls.Add(fteExpectedResouces);
             tbc4.Controls.Add(lbl2);
             tbc5.Controls.Add(btn);
             tbr.Cells.Add(tbc1);
@@ -87,10 +97,10 @@ namespace LFCRM.Class
             tbr.Cells.Add(tbc4);
             tbr.Cells.Add(tbc5);
 
-            return new Tuple<TableRow, Button, TextBox>(tbr, btn, tb1);
+            return new Tuple<TableRow, Button, TextBox, TextBox>(tbr, btn, tb1, tb2);
         }
 
-        public Tuple<TableRow, Button> AddResource(string Id)
+        public Tuple<TableRow, Button, DropDownList, DropDownList> AddResource(string Id)
         {
             Label lbl = new Label();
             TextBox tb = new TextBox();
@@ -111,7 +121,9 @@ namespace LFCRM.Class
             tb.ID = "txt_Resource" + Id;
             ddl1.ID = "ddl_Role" + Id;
             ddl2.ID = "ddl_Title" + Id;
+            ddl2.AutoPostBack = true;
             ddl3.ID = "ddl_WorkingHours" + Id;
+            ddl3.AutoPostBack = true;
             btn.ID = "btn_RemoveResource" + Id;
             tbr.ID = "tbr_ContentResource" + Id;
             btn.Text = " - ";
@@ -124,8 +136,8 @@ namespace LFCRM.Class
             autoCompleteExtender.CompletionSetCount = 5;
             autoCompleteExtender.MinimumPrefixLength = 1;
 
-            ddl1 = AddDBToDDL("SELECT ProjectRoleID, ProjectRoleName FROM tbl_ProjectRole");
-            ddl3 = AddDBToDDL("SELECT WorkingHoursID, Value FROM tbl_WorkingHours");
+            ddl1 = commonClass.AddDBToDDL(ddl1, "SELECT ProjectRoleID, ProjectRoleName FROM tbl_ProjectRole");
+            ddl3 = commonClass.AddDBToDDL(ddl3, "SELECT WorkingHoursID, Value FROM tbl_WorkingHours");
 
             autoCompleteExtender.CompletionListCssClass = "form-control";
             tb.ControlStyle.CssClass = "form-control";
@@ -148,25 +160,7 @@ namespace LFCRM.Class
             tbr.Cells.Add(tbc5);
             tbr.Cells.Add(tbc6);
 
-            return new Tuple<TableRow, Button>(tbr, btn);
+            return new Tuple<TableRow, Button, DropDownList, DropDownList>(tbr, btn, ddl2, ddl3);
         }
-
-        public DropDownList AddDBToDDL(string sql)
-        {
-            DropDownList ddl = new DropDownList();
-            DataTable tb = dbconnect.getDataTable(sql);
-
-            foreach (DataRow dr in tb.Rows)
-            {
-                ListItem l = new ListItem();
-                l.Value = dr[0].ToString();
-                l.Text = dr[1].ToString();
-                ddl.Items.Add(l);
-            }
-
-            return ddl;
-        }
-
-
     }
 }

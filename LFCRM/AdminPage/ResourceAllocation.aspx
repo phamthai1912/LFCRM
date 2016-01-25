@@ -3,12 +3,40 @@
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="cph_Body" runat="server">
     <asp:ScriptManager ID="ScriptManager1" runat="server" EnableCdn="true"></asp:ScriptManager>
+
+    <script type="text/javascript" src="/Scripts/jquery-latest.js"></script> 
+    <script type="text/javascript" src="/Scripts/jquery.tablesorter.js"></script> 
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#tb_titleTable").tablesorter({ sortList: [[0, 0], [1, 0]] });
+        }
+        );
+    </script>
+
     <asp:UpdatePanel ID="UpdatePanel1" runat="server">
         <ContentTemplate>
             <table>
                 <tr>
-                    <td style="width: 380px" valign="top">
-                        <table class="table table-striped table-bordered table-responsive table-condensed table-hover">
+                    <td></td>
+                    <td></td>
+                    <td>
+                        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  
+                        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  
+                        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  
+                        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  
+                        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+                        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                        <asp:Button ID="Button2" runat="server" Text="Save" CssClass="btn btn-success"/> 
+                        &nbsp;   
+                        <asp:Button ID="Button3" runat="server" Text="Copy from last day" CssClass="btn btn-success"/>
+                        <br /><br />
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 380px;" valign="top">
+                        <table id="tb_titleTable" class="table table-striped table-bordered table-responsive table-condensed table-hover">
                             <tr>
                                 <td>No.</td>
                                 <td>3LD</td>
@@ -23,8 +51,8 @@
                         </table>
                     </td>
                     <td style="width: 20px"></td>
-                    <td style="width: 800px" valign="top">
-                        <table class="table table-striped table-bordered table-responsive table-condensed table-hover">
+                    <td style="width: 800px;" valign="top">
+                        <table id="tb_resourceTable" class="table table-striped table-bordered table-responsive table-condensed table-hover">
                             <tr>
                                 <td>No.</td>
                                 <td>Name</td>
@@ -39,8 +67,13 @@
                             </tr>
                         </table>
                     </td>
+                </tr>
             </table>
-            <asp:Label ID="Label1" runat="server" ></asp:Label>
-           </ContentTemplate>
+           <%-- <asp:Label ID="Label1" runat="server" BackColor="White" Font-Bold="True" ForeColor="#FF9900" ></asp:Label>
+            <asp:TextBox ID="TextBox1" runat="server"></asp:TextBox>
+            <asp:Button ID="Button1" runat="server" Text="Button" OnClick="Button1_Click" />
+            <asp:DropDownList ID="DropDownList1" runat="server" ></asp:DropDownList>
+            <ajaxToolkit:FilteredTextBoxExtender ID="FilteredTextBoxExtender1" runat="server" TargetControlID="TextBox1" FilterType="Numbers"/>
+          --%> </ContentTemplate>
     </asp:UpdatePanel>
 </asp:Content>

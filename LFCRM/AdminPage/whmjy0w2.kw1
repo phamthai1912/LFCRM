@@ -98,13 +98,14 @@ namespace LFCRM.AdminPage
         {
             TextBox tb = (TextBox)sender;
             string texboxId = tb.ID;
-            Label lbl = (Label)ph_DynamicResourceTableRow.FindControl("lbl_ActualResources" + Regex.Match(texboxId, @"\d+").Value);
+            Label lb = (Label)ph_DynamicResourceTableRow.FindControl("lbl_ActualResources" + Regex.Match(texboxId, @"\d+").Value);
 
-            if (tb.Text != "")
+            
+
+            if (tb2.Text != "")
             {
-                if (Convert.ToDouble(tb.Text) < Convert.ToDouble(lbl.Text)) lbl.ForeColor = Color.Red;
-                else if (Convert.ToDouble(tb.Text) == Convert.ToDouble(lbl.Text)) lbl.ForeColor = Color.LightGreen;
-                else lbl.ForeColor = Color.Black;
+                if (Convert.ToDouble(tb2.Text) > count) lbl.ForeColor = Color.Red;
+                else if (Convert.ToDouble(tb2.Text) == count) lbl.ForeColor = Color.LightGreen;
             }
         }
 
@@ -194,16 +195,17 @@ namespace LFCRM.AdminPage
 
                 if (tb2.Text != "")
                 {
-                    if (Convert.ToDouble(tb2.Text) < count) lbl.ForeColor = Color.Red;
+                    if (Convert.ToDouble(tb2.Text) > count) lbl.ForeColor = Color.Red;
                     else if (Convert.ToDouble(tb2.Text) == count) lbl.ForeColor = Color.LightGreen;
-                    else lbl.ForeColor = Color.Black;
                 }
             }
         }
 
         protected void Button1_Click(object sender, EventArgs e)
         {
-            
+            //DropDownList ddl2 = new DropDownList();
+            //ddl2 = (DropDownList)ph_DynamicResourceTableRow.FindControl("ddl_Title" + ViewState["ResourceCounter"].ToString());
+            //Label1.Text = ddl2.SelectedItem.Text;
         }
     }
 }

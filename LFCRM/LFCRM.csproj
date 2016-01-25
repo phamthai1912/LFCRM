@@ -169,6 +169,7 @@
     <Content Include="Account\OpenAuthProviders.ascx" />
     <Content Include="Account\Register.aspx" />
     <Content Include="Account\RegisterExternalLogin.aspx" />
+    <Content Include="AdminPage\Category.aspx" />
     <Content Include="AdminPage\ResourceAllocation.aspx" />
     <Content Include="AdminPage\TitleManager.aspx" />
     <Content Include="AutoComplete.asmx" />
@@ -180,6 +181,8 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\jquery-latest.js" />
+    <Content Include="Scripts\jquery.tablesorter.js" />
     <Content Include="style.css" />
     <Content Include="WebForm1.aspx" />
     <Content Include="WebFormUserControl\Footer.ascx" />
@@ -275,6 +278,13 @@
     <Compile Include="Account\RegisterExternalLogin.aspx.designer.cs">
       <DependentUpon>RegisterExternalLogin.aspx</DependentUpon>
     </Compile>
+    <Compile Include="AdminPage\Category.aspx.cs">
+      <DependentUpon>Category.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdminPage\Category.aspx.designer.cs">
+      <DependentUpon>Category.aspx</DependentUpon>
+    </Compile>
     <Compile Include="AdminPage\ResourceAllocation.aspx.cs">
       <DependentUpon>ResourceAllocation.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -296,6 +306,7 @@
       <SubType>Component</SubType>
       <DependentUpon>AutoComplete.asmx</DependentUpon>
     </Compile>
+    <Compile Include="Class\csCategory.cs" />
     <Compile Include="Class\csCommonClass.cs" />
     <Compile Include="Class\csResourceAllocation.cs" />
     <Compile Include="Class\csDBConnect.cs" />

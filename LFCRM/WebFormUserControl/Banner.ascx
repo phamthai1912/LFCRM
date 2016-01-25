@@ -35,7 +35,13 @@
 				     </li>
 			      </ul>
 		       </li>
-		       <li><a href='/AdminPage/TitleManager'><span>Title Management</span></a></li>
+		       <li class='active has-sub'><a href='/AdminPage/TitleManager'><span>Title Management</span></a>
+                   <ul>
+                       <li class='has-sub'>
+                           <a href="/AdminPage/Category"><span>Category Manager</span></a>
+                       </li>
+                   </ul>
+		       </li>
 		       <li class='last'><a href='#'><span>Performance Tracking</span></a></li>
                 <%--<li><a href="">PTO/DTO</a></li>
                     <li><a href="">Device/Chip</a></li>

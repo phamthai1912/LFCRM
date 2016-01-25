@@ -11,12 +11,13 @@ namespace LFCRM
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            Label1.Text = DropDownList1.SelectedItem.Text;
         }
 
         protected void DropDownList1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            DropDownList1.Items.Add("cccc");
+            Label1.Text = DropDownList1.SelectedItem.Text;
         }
+
     }
 }
