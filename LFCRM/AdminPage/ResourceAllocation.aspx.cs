@@ -14,10 +14,11 @@ namespace LFCRM.AdminPage
     public partial class ResourceAllocation : System.Web.UI.Page
     {
         csResourceAllocation RA = new csResourceAllocation();
-        
+        csTitleManager titleManager = new csTitleManager();
+
         protected void Page_Load(object sender, EventArgs e)
         {
-            if(!IsPostBack)
+            if (!IsPostBack)
             {
                 ViewState["TitleCounter"] = 0;
                 ViewState["ResourceCounter"] = 0;
@@ -52,13 +53,13 @@ namespace LFCRM.AdminPage
 
             //--------------------------Add title to new resource----------------
             AddTitletoResource(ViewState["ResourceCounter"].ToString());
-            
+
         }
 
         protected void btn_MinusTitleClick_event(object sender, EventArgs e)
         {
             Button btn = (Button)sender;
-            TextBox tb= new TextBox();
+            TextBox tb = new TextBox();
             string buttonId = btn.ID;
             tb = (TextBox)ph_DynamicTitleTableRow.FindControl("txt_Title" + Regex.Match(buttonId, @"\d+").Value);
 
@@ -85,8 +86,38 @@ namespace LFCRM.AdminPage
 
         protected void tb_TitleTextChanged_event(object sender, EventArgs e)
         {
-            for (int i=1; i<=(int)ViewState["ResourceCounter"]; i++)
-                AddTitletoResource(i.ToString());
+            TextBox tb = (TextBox)sender;
+            Label lb = new Label();
+
+            string textboxId = tb.ID;
+            lb = (Label)ph_DynamicTitleTableRow.FindControl("lbl_TitleExist" + Regex.Match(textboxId, @"\d+").Value);
+
+            if (!titleManager.LDExist(tb.Text)) lb.Visible = true;
+            else
+            {
+                lb.Visible = false;
+                lb.ForeColor = Color.Black;
+                for (int i = 1; i <= (int)ViewState["ResourceCounter"]; i++)
+                    AddTitletoResource(i.ToString());
+            }
+        }
+
+        protected void tb_ResouceTextChanged_event(object sender, EventArgs e)
+        {
+            TextBox tb = (TextBox)sender;
+            Label lb = new Label();
+            Label lb2 = new Label();
+
+            string textboxId = tb.ID;
+            lb = (Label)ph_DynamicResourceTableRow.FindControl("lbl_ResourceExist" + Regex.Match(textboxId, @"\d+").Value);
+            lb2 = (Label)ph_DynamicResourceTableRow.FindControl("lbl_ResourceID" + Regex.Match(textboxId, @"\d+").Value);
+
+            if (!RA.FullNameExist(tb.Text)) lb.Visible = true;
+            else
+            {
+                lb.Visible = false;
+                lb2.Text = RA.getEmployeeID(tb.Text);
+            }
         }
 
         protected void ddl_TitleSelectedIndexChannged_event(object sender, EventArgs e)
@@ -134,14 +165,17 @@ namespace LFCRM.AdminPage
             Button btn = new Button();
             DropDownList ddl = new DropDownList();
             DropDownList ddl2 = new DropDownList();
+            TextBox tb = new TextBox();
             var tuple = RA.AddResource(id);
 
             btn = tuple.Item2;
             ddl = tuple.Item3;
             ddl2 = tuple.Item4;
+            tb = tuple.Item5;
             btn.Click += new EventHandler(btn_MinusResourceClick_event);
             ddl.SelectedIndexChanged += new EventHandler(ddl_TitleSelectedIndexChannged_event);
             ddl2.SelectedIndexChanged += new EventHandler(ddl_WorkingHoursSelectedIndexChannged_event);
+            tb.TextChanged += new EventHandler(tb_ResouceTextChanged_event);
             ph_DynamicResourceTableRow.Controls.Add(tuple.Item1);
         }
 
@@ -186,8 +220,8 @@ namespace LFCRM.AdminPage
                     DropDownList ddl2 = new DropDownList();
                     ddl = (DropDownList)ph_DynamicResourceTableRow.FindControl("ddl_Title" + j.ToString());
                     ddl2 = (DropDownList)ph_DynamicResourceTableRow.FindControl("ddl_WorkingHours" + j.ToString());
-                    if (ddl2.SelectedItem.Text !="OFF")
-                        if (ddl.SelectedItem.Text == tb.Text) count = count + Convert.ToDouble(ddl2.SelectedItem.Text)/8;
+                    if (ddl2.SelectedItem.Text != "OFF")
+                        if (ddl.SelectedItem.Text == tb.Text) count = count + Convert.ToDouble(ddl2.SelectedItem.Text) / 8;
                 }
 
                 lbl.Text = count.ToString();
@@ -201,9 +235,33 @@ namespace LFCRM.AdminPage
             }
         }
 
+        protected void btn_Save_Click(object sender, EventArgs e)
+        {
+            if ((int)ViewState["ResourceCounter"] > 0)
+                for (int i = 1; i <= (int)ViewState["ResourceCounter"]; i++)
+                {
+                    Label lb = (Label)ph_DynamicResourceTableRow.FindControl("lbl_ResourceID" + i);
+                    if(lb.Text !="N/A")
+                    {
+                        DropDownList ddl1 = (DropDownList)ph_DynamicResourceTableRow.FindControl("ddl_Role" + i);
+                        DropDownList ddl2 = (DropDownList)ph_DynamicResourceTableRow.FindControl("ddl_Title" + i);
+                        DropDownList ddl3 = (DropDownList)ph_DynamicResourceTableRow.FindControl("ddl_WorkingHours" + i);
+
+                        RA.addResourceAllocation(lb.Text, ddl1.SelectedValue, ddl2.SelectedItem.ToString(), ddl3.SelectedValue);
+                    }
+                }
+        }
+
         protected void Button1_Click(object sender, EventArgs e)
         {
-            
+            //DateTime dateTime = DateTime.UtcNow.Date;
+            //Label1.Text = dateTime.ToString("MM/dd/yyyy");
+            DropDownList ddl = new DropDownList();
+            ddl = (DropDownList)ph_DynamicResourceTableRow.FindControl("ddl_Title1");
+
+            //Label1.Text = ddl.SelectedValue;
+            Label1.Text = ddl.SelectedItem.ToString();
+
         }
     }
 }

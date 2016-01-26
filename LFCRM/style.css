@@ -99,8 +99,10 @@
     margin-bottom:50px;
 }
 
+/*Modal*/
 .modal-body {
     text-align: left;
+    vertical-align:central;
 }
 
 /*Search section*/

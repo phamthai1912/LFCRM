@@ -27,18 +27,18 @@
 					       <li class='last'><a href='#'><span>Sub Product</span></a></li>
 					    </ul>
 				     </li>
-				     <li class='has-sub'><a href='#'><span>Product 2</span></a>
-					    <ul>
-					       <li><a href='#'><span>Sub Product</span></a></li>
-					       <li class='last'><a href='#'><span>Sub Product</span></a></li>
-					    </ul>
+				     <li>
+                         <a href='/AdminPage/Resources'><span>Resources</span></a>
 				     </li>
 			      </ul>
 		       </li>
-		       <li class='active has-sub'><a href='/AdminPage/TitleManager'><span>Title Management</span></a>
+		       <li class='active has-sub'><a href='#'><span>Title/Category Management</span></a>
                    <ul>
-                       <li class='has-sub'>
-                           <a href="/AdminPage/Category"><span>Category Manager</span></a>
+                       <li>
+                           <a href="/AdminPage/TitleManager"><span>Title Management</span></a>
+                       </li>
+                       <li>
+                           <a href="/AdminPage/Category"><span>Category Management</span></a>
                        </li>
                    </ul>
 		       </li>

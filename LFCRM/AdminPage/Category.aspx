@@ -122,15 +122,15 @@
                                 <asp:Label ID="lb_cateid" runat="server" Visible="false"></asp:Label>
                             </tr>
                             <tr>
-                                <td>Category: </td>
-                                <td>
+                                <td class="modal-body">Category: </td>
+                                <td class="modal-body">
                                     <asp:TextBox ID="txt_cate" runat="server" class="form-control" AutoPostBack="true" OnTextChanged="txt_cate_TextChanged"></asp:TextBox>
                                     <asp:Label ID="lb_cate" runat="server"></asp:Label>
                                 </td>
                             </tr>
                             <tr>
-                                <td>Color: </td>
-                                <td>
+                                <td class="modal-body">Color: </td>
+                                <td class="modal-body">
                                     <div style="text-align:left;">
                                         <asp:Label ID="lb_oricolor" runat="server" Width="70px" Height="35px" class="label"></asp:Label><br />
                                         <asp:Label ID="lb_color1" runat="server" Width="70px" Height="35px" class="label" Text="Change To"></asp:Label><br />
@@ -177,8 +177,8 @@
                     <div class="modal-body" style=" margin-top: 10px; margin-bottom: 50px;">
                         <table class="table table-striped table-bordered table-responsive table-condensed">
                             <tr>
-                                <td>Category:</td>
-                                <td>
+                                <td class="modal-body">Category:</td>
+                                <td class="modal-body">
                                     <asp:TextBox ID="txt_newcategory" AutoPostBack="true" runat="server" class="form-control"
                                         placeholder="Category name"
                                          OnTextChanged="txt_newcategory_TextChanged"></asp:TextBox>
@@ -186,8 +186,8 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td>Color: </td>
-                                <td>
+                                <td class="modal-body">Color: </td>
+                                <td class="modal-body">
                                     <div style="text-align:left;">
                                         <asp:Label ID="lb_newcolor" runat="server" class="label label-default" Height="25px" Width="70px"></asp:Label>
                                     </div>

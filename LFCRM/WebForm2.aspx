@@ -1,8 +1,7 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="WebForm1.aspx.cs" Inherits="LFCRM.WebForm1" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="WebForm2.aspx.cs" Inherits="LFCRM.WebForm2" %>
+<asp:Content ID="Content1" ContentPlaceHolderID="cph_Body" runat="server">
 
-<!DOCTYPE html>
-
-    <script type="text/javascript" src="/Scripts/jquery-latest.js"></script> 
+        <script type="text/javascript" src="/Scripts/jquery-latest.js"></script> 
     <script type="text/javascript" src="/Scripts/jquery.tablesorter.js"></script> 
     <script type="text/javascript">
         $(document).ready(function () {
@@ -11,14 +10,7 @@
         );
     </script>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
-    <title></title>
-</head>
-<body>
-    <form id="form1" runat="server">
-        
-<table id="myTable" class="tablesorter"> 
+    <table id="myTable" class="tablesorter"> 
 <thead> 
 <tr> 
     <th>Last Name</th> 
@@ -68,6 +60,4 @@
 </tr> 
 </tbody> 
 </table>
-    </form>
-</body>
-</html>
+</asp:Content>

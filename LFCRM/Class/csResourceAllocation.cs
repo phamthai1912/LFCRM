@@ -44,7 +44,9 @@ namespace LFCRM.Class
             TextBox tb2 = new TextBox();
             Label lbl1 = new Label();
             Label lbl2 = new Label();
+            Label lbl3 = new Label();
             Button btn = new Button();
+            
             TableRow tbr = new TableRow();
             TableCell tbc1 = new TableCell();
             TableCell tbc2 = new TableCell();
@@ -63,6 +65,9 @@ namespace LFCRM.Class
             lbl2.ID = "lbl_ActualResources" + Id;
             lbl2.Font.Bold = true;
             lbl2.Text = "0";
+            lbl3.ID = "lbl_TitleExist" + Id;
+            lbl3.Text = "It does not exist";
+            lbl3.Visible = false;
             btn.ID = "btn_RemoveTitle" + Id;
             tbr.ID = "tbr_ContentTitle" + Id;
             btn.Text = " - ";
@@ -82,11 +87,13 @@ namespace LFCRM.Class
             autoCompleteExtender.CompletionListCssClass = "form-control";
             tb1.ControlStyle.CssClass = "form-control";
             tb2.ControlStyle.CssClass = "form-control";
+            lbl3.ControlStyle.CssClass = "label label-danger";
             btn.ControlStyle.CssClass = "btn btn-success";
 
             tbc1.Controls.Add(lbl1);
             tbc1.Controls.Add(autoCompleteExtender);
             tbc2.Controls.Add(tb1);
+            tbc2.Controls.Add(lbl3);
             tbc3.Controls.Add(tb2);
             tbc3.Controls.Add(fteExpectedResouces);
             tbc4.Controls.Add(lbl2);
@@ -100,9 +107,10 @@ namespace LFCRM.Class
             return new Tuple<TableRow, Button, TextBox, TextBox>(tbr, btn, tb1, tb2);
         }
 
-        public Tuple<TableRow, Button, DropDownList, DropDownList> AddResource(string Id)
+        public Tuple<TableRow, Button, DropDownList, DropDownList, TextBox> AddResource(string Id)
         {
             Label lbl = new Label();
+            Label lbl2 = new Label();
             TextBox tb = new TextBox();
             DropDownList ddl1 = new DropDownList();
             DropDownList ddl2 = new DropDownList();
@@ -117,8 +125,13 @@ namespace LFCRM.Class
             TableCell tbc6 = new TableCell();
             AutoCompleteExtender autoCompleteExtender = new AjaxControlToolkit.AutoCompleteExtender();
 
-            lbl.Text = Id;
+            lbl.ID = "lbl_ResourceID" + Id;
+            lbl.Text="N/A";
             tb.ID = "txt_Resource" + Id;
+            tb.AutoPostBack = true;
+            lbl2.ID = "lbl_ResourceExist" + Id;
+            lbl2.Text = "It does not exist";
+            lbl2.Visible = false;
             ddl1.ID = "ddl_Role" + Id;
             ddl2.ID = "ddl_Title" + Id;
             ddl2.AutoPostBack = true;
@@ -141,6 +154,7 @@ namespace LFCRM.Class
 
             autoCompleteExtender.CompletionListCssClass = "form-control";
             tb.ControlStyle.CssClass = "form-control";
+            lbl2.ControlStyle.CssClass = "label label-danger";
             ddl1.ControlStyle.CssClass = "form-control";
             ddl2.ControlStyle.CssClass = "form-control";
             ddl3.ControlStyle.CssClass = "form-control";
@@ -149,6 +163,7 @@ namespace LFCRM.Class
             tbc1.Controls.Add(lbl);
             tbc1.Controls.Add(autoCompleteExtender);
             tbc2.Controls.Add(tb);
+            tbc2.Controls.Add(lbl2);
             tbc3.Controls.Add(ddl1);
             tbc4.Controls.Add(ddl2);
             tbc5.Controls.Add(ddl3);
@@ -160,7 +175,47 @@ namespace LFCRM.Class
             tbr.Cells.Add(tbc5);
             tbr.Cells.Add(tbc6);
 
-            return new Tuple<TableRow, Button, DropDownList, DropDownList>(tbr, btn, ddl2, ddl3);
+            return new Tuple<TableRow, Button, DropDownList, DropDownList, TextBox>(tbr, btn, ddl2, ddl3, tb);
+        }
+
+        public Boolean FullNameExist(string fullname)
+        {
+            string sql = "SELECT * FROM tbl_User WHERE FullName = N'" + fullname + "'";
+            DataTable tbcolor = dbconnect.getDataTable(sql);
+
+            if (tbcolor.Rows.Count == 0)
+                return false;
+            else
+                return true;
+        }
+
+        public string getEmployeeID(string fullname)
+        {
+            string UserID = "";
+            string sql = "SELECT EmployeeID FROM tbl_User WHERE FullName = N'" + fullname + "'";
+            DataTable tb = dbconnect.getDataTable(sql);
+            if (tb.Rows.Count != 0) UserID = tb.Rows[0][0].ToString();
+            return UserID;
+        }
+
+        //public string getProjectRoleID(string ProjectRoleName)
+        //{
+        //    string ProjectRoleID = "";
+        //    string sql = "SELECT ProjectRoleID FROM tbl_ProjectRole WHERE ProjectRoleName = '" + ProjectRoleName + "'";
+        //    DataTable tb = dbconnect.getDataTable(sql);
+        //    if (tb.Rows.Count != 0) ProjectRoleID = tb.Rows[0][0].ToString();
+        //    return ProjectRoleID;
+        //}
+
+        public void addResourceAllocation(string EmployeeID, string ProjectRoleID, string _3LD, string WorkingHoursID)
+        {
+            DateTime dateTime = DateTime.UtcNow.Date;
+            string date = dateTime.ToString("MM/dd/yyyy");
+
+            string sql = "INSERT INTO tbl_ResourceAllocation (Date,EmployeeID,ProjectRoleID,[3LD],WorkingHoursID) " +
+                        "VALUES ('" + dateTime + "','" + EmployeeID + "','" + ProjectRoleID + "','" + _3LD + "','" + WorkingHoursID + "')";
+
+            dbconnect.ExeCuteNonQuery(sql);
         }
     }
 }

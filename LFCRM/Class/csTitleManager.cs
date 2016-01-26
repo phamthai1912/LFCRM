@@ -30,9 +30,10 @@ namespace LFCRM.Class
 
         public String getCateID(String catename)
         {
+            string cateid = "";
             string sql1 = "SELECT TitleCategoryID FROM tbl_TitleCategory WHERE Category = '" + catename + "'";
             DataTable tb = dbconnect.getDataTable(sql1);
-            string cateid = tb.Rows[0][0].ToString();
+            if (tb.Rows.Count!=0) cateid = tb.Rows[0][0].ToString();
             return cateid;
         }
 

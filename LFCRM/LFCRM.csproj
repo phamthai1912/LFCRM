@@ -171,6 +171,7 @@
     <Content Include="Account\RegisterExternalLogin.aspx" />
     <Content Include="AdminPage\Category.aspx" />
     <Content Include="AdminPage\ResourceAllocation.aspx" />
+    <Content Include="AdminPage\Resources.aspx" />
     <Content Include="AdminPage\TitleManager.aspx" />
     <Content Include="AutoComplete.asmx" />
     <Content Include="Content\bootstrap-theme.css" />
@@ -182,9 +183,11 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-latest.js" />
+    <Content Include="Scripts\jquery.sortElements.js" />
     <Content Include="Scripts\jquery.tablesorter.js" />
     <Content Include="style.css" />
     <Content Include="WebForm1.aspx" />
+    <Content Include="WebForm2.aspx" />
     <Content Include="WebFormUserControl\Footer.ascx" />
     <Content Include="UserPage\Default.aspx" />
     <Content Include="UserPage\Login.aspx" />
@@ -292,6 +295,12 @@
     <Compile Include="AdminPage\ResourceAllocation.aspx.designer.cs">
       <DependentUpon>ResourceAllocation.aspx</DependentUpon>
     </Compile>
+    <Compile Include="AdminPage\Resources.aspx.cs">
+      <DependentUpon>Resources.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AdminPage\Resources.aspx.designer.cs">
+      <DependentUpon>Resources.aspx</DependentUpon>
+    </Compile>
     <Compile Include="AdminPage\TitleManager.aspx.cs">
       <DependentUpon>TitleManager.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -308,6 +317,7 @@
     </Compile>
     <Compile Include="Class\csCategory.cs" />
     <Compile Include="Class\csCommonClass.cs" />
+    <Compile Include="Class\csResource.cs" />
     <Compile Include="Class\csResourceAllocation.cs" />
     <Compile Include="Class\csDBConnect.cs" />
     <Compile Include="Class\csLogin.cs" />
@@ -318,6 +328,13 @@
     </Compile>
     <Compile Include="WebForm1.aspx.designer.cs">
       <DependentUpon>WebForm1.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WebForm2.aspx.cs">
+      <DependentUpon>WebForm2.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebForm2.aspx.designer.cs">
+      <DependentUpon>WebForm2.aspx</DependentUpon>
     </Compile>
     <Compile Include="WebFormUserControl\Footer.ascx.cs">
       <DependentUpon>Footer.ascx</DependentUpon>

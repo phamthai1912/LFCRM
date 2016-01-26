@@ -11,7 +11,7 @@ namespace LFCRM
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            lbl_fullname.Text = Session["FullName"].ToString();
+            //lbl_fullname.Text = Session["FullName"].ToString();
 
             if ((string)Session["UserRole"] == "Admin") menu_admin.Visible = true;
             else if ((string)Session["UserRole"] == "User") menu_user.Visible = true;

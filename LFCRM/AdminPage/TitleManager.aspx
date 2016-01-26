@@ -123,28 +123,28 @@ WHERE [3LD] = @3LD" >
                     <div class="modal-body" style=" margin-top: 10px; margin-bottom: 50px;">
                         <table class="table table-striped table-bordered table-responsive table-condensed"> 
                             <tr>
-                                <td>3LD: </td>
-                                <td>
+                                <td class="modal-body">3LD: </td>
+                                <td class="modal-body">
                                     <asp:Label ID="lb_3ld" runat="server"></asp:Label>
                                 </td>
                             </tr>
                             <tr>
-                                <td>Title Name:</td>
-                                <td>
+                                <td class="modal-body">Title Name:</td>
+                                <td class="modal-body">
                                     <asp:TextBox ID="txt_titlename" runat="server" class="form-control" AutoPostBack="true" OnTextChanged="txt_titlename_TextChanged"></asp:TextBox>
                                     <asp:Label ID="lb_titlename" runat="server"></asp:Label>
                                 </td>
                             </tr>
                             <tr>
-                                <td>Tock Code</td>
-                                <td>
+                                <td class="modal-body">Tock Code</td>
+                                <td class="modal-body">
                                     <asp:TextBox ID="txt_tockcode" runat="server" ValidateRequestMode="Disabled" class="form-control"></asp:TextBox>
                                     
                                 </td>
                             </tr>
                             <tr>
-                                <td>Category</td>
-                                <td>
+                                <td class="modal-body">Category</td>
+                                <td class="modal-body">
                                     <asp:DropDownList ID="drop_category" runat="server" 
                                         DataSourceID="SqlDataSource2" 
                                         DataTextField="Category" 
@@ -155,8 +155,8 @@ WHERE [3LD] = @3LD" >
                                 </td>
                             </tr>
                             <tr>
-                                <td>Color</td>
-                                <td>
+                                <td class="modal-body">Color</td>
+                                <td class="modal-body">
                                     <div style="text-align:left;">
                                     <asp:Label ID="lb_oricolor" runat="server" Width="70px" Height="35px" class="label"></asp:Label><br />
                                     <asp:Label ID="lb_color1" runat="server" Width="70px" Height="35px" class="label" Text="Change To"></asp:Label><br />
@@ -203,16 +203,16 @@ WHERE [3LD] = @3LD" >
                     <div class="modal-body" style=" margin-top: 10px; margin-bottom: 50px;">
                         <table class="table table-striped table-bordered table-responsive table-condensed">
                             <tr>
-                                <td>3LD: </td>
-                                <td>
+                                <td class="modal-body">3LD: </td>
+                                <td class="modal-body">
                                     <asp:TextBox ID="txt_new3ld" AutoPostBack="true" runat="server" class="form-control" OnTextChanged="txt_new3ld_TextChanged"
                                         placeholder="3LD"></asp:TextBox>
                                     <asp:Label ID="lb_new3ld" runat="server"></asp:Label>
                                 </td>
                             </tr>
                             <tr>
-                                <td>Title Name:</td>
-                                <td>
+                                <td class="modal-body">Title Name:</td>
+                                <td class="modal-body">
                                     <asp:TextBox ID="txt_newtitlename" AutoPostBack="true" runat="server" 
                                         class="form-control" OnTextChanged="txt_newtitlename_TextChanged"
                                         placeholder="Title Name"></asp:TextBox>
@@ -220,15 +220,15 @@ WHERE [3LD] = @3LD" >
                                 </td>
                             </tr>
                             <tr>
-                                <td>Tock Code</td>
-                                <td>
+                                <td class="modal-body">Tock Code</td>
+                                <td class="modal-body">
                                     <asp:TextBox ID="txt_newtockcode" runat="server" class="form-control"
                                         placeholder="Tock Code"></asp:TextBox>
                                 </td>
                             </tr>
                             <tr>
-                                <td>Category</td>
-                                <td>
+                                <td class="modal-body">Category</td>
+                                <td class="modal-body">
                                     <asp:DropDownList ID="drop_newcate" runat="server" 
                                         DataSourceID="SqlDataSource2" 
                                         DataTextField="Category" 
@@ -238,8 +238,8 @@ WHERE [3LD] = @3LD" >
                                 </td>
                             </tr>
                             <tr>
-                                <td>Color</td>
-                                <td>
+                                <td class="modal-body">Color</td>
+                                <td class="modal-body">
                                     <div style="text-align:left;">
                                     <asp:Label ID="lb_newcolor" runat="server" Width="70px" Height="25px" class="label label-default"></asp:Label>
                                     </div>
