@@ -42,7 +42,16 @@
                        </li>
                    </ul>
 		       </li>
-		       <li class='last'><a href='#'><span>Performance Tracking</span></a></li>
+                <li class='active has-sub'><a href='#'><span>Performance Tracking</span></a>
+                    <ul>
+                        <li>
+                            <a href="/AdminPage/BugStatistic"><span>Bug Statistic</span></a>
+                        </li>
+                    </ul>
+		       </li>
+		       <%--<li class='last'><a href='#'><span>Performance Tracking</span></a>
+
+		       </li>--%>
                 <%--<li><a href="">PTO/DTO</a></li>
                     <li><a href="">Device/Chip</a></li>
                     <li><a href="">Feedbacks</a></li>

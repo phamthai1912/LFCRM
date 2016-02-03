@@ -28,6 +28,21 @@ namespace LFCRM.Class
             
         }
 
+        public void deleteTitle(String _3ld)
+        {
+            String sql = "DELETE FROM tbl_Title WHERE [3LD] = '" + _3ld + "'";
+            dbconnect.ExeCuteNonQuery(sql);
+        }
+
+        public Boolean checkTitle(String _3ld)
+        {
+            String sql = "SELECT * FROM tbl_ResourceAllocation WHERE [3LD] = '" + _3ld + "'";
+            DataTable tb = dbconnect.getDataTable(sql);
+            if (tb.Rows.Count != 0)
+                return true;
+            return false;
+        }
+
         public String getCateID(String catename)
         {
             string cateid = "";

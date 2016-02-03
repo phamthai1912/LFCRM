@@ -53,6 +53,17 @@ namespace LFCRM.Class
             dbconnect.ExeCuteNonQuery(sql);
         }
 
+        public Boolean checkCategory(String cate)
+        {
+            String id = getCategoryID(cate);
+            String sql = "SELECT TitleName FROM tbl_Title WHERE TitleCategoryID = '" + id + "'";
+            DataTable tb = dbconnect.getDataTable(sql);
+            if (tb.Rows.Count != 0)
+                return true;
+            else
+                return false;
+        }
+
         public void deleteCategory(String cate)
         {
             String sql = "DELETE FROM tbl_TitleCategory WHERE Category = '"+cate+"'";
