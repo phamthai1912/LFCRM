@@ -169,6 +169,7 @@
     <Content Include="Account\OpenAuthProviders.ascx" />
     <Content Include="Account\Register.aspx" />
     <Content Include="Account\RegisterExternalLogin.aspx" />
+    <Content Include="AdminPage\BugStatistic.aspx" />
     <Content Include="AdminPage\Category.aspx" />
     <Content Include="AdminPage\ResourceAllocation.aspx" />
     <Content Include="AdminPage\Resources.aspx" />
@@ -281,6 +282,12 @@
     <Compile Include="Account\RegisterExternalLogin.aspx.designer.cs">
       <DependentUpon>RegisterExternalLogin.aspx</DependentUpon>
     </Compile>
+    <Compile Include="AdminPage\BugStatistic.aspx.cs">
+      <DependentUpon>BugStatistic.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AdminPage\BugStatistic.aspx.designer.cs">
+      <DependentUpon>BugStatistic.aspx</DependentUpon>
+    </Compile>
     <Compile Include="AdminPage\Category.aspx.cs">
       <DependentUpon>Category.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -297,6 +304,7 @@
     </Compile>
     <Compile Include="AdminPage\Resources.aspx.cs">
       <DependentUpon>Resources.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="AdminPage\Resources.aspx.designer.cs">
       <DependentUpon>Resources.aspx</DependentUpon>
@@ -315,6 +323,7 @@
       <SubType>Component</SubType>
       <DependentUpon>AutoComplete.asmx</DependentUpon>
     </Compile>
+    <Compile Include="Class\csBugStatistic.cs" />
     <Compile Include="Class\csCategory.cs" />
     <Compile Include="Class\csCommonClass.cs" />
     <Compile Include="Class\csResource.cs" />

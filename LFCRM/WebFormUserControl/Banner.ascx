@@ -19,20 +19,13 @@
             <div id='cssmenu'>
 		    <ul>
 		       <li><a href='#'><img src="../Image/home.png"></a></li>
-		       <li class='active has-sub'><a href='#'><span>Resource Management</span></a>
+		       <li class='active has-sub'><a href='#'><span>Resources</span></a>
 			      <ul>
-				     <li class='has-sub'><a href='/AdminPage/ResourceAllocation'><span>Resource Allocation</span></a>
-					    <ul>
-					       <li><a href='#'><span>Sub Product</span></a></li>
-					       <li class='last'><a href='#'><span>Sub Product</span></a></li>
-					    </ul>
-				     </li>
-				     <li>
-                         <a href='/AdminPage/Resources'><span>Resources</span></a>
-				     </li>
+                     <li><a href='/AdminPage/Resources'><span>Resources Management</span></a></li>
+				     <li><a href='/AdminPage/ResourceAllocation'><span>Resource Allocation</span></a></li>
 			      </ul>
 		       </li>
-		       <li class='active has-sub'><a href='#'><span>Title/Category Management</span></a>
+		       <li class='active has-sub'><a href='#'><span>Titles/Categories</span></a>
                    <ul>
                        <li>
                            <a href="/AdminPage/TitleManager"><span>Title Management</span></a>
@@ -42,12 +35,13 @@
                        </li>
                    </ul>
 		       </li>
-		       <li class='last'><a href='#'><span>Performance Tracking</span></a></li>
-                <%--<li><a href="">PTO/DTO</a></li>
-                    <li><a href="">Device/Chip</a></li>
-                    <li><a href="">Feedbacks</a></li>
-                    <li><a href="">Data Analyzing</a></li>
-                    <li><a href="">Non-work Hours</a></li>--%>
+		       <li class='active has-sub'><a href='#'><span>Performance Tracking</span></a>
+                    <ul>
+                        <li>
+                            <a href="/AdminPage/BugStatistic"><span>Bug Statistic</span></a>
+                        </li>
+                    </ul>
+		       </li>
 		    </ul>
 		    </div>
         </div>

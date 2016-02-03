@@ -125,6 +125,11 @@
                                 <td class="modal-body">Category: </td>
                                 <td class="modal-body">
                                     <asp:TextBox ID="txt_cate" runat="server" class="form-control" AutoPostBack="true" OnTextChanged="txt_cate_TextChanged"></asp:TextBox>
+                                    <asp:RequiredFieldValidator ErrorMessage="Category should not be empty. Please enter category." 
+                                            validationgroup="editvalidationgroup"
+                                            ControlToValidate="txt_cate"
+                                            Display="Dynamic" runat="server" 
+                                            CssClass="label label-danger"/><br />
                                     <asp:Label ID="lb_cate" runat="server"></asp:Label>
                                 </td>
                             </tr>
@@ -152,7 +157,9 @@
                         </table>
                     </div>
                     <div class="modal-footer">
-                        <asp:Button ID="btn_save" runat="server" Text="Save" class="btn btn-success" OnClick="btn_save_Click"/>
+                        <asp:Button ID="btn_save" runat="server" 
+                            validationgroup="editvalidationgroup"
+                            Text="Save" class="btn btn-success" OnClick="btn_save_Click"/>
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     </div>
                     </ContentTemplate>
@@ -219,6 +226,9 @@
                     <div class="modal-body" style=" margin-top: 10px; margin-bottom: 50px;">
                         <center><span><h4>Are you sure you want to delete?</h4></span><br />
                             <h3><strong><asp:Label ID="lb_deletecategory" runat="server" ></asp:Label></strong></h3>
+                            <h4>
+                                <asp:Label ID="lb_deletestatus" runat="server" CssClass="label label-danger"></asp:Label>
+                            </h4>
                         </center>
                     </div>
                     <div class="modal-footer">

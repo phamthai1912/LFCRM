@@ -25,7 +25,7 @@
     <form id="main_form" runat="server">
         
         <div id="fullSite">
-            <uc1:Banner runat="server" ID="Banner" />
+            <uc1:Banner runat="server" ID="Banner" />    
 		    <div class="fullcontent">
                 <div class="contentpage">
                     <asp:ContentPlaceHolder ID="cph_Body" runat="server"></asp:ContentPlaceHolder>

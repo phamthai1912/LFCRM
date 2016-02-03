@@ -46,8 +46,7 @@
 FROM tbl_Title,tbl_TitleCategory
 WHERE tbl_Title.TitleCategoryID = tbl_TitleCategory.TitleCategoryID
 ORDER BY [3LD] DESC" 
-        DeleteCommand="DELETE FROM tbl_Title
-WHERE [3LD] = @3LD" >
+        >
 </asp:SqlDataSource>
     <asp:SqlDataSource ID="SqlDataSource2" runat="server" ConnectionString="Data Source=LGDN14091\SQLEXPRESS;Initial Catalog=LFCRM;User ID=sa;Password=qwe123" ProviderName="System.Data.SqlClient" SelectCommand="SELECT [Category] FROM [tbl_TitleCategory] ORDER BY [Category]"></asp:SqlDataSource>
     
@@ -97,8 +96,7 @@ WHERE [3LD] = @3LD" >
                     <ItemTemplate>
                         <asp:LinkButton ID="btn_delete" runat="server" CausesValidation="False" 
                             data-toggle="tooltip" data-placement="top" title="Delete Title"
-                            CommandName="Delete" class="btn btn-success" 
-                            OnClientClick="return confirm('Are you sure you want to delete this Title?');" 
+                            CommandName="delete_title" class="btn btn-success" 
                             CommandArgument="<%# ((GridViewRow) Container).RowIndex %>">
                             <span class="glyphicon glyphicon-trash"></span>
                         </asp:LinkButton>
@@ -254,6 +252,37 @@ WHERE [3LD] = @3LD" >
                     </ContentTemplate>
                         <Triggers> 
                             <asp:AsyncPostBackTrigger ControlID="btn_add" EventName="Click"/>
+                        </Triggers>
+                    </asp:UpdatePanel>
+                </div>
+            </div>
+        </div>
+    <!-----------------------------DELETE MODAL-------------------------------->     
+    <div id="DeleteModal" class="modal fade">
+            <div class="modal-dialog" >
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h4 class="modal-title">Delete Titles</h4>
+                    </div>
+                    <asp:UpdatePanel ID="UpdatePanel4" runat="server">
+                    <ContentTemplate>
+                    <div class="modal-body" style=" margin-top: 10px; margin-bottom: 50px;">
+                        <center><span><h4>Are you sure you want to delete?</h4></span><br />
+                            <h3><strong><asp:Label ID="lb_deletetitle" runat="server" ></asp:Label></strong></h3><br />
+                            <h4>
+                                <asp:Label ID="lb_deletestatus" runat="server" CssClass="label label-danger"></asp:Label>
+                            </h4>
+
+                        </center>
+                    </div>
+                    <div class="modal-footer">
+                        <asp:Button ID="btn_ok" runat="server" Text="OK" class="btn btn-success" OnClick="btn_ok_Click"/>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    </div>
+                    </ContentTemplate>
+                        <Triggers> 
+                            <asp:AsyncPostBackTrigger ControlID="btn_ok" EventName="Click"/>
                         </Triggers>
                     </asp:UpdatePanel>
                 </div>

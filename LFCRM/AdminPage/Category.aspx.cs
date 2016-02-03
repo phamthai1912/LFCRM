@@ -54,6 +54,8 @@ namespace LFCRM.AdminPage
                 GridViewRow gvrow = GridView1.Rows[index];
                 lb_deletecategory.Text = HttpUtility.HtmlDecode(gvrow.Cells[0].Text).ToString();
 
+                lb_deletestatus.Visible = false;
+
                 System.Text.StringBuilder sb = new System.Text.StringBuilder();
                 sb.Append(@"<script type='text/javascript'>");
                 sb.Append("$('#DeleteModal').modal('show');");
@@ -68,13 +70,7 @@ namespace LFCRM.AdminPage
             string oricate = category.getCategory(cateid);
             string cate = txt_cate.Text;
 
-            if (cate == "")
-            {
-                lb_cate.Visible = true;
-                lb_cate.Text = "Category Name should not be empty";
-                lb_cate.Attributes["class"] = "label label-danger";
-            }
-            else if (cate.Equals(oricate) == false)
+            if (cate.Equals(oricate) == false)
             {
                 if (category.checkCategoryExist(cate) == true)
                 {
@@ -96,14 +92,7 @@ namespace LFCRM.AdminPage
 
             string oricate = category.getCategory(cateid);
 
-            if (cate == "")
-            {
-                lb_cate.Visible = true;
-                lb_cate.Text = "Category Name should not be empty";
-                lb_cate.Attributes["class"] = "label label-danger";
-            }
-
-            else if (cate.Equals(oricate) == false)
+            if (cate.Equals(oricate) == false)
             {
                 if (category.checkCategoryExist(cate) == true)
                 {
@@ -128,6 +117,52 @@ namespace LFCRM.AdminPage
                 }
                 else if (category.checkCategoryExist(cate) == false && colorcode != "")
                 {
+                    if (colorcode.Equals(oricolor) == false)
+                    {
+                        if (category.checkColorExist(colorcode) == false)
+                        {
+                            lb_color.Visible = false;
+
+                            //Update Title
+                            category.updateCategory(cateid, cate, colorcode);
+                            GridView1.DataBind();
+
+                            //Close modal
+                            System.Text.StringBuilder sb = new System.Text.StringBuilder();
+                            sb.Append(@"<script type='text/javascript'>");
+                            sb.Append("$('#editModal').modal('hide');");
+                            sb.Append(@"</script>");
+                            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "EditHideModalScript", sb.ToString(), false);
+                        }
+                        else
+                        {
+                            lb_color.Visible = true;
+                            lb_color.Text = "This color exists for other Category. Please try other color";
+                            lb_color.Attributes["class"] = "label label-danger";
+                        }
+                    }
+                    else
+                    {
+                        lb_color.Visible = false;
+
+                        //Update Title
+                        category.updateCategory(cateid, cate, colorcode);
+                        GridView1.DataBind();
+
+                        //Close modal
+                        System.Text.StringBuilder sb = new System.Text.StringBuilder();
+                        sb.Append(@"<script type='text/javascript'>");
+                        sb.Append("$('#editModal').modal('hide');");
+                        sb.Append(@"</script>");
+                        ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "EditHideModalScript", sb.ToString(), false);
+                    }
+                }
+            }
+
+            else if (colorcode != "")
+            {
+                if (colorcode.Equals(oricolor) == false)
+                {
                     if (category.checkColorExist(colorcode) == false)
                     {
                         lb_color.Visible = false;
@@ -150,11 +185,7 @@ namespace LFCRM.AdminPage
                         lb_color.Attributes["class"] = "label label-danger";
                     }
                 }
-            }
-
-            else if (colorcode != "")
-            {
-                if (category.checkColorExist(colorcode) == false)
+                else
                 {
                     lb_color.Visible = false;
 
@@ -168,12 +199,6 @@ namespace LFCRM.AdminPage
                     sb.Append("$('#editModal').modal('hide');");
                     sb.Append(@"</script>");
                     ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "EditHideModalScript", sb.ToString(), false);
-                }
-                else
-                {
-                    lb_color.Visible = true;
-                    lb_color.Text = "This color exists for other Category. Please try other color";
-                    lb_color.Attributes["class"] = "label label-danger";
                 }
             }
             else
@@ -266,16 +291,26 @@ namespace LFCRM.AdminPage
         protected void btn_ok_Click(object sender, EventArgs e)
         {
             string cate = lb_deletecategory.Text;
-            category.deleteCategory(cate);
 
-            GridView1.DataBind();
+            if (category.checkCategory(cate) == true)
+            {
+                lb_deletestatus.Visible = true;
+                lb_deletestatus.Text = "This category contains Titles, you cannot delete this Category.";
+            }
+            else
+            {
 
-            //Close modal
-            System.Text.StringBuilder sb = new System.Text.StringBuilder();
-            sb.Append(@"<script type='text/javascript'>");
-            sb.Append("$('#DeleteModal').modal('hide');");
-            sb.Append(@"</script>");
-            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "EditHideModalScript", sb.ToString(), false);
+                category.deleteCategory(cate);
+
+                GridView1.DataBind();
+
+                //Close modal
+                System.Text.StringBuilder sb = new System.Text.StringBuilder();
+                sb.Append(@"<script type='text/javascript'>");
+                sb.Append("$('#DeleteModal').modal('hide');");
+                sb.Append(@"</script>");
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "EditHideModalScript", sb.ToString(), false);
+            }
         }
 
     }

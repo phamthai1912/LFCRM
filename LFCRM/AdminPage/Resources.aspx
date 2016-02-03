@@ -176,6 +176,7 @@ WHERE tbl_User.UserRoleID = tbl_UserRole.UserRoleID"></asp:SqlDataSource>
                                             class="label label-danger"/><br />
                                     <asp:RegularExpressionValidator ErrorMessage="Invalid Email Format"
                                         ID="regexEmailValid" 
+                                        validationgroup="editvalidationgroup"
                                         Display="Dynamic"
                                         runat="server" 
                                         ValidationExpression="\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*" 
@@ -218,7 +219,10 @@ WHERE tbl_User.UserRoleID = tbl_UserRole.UserRoleID"></asp:SqlDataSource>
                         </table>
                     </div>
                     <div class="modal-footer">
-                        <asp:Button ID="btn_save" runat="server" Text="Save" class="btn btn-success" OnClick="btn_save_Click"/>
+                        <asp:Button ID="btn_save" 
+                            causesvalidation="true"
+                            validationgroup="editvalidationgroup"
+                            runat="server" Text="Save" class="btn btn-success" OnClick="btn_save_Click"/>
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     </div>
                     </ContentTemplate>
@@ -279,6 +283,7 @@ WHERE tbl_User.UserRoleID = tbl_UserRole.UserRoleID"></asp:SqlDataSource>
                                         </asp:RequiredFieldValidator><br />
                                     <asp:CompareValidator runat=server
                                         Display="Dynamic"
+                                        validationgroup="passvalidationgroup"
                                         ControlToValidate=txt_newpass
                                         ControlToCompare=txt_confirmnewpass 
                                         ErrorMessage="Passwords do not match."
@@ -288,7 +293,10 @@ WHERE tbl_User.UserRoleID = tbl_UserRole.UserRoleID"></asp:SqlDataSource>
                         </table>
                     </div>
                     <div class="modal-footer">
-                        <asp:Button ID="btn_update" runat="server" Text="Update" class="btn btn-success" OnClick="btn_update_Click"/>
+                        <asp:Button ID="btn_update" 
+                            causesvalidation="true"
+                            validationgroup="passvalidationgroup"
+                            runat="server" Text="Update" class="btn btn-success" OnClick="btn_update_Click"/>
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     </div>
                     </ContentTemplate>
@@ -355,6 +363,7 @@ WHERE tbl_User.UserRoleID = tbl_UserRole.UserRoleID"></asp:SqlDataSource>
                                             Display="Dynamic" runat="server" 
                                             CssClass="label label-danger"/>
                                     <asp:CompareValidator ControlToValidate="txt_newid" 
+                                        validationgroup="addvalidationgroup"
                                         runat="server" ErrorMessage="Please enter number only" 
                                         Display="Dynamic"
                                         Operator="DataTypeCheck" Type="Integer" CssClass="label label-danger">
@@ -402,6 +411,7 @@ WHERE tbl_User.UserRoleID = tbl_UserRole.UserRoleID"></asp:SqlDataSource>
                                     <asp:RegularExpressionValidator ErrorMessage="Invalid Email Format"
                                         Display="Dynamic"
                                         ID="Emailvalidation2" 
+                                        validationgroup="addvalidationgroup"
                                         runat="server" 
                                         ValidationExpression="\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*" 
                                         ControlToValidate="txt_newmail"                                         
@@ -429,7 +439,11 @@ WHERE tbl_User.UserRoleID = tbl_UserRole.UserRoleID"></asp:SqlDataSource>
                         </table>
                     </div>
                     <div class="modal-footer">
-                        <asp:Button ID="btn_add" runat="server" Text="Add" class="btn btn-success" OnClick="btn_add_Click"/>
+                        <asp:Button ID="btn_add" 
+                            causesvalidation="true"
+                            validationgroup="addvalidationgroup"
+                            va
+                            runat="server" Text="Add" class="btn btn-success" OnClick="btn_add_Click"/>
                         <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
                     </div>
                     </ContentTemplate>

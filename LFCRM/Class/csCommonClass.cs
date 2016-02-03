@@ -56,6 +56,5 @@ namespace LFCRM.Class
 
             return ddl;
         }
-        
     }
 }

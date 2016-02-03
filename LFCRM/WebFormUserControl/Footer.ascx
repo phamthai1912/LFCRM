@@ -2,7 +2,7 @@
 <footer>
     <div class="footer">
 		<div class="footer-text">
-			Design by LF Content 2015
+			Designed by Thai Pham & Tan Vo - Jan/2015
 		</div>
 		
 	</div>

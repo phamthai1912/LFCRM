@@ -47,6 +47,19 @@ namespace LFCRM.AdminPage
                 sb.Append(@"</script>");
                 ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "EditModalScript", sb.ToString(), false);
             }
+            if (e.CommandName.Equals("delete_title"))
+            {
+                GridViewRow gvrow = GridView1.Rows[index];
+                lb_deletetitle.Text = HttpUtility.HtmlDecode(gvrow.Cells[0].Text).ToString();
+
+                lb_deletestatus.Visible = false;
+
+                System.Text.StringBuilder sb = new System.Text.StringBuilder();
+                sb.Append(@"<script type='text/javascript'>");
+                sb.Append("$('#DeleteModal').modal('show');");
+                sb.Append(@"</script>");
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "EditModalScript", sb.ToString(), false);
+            }
         }
 
         protected void GridView1_RowDataBound(object sender, GridViewRowEventArgs e)
@@ -163,6 +176,10 @@ namespace LFCRM.AdminPage
 
         protected void btn_addnew_Click(object sender, EventArgs e)
         {
+            txt_new3ld.Text = "";
+            txt_newtitlename.Text = "";
+            txt_newtockcode.Text = "";
+
             lb_new3ld.Visible = false;
             lb_newtitlename.Visible = false;
 
@@ -229,6 +246,32 @@ namespace LFCRM.AdminPage
         protected void btn_changecolor_Click(object sender, EventArgs e)
         {
             lb_color1.Text = "";
+        }
+
+        protected void btn_ok_Click(object sender, EventArgs e)
+        {
+            String _3ld = lb_deletetitle.Text;
+
+            if (_titleManager.checkTitle(_3ld) == true)
+            {
+                lb_deletestatus.Visible = true;
+                lb_deletestatus.Text = "This title has allocation, you cannot delete this title";
+            }
+            else
+            {
+                lb_deletestatus.Visible = false;
+                _titleManager.deleteTitle(_3ld);
+
+                GridView1.DataBind();
+
+                //Close modal
+                System.Text.StringBuilder sb = new System.Text.StringBuilder();
+                sb.Append(@"<script type='text/javascript'>");
+                sb.Append("$('#DeleteModal').modal('hide');");
+                sb.Append("alert('Title Deleted Successfully');");
+                sb.Append(@"</script>");
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "EditHideModalScript", sb.ToString(), false);
+            }
         }       
     }
 }

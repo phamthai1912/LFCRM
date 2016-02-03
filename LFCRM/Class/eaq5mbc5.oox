@@ -57,6 +57,7 @@ namespace LFCRM.Class
             FilteredTextBoxExtender fteExpectedResouces = new FilteredTextBoxExtender();
             RequiredFieldValidator rfvInputTitle = new RequiredFieldValidator();
             RequiredFieldValidator rfvInputExpected = new RequiredFieldValidator();
+            //RegularExpressionValidator revExpectedResouces = new RegularExpressionValidator();
 
             tb1.ID = "txt_Title" + Id;
             tb1.AutoPostBack = true;
@@ -244,33 +245,6 @@ namespace LFCRM.Class
             DataTable tb = dbconnect.getDataTable(sql);
             if (tb.Rows.Count != 0) UserID = tb.Rows[0][0].ToString();
             return UserID;
-        }
-
-        public string getFullName(string ID)
-        {
-            string fullname = "";
-            string sql = "SELECT FullName FROM tbl_User WHERE EmployeeID = '" + ID + "'";
-            DataTable tb = dbconnect.getDataTable(sql);
-            if (tb.Rows.Count != 0) fullname = tb.Rows[0][0].ToString();
-            return fullname;
-        }
-
-        public string getProjectRoleName(string ID)
-        {
-            string str = "";
-            string sql = "SELECT ProjectRoleName FROM tbl_ProjectRole WHERE ProjectRoleID = '" + ID + "'";
-            DataTable tb = dbconnect.getDataTable(sql);
-            if (tb.Rows.Count != 0) str = tb.Rows[0][0].ToString();
-            return str;
-        }
-
-        public string getValueHours(string ID)
-        {
-            string str = "";
-            string sql = "SELECT Value FROM tbl_WorkingHours WHERE WorkingHoursID = '" + ID + "'";
-            DataTable tb = dbconnect.getDataTable(sql);
-            if (tb.Rows.Count != 0) str = tb.Rows[0][0].ToString();
-            return str;
         }
 
         //public string getProjectRoleID(string ProjectRoleName)
