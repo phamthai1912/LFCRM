@@ -108,4 +108,4 @@ E:\OneDrive\LFCRM\LFCRM\LFCRM\bin\Microsoft.Owin.Security.OAuth.xml
 E:\OneDrive\LFCRM\LFCRM\LFCRM\obj\Debug\LFCRM.dll
 E:\OneDrive\LFCRM\LFCRM\LFCRM\obj\Debug\LFCRM.pdb
 E:\OneDrive\LFCRM\LFCRM\LFCRM\bin\AjaxControlToolkit.dll
-E:\OneDrive\LFCRM\LFCRM\LFCRM\obj\Debug\LFCRM.csprojResolveAssemblyReference.cache
+E:\OneDrive\LFCRM\LFCRM\LFCRM\obj\Debug\LFCRM.csproj.ResolveComReference.cache

@@ -11,7 +11,8 @@ namespace LFCRM
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if ((bool)Session["LoggedIn"] == false) Response.Redirect("Login.aspx");
+            //check loggin permission
+            if ((bool)Session["LoggedIn"] == false) Response.Redirect("User/Login.aspx");
         }
     }
 }

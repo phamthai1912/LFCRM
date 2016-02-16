@@ -27,7 +27,7 @@ namespace LFCRM
                 Session["LoggedIn"] = true;
                 Session["FullName"] = login.GetFullName(txt_EmployeeID.Text);
                 Session["UserRole"] = login.GetUserRole(txt_EmployeeID.Text);
-                Response.Redirect("Default.aspx");
+                Response.Redirect("~/AdminPage/ResourceAllocation.aspx");
             }
             else
             {

@@ -11,6 +11,9 @@ using System.Drawing;
 using System.Data;
 using System.IO;
 using System.Text;
+using Microsoft.Office.Interop.Outlook;
+using System.Collections.Specialized;
+using System.Net.Mail;
 
 namespace LFCRM.AdminPage
 {
@@ -25,6 +28,10 @@ namespace LFCRM.AdminPage
         {
             if (!IsPostBack)
             {
+                //check admin permission
+                if ((bool)Session["LoggedIn"] == false) Response.Redirect("../UserPage/Login.aspx");
+                if (((bool)Session["LoggedIn"] == true) && ((string)Session["UserRole"] != "Admin")) Response.Redirect("../UserPage/Default.aspx");
+
                 ViewState["TitleCounter"] = 0;
                 ViewState["ResourceCounter"] = 0;
 
@@ -98,6 +105,8 @@ namespace LFCRM.AdminPage
             tb.Text = "";
             lb.Text = "N/A";
             UpdateActualResource();
+            UpdateTrainResource();
+            UpdateTrainResource();
             ph_DynamicResourceTableRow.FindControl("tbr_ContentResource" + Regex.Match(buttonId, @"\d+").Value).Visible = false;
             UpdateHeadcountLabel();
             UpdateTotalAssignedLabel();
@@ -156,8 +165,9 @@ namespace LFCRM.AdminPage
                         {
                             TextBox tb2 = (TextBox)ph_DynamicResourceTableRow.FindControl("txt_ExpectedResouces" + i);
                             Label lb = (Label)ph_DynamicTitleTableRow.FindControl("lbl_ActualResources" + i);
+                            Label lb2 = (Label)ph_DynamicTitleTableRow.FindControl("lbl_TrainResources" + i);
 
-                            RA.addTitleAllocation(date, tb1.Text, tb2.Text, lb.Text);
+                            RA.addTitleAllocation(date, tb1.Text, tb2.Text, lb.Text, lb2.Text);
                             ok_ta = true;
                         }
                         else
@@ -259,7 +269,90 @@ namespace LFCRM.AdminPage
 
         protected void btn_Export_Click(object sender, EventArgs e)
         {
+            ResourceTableSort("Role DESC");
+            ResourceTableSort("Title ASC");
 
+            string tb_title = "<table id='title' style='width: 380px' class='table-striped table-bordered table-condensed' >"
+                                + "<tr><td style='width: 200px;'><b>3LD</b></td><td><b>Bill</b></td><td><b>Actual</b></td><td><b>Train</b></td></tr>";
+            string tb_resource = "<table id='resource' style='width: 750px;' class='table table-striped table-bordered table-condensed' >"
+                            + "<tr><td><b>ID</b></td><td><b>Name</b></td><td><b>Role</b></td><td><b>Title</b></td><td style='width: 150px;'><b>Working Hours</b></td></tr>";
+            string tb_headcount = "<table id='headcount' style='width: 380px;' class='table-striped table-bordered table-condensed' >"
+                                        + "<tr><td style='width: 261px;'><strong>Headcount</strong></td><td style='color: red'><b>" + lbl_headCount.Text + "</b></td></tr>"
+                                        +"<tr><td>Total Billing</td><td><b>"+lbl_totalBilling.Text+"</b></td></tr>"
+                                        +"<tr><td>Total Assigned</td><td style='color: #33CC33'><b>"+lbl_totalAssigned.Text+"</b></td></tr>"
+                                        +"<tr><td>Total Trainee & Trainer</td><td><b>"+lbl_totalTrainee.Text+"</b></td></tr>"
+                                        +"<tr><td>Off</td><td><b>"+lbl_Off.Text+"</b></td></tr>"
+                                    +"</table>";
+            string temp_title = "";
+            string class_title="";
+
+            for (int i = 1; i <= (int)ViewState["TitleCounter"]; i++)
+            {
+                TextBox tb1 = (TextBox)ph_DynamicTitleTableRow.FindControl("txt_Title" + i.ToString());
+                TextBox tb2 = (TextBox)ph_DynamicTitleTableRow.FindControl("txt_ExpectedResouces" + i.ToString());
+                Label lbl1 = (Label)ph_DynamicTitleTableRow.FindControl("lbl_ActualResources" + i.ToString());
+                Label lbl2 = (Label)ph_DynamicTitleTableRow.FindControl("lbl_TrainResources" + i.ToString());
+                Color myColor = lbl1.ForeColor;
+
+                if (tb1.Text != "") tb_title = tb_title + "<tr><td>" + tb1.Text + "</td><td>" + tb2.Text + "</td><td style='color: " + myColor.ToString().Split('[', ']')[1] + "'><b>" + lbl1.Text + "</b></td><td>" + lbl2.Text + "</td></tr>";
+            }
+
+            for (int i = 1; i <= (int)ViewState["ResourceCounter"]; i++)
+            {
+                Label lbl1 = (Label)ph_DynamicResourceTableRow.FindControl("lbl_ResourceID" + i.ToString());
+                TextBox tb1 = (TextBox)ph_DynamicResourceTableRow.FindControl("txt_Resource" + i.ToString());
+                DropDownList ddl1 = (DropDownList)ph_DynamicResourceTableRow.FindControl("ddl_Role" + i.ToString());
+                DropDownList ddl2 = (DropDownList)ph_DynamicResourceTableRow.FindControl("ddl_Title" + i.ToString());
+                DropDownList ddl3 = (DropDownList)ph_DynamicResourceTableRow.FindControl("ddl_WorkingHours" + i.ToString());
+                Color myColor = ddl1.BorderColor;
+                string title= ddl2.SelectedItem.Text;
+
+                if (title == "- Select Item -") title = "N/A";
+                if (tb1.Text != "")
+                {
+                    if (temp_title != title)
+                    {
+                        temp_title = title;
+                        if (class_title == "warning") class_title = "danger";
+                        else class_title = "warning";
+                    }
+                    tb_resource = tb_resource + "<tr class='" + class_title + "'><td>" + lbl1.Text + "</td><td>" + tb1.Text + "</td><td style='color: " + myColor.ToString().Split('[', ']')[1] + "'>" + ddl1.SelectedItem.Text + "</td><td>" + title + "</td><td>" + ddl3.SelectedItem.Text + "</td></tr>";
+                }
+            }
+
+            string tb_final = "<table valign='top'"
+                                    + "<tr><td valign='top' style='height: 100px'>" + tb_title + "</table></td><td rowspan='2'>&nbsp;&nbsp;&nbsp;</td><td rowspan='2' valign='top'>" + tb_resource + "</table></td></tr>"
+                                    + "<tr><td valign='top'> <br />" + tb_headcount + "</td></tr>"
+                              + "</table><br /><br />";
+            //try
+            //{
+            //    Application OutlookApplication = new Application();
+            //    MailItem email = (MailItem)OutlookApplication.CreateItem(OlItemType.olMailItem);
+            //    email.Subject = "[LFDN] - Resource allocation for Content (" + System.DateTime.Now.ToString("ddd") + ")";
+            //    email.HTMLBody = tb_final;
+            //    email.Display(true);
+            //}
+            //catch (System.Exception ex)
+            //{
+            //    throw ex;
+            //}
+
+            //lbl_titlexport.Text = "[LFDN] - Resource allocation for Content (" + System.DateTime.Now.ToString("ddd") + ")";
+            //lbl_contentexport.Text = tb_final;
+            //Label1.Text = "[LFDN] - Resource allocation for Content (" + System.DateTime.Now.ToString("ddd") + ")";
+
+            //System.Text.StringBuilder sb = new System.Text.StringBuilder();
+            //sb.Append(@"<script type='text/javascript'>");
+            //sb.Append("$('#modal_export').modal('show');");
+            //sb.Append(@"</script>");
+            //ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "ExportModal", sb.ToString(), false);
+
+            lbl_titlexport.Text = "[LFDN] - Resource allocation for Content (" + System.DateTime.Now.ToString("ddd") + ")";
+            lbl_noRsReport.Text = lbl_totalBilling.Text;
+            lbl_contentexport.Text = tb_final;
+
+            TableResourceAllocation.Visible = false;
+            TableReport.Visible = true;
         }
 
         protected void tb_TitleTextChanged_event(object sender, EventArgs e)
@@ -322,18 +415,20 @@ namespace LFCRM.AdminPage
 
         protected void ddl_TitleSelectedIndexChannged_event(object sender, EventArgs e)
         {
-            DropDownList ddl1 = (DropDownList)sender;
-            string ddlId = ddl1.ID;
-            TableRow tbr = (TableRow)ph_DynamicResourceTableRow.FindControl("tbr_ContentResource" + Regex.Match(ddlId, @"\d+").Value);
-            tbr.BorderColor = Color.Red;
+            //DropDownList ddl1 = (DropDownList)sender;
+            //string ddlId = ddl1.ID;
+            //TableRow tbr = (TableRow)ph_DynamicResourceTableRow.FindControl("tbr_ContentResource" + Regex.Match(ddlId, @"\d+").Value);
+            //tbr.BorderColor = Color.Red;
 
             UpdateActualResource();
+            UpdateTrainResource();
             UpdateTotalAssignedLabel();
         }
 
         protected void ddl_WorkingHoursSelectedIndexChannged_event(object sender, EventArgs e)
         {
             UpdateActualResource();
+            UpdateTrainResource();
             UpdateTotalAssignedLabel();
             UpdateTotalTrainee();
             UpdateTotalOff();
@@ -347,6 +442,8 @@ namespace LFCRM.AdminPage
             ChangeRole(Regex.Match(ddlId, @"\d+").Value);
             UpdateTotalTrainee();
             UpdateTotalOff();
+            UpdateActualResource();
+            UpdateTrainResource();
         }
 
         public void HandleAddTitle(string id)
@@ -426,9 +523,11 @@ namespace LFCRM.AdminPage
                 {
                     DropDownList ddl = new DropDownList();
                     DropDownList ddl2 = new DropDownList();
+                    DropDownList ddl3 = new DropDownList();
                     ddl = (DropDownList)ph_DynamicResourceTableRow.FindControl("ddl_Title" + j.ToString());
                     ddl2 = (DropDownList)ph_DynamicResourceTableRow.FindControl("ddl_WorkingHours" + j.ToString());
-                    if (ddl2.SelectedItem.Text != "OFF")
+                    ddl3 = (DropDownList)ph_DynamicResourceTableRow.FindControl("ddl_Role" + j.ToString());
+                    if ((ddl3.SelectedItem.Text == "Core") || (ddl3.SelectedItem.Text == "Billable") || (ddl3.SelectedItem.Text == "Backup"))
                         if (ddl.SelectedItem.Text == tb.Text) count = count + Convert.ToDouble(ddl2.SelectedItem.Text) / 8;
                 }
 
@@ -440,6 +539,41 @@ namespace LFCRM.AdminPage
                     else if (Convert.ToDouble(tb2.Text) == count) lbl.ForeColor = Color.LightGreen;
                     else lbl.ForeColor = Color.Black;
                 }
+            }
+        }
+
+        public void UpdateTrainResource()
+        {
+            for (int i = 1; i <= (int)ViewState["TitleCounter"]; i++)
+            {
+                double count = 0;
+                TextBox tb = new TextBox();
+                TextBox tb2 = new TextBox();
+                Label lbl = new Label();
+                tb = (TextBox)ph_DynamicTitleTableRow.FindControl("txt_Title" + i.ToString());
+                //tb2 = (TextBox)ph_DynamicTitleTableRow.FindControl("txt_ExpectedResouces" + i.ToString());
+                lbl = (Label)ph_DynamicTitleTableRow.FindControl("lbl_TrainResources" + i.ToString());
+
+                for (int j = 1; j <= (int)ViewState["ResourceCounter"]; j++)
+                {
+                    DropDownList ddl = new DropDownList();
+                    DropDownList ddl2 = new DropDownList();
+                    DropDownList ddl3 = new DropDownList();
+                    ddl = (DropDownList)ph_DynamicResourceTableRow.FindControl("ddl_Title" + j.ToString());
+                    ddl2 = (DropDownList)ph_DynamicResourceTableRow.FindControl("ddl_WorkingHours" + j.ToString());
+                    ddl3 = (DropDownList)ph_DynamicResourceTableRow.FindControl("ddl_Role" + j.ToString());
+                    if ((ddl3.SelectedItem.Text == "Trainee") || (ddl3.SelectedItem.Text == "Trainer"))
+                        if (ddl.SelectedItem.Text == tb.Text) count = count + Convert.ToDouble(ddl2.SelectedItem.Text) / 8;
+                }
+
+                lbl.Text = count.ToString();
+
+                //if (tb2.Text != "")
+                //{
+                //    if (Convert.ToDouble(tb2.Text) < count) lbl.ForeColor = Color.Red;
+                //    else if (Convert.ToDouble(tb2.Text) == count) lbl.ForeColor = Color.LightGreen;
+                //    else lbl.ForeColor = Color.Black;
+                //}
             }
         }
 
@@ -614,6 +748,7 @@ namespace LFCRM.AdminPage
             UpdateTotalBillingLabel();
             UpdateTotalOff();
             UpdateTotalAssignedLabel();
+            UpdateTotalTrainee();
         }
 
         public void ChangeRole(string idRow)
@@ -643,6 +778,18 @@ namespace LFCRM.AdminPage
                 ddl2.Enabled = true;
                 rfvSelectTitle.Enabled = true;
                 ddl1.BorderColor = Color.Green;
+            }
+            else if (ddl1.SelectedItem.Text == "Backup")
+            {
+                ddl2.Enabled = true;
+                rfvSelectTitle.Enabled = true;
+                ddl1.BorderColor = Color.Blue;
+            }
+            else if ((ddl1.SelectedItem.Text == "Trainer") || (ddl1.SelectedItem.Text == "Trainee"))
+            {
+                ddl2.Enabled = true;
+                rfvSelectTitle.Enabled = true;
+                ddl1.BorderColor = Color.Gold;
             }
             else
             {
@@ -699,10 +846,12 @@ namespace LFCRM.AdminPage
                 TextBox tb1 = (TextBox)ph_DynamicTitleTableRow.FindControl("txt_Title" + j.ToString());
                 TextBox tb2 = (TextBox)ph_DynamicTitleTableRow.FindControl("txt_ExpectedResouces" + j.ToString());
                 Label lbl1 = (Label)ph_DynamicTitleTableRow.FindControl("lbl_ActualResources" + j.ToString());
+                Label lbl2 = (Label)ph_DynamicTitleTableRow.FindControl("lbl_TrainResources" + j.ToString());
 
                 tb1.Text = dt.Rows[i].ItemArray[1].ToString();
                 tb2.Text = dt.Rows[i].ItemArray[2].ToString();
                 lbl1.Text = dt.Rows[i].ItemArray[3].ToString();
+                lbl2.Text = dt.Rows[i].ItemArray[4].ToString();
 
                 if (tb2.Text != "")
                 {
@@ -713,22 +862,35 @@ namespace LFCRM.AdminPage
             }
         }
 
-        public override void VerifyRenderingInServerForm(Control control)
+        private string ReadSignature()
         {
-            /* Confirms that an HtmlForm control is rendered for the specified ASP.NET
-               server control at run time. */
-            return;
+            string appDataDir = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Microsoft\\Signatures";
+            string signature = string.Empty;
+            DirectoryInfo diInfo = new DirectoryInfo(appDataDir);
+
+            if (diInfo.Exists)
+            {
+                FileInfo[] fiSignature = diInfo.GetFiles("*.htm");
+
+                if (fiSignature.Length > 0)
+                {
+                    StreamReader sr = new StreamReader(fiSignature[0].FullName, Encoding.Default);
+                    signature = sr.ReadToEnd();
+
+                    if (!string.IsNullOrEmpty(signature))
+                    {
+                        string fileName = fiSignature[0].Name.Replace(fiSignature[0].Extension, string.Empty);
+                        signature = signature.Replace(fileName + "_files/", appDataDir + "/" + fileName + "_files/");
+                    }
+                }
+            }
+            return signature;
         }
 
-        protected override void OnInit(EventArgs e)
+        protected void btn_closeReport_Click(object sender, EventArgs e)
         {
-            base.OnInit(e);
-            if (this.DesignMode == true)
-            {
-                this.EnsureChildControls();
-            }
-            this.Page.RegisterRequiresControlState(this);
-        } 
-
+            TableResourceAllocation.Visible = true;
+            TableReport.Visible = false;
+        }
     }
 }

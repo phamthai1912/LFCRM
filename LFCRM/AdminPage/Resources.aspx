@@ -323,8 +323,9 @@ WHERE tbl_User.UserRoleID = tbl_UserRole.UserRoleID"></asp:SqlDataSource>
                                 <asp:Label ID="lb_deleteid" runat="server"></asp:Label><br />
                                 Name:
                                 <asp:Label ID="lb_deleteuser" runat="server" ></asp:Label>
-
-                                </strong></h3>
+                                </strong></h3>  
+                            
+                             <h5><asp:Label ID="lb_deletestatus" runat="server" CssClass="label label-danger"></asp:Label> </h5>                         
                         </center>
                     </div>
                     <div class="modal-footer">
@@ -402,12 +403,6 @@ WHERE tbl_User.UserRoleID = tbl_UserRole.UserRoleID"></asp:SqlDataSource>
                                 </td>
                                 <td class="modal-body">
                                     <asp:TextBox ID="txt_newmail" runat="server" class="form-control"></asp:TextBox>
-                                    <asp:RequiredFieldValidator ErrorMessage="Email should not be null" 
-                                            Display="Dynamic"
-                                            validationgroup="addvalidationgroup"
-                                            ControlToValidate="txt_newmail"
-                                            runat="server" 
-                                            class="label label-danger"/><br />
                                     <asp:RegularExpressionValidator ErrorMessage="Invalid Email Format"
                                         Display="Dynamic"
                                         ID="Emailvalidation2" 

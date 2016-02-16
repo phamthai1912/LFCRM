@@ -12,7 +12,13 @@ namespace LFCRM.AdminPage
         Class.csCategory category = new Class.csCategory();
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!IsPostBack)
+            {
+                //check admin permission
+                if ((bool)Session["LoggedIn"] == false) Response.Redirect("../UserPage/Login.aspx");
+                if (((bool)Session["LoggedIn"] == true) && ((string)Session["UserRole"] != "Admin")) Response.Redirect("../UserPage/Default.aspx");
 
+            }
         }
 
         protected void GridView1_RowDataBound(object sender, GridViewRowEventArgs e)

@@ -21,6 +21,7 @@ namespace LFCRM
         void Session_Start(object sender, EventArgs e)
         {
             Session["LoggedIn"] = false;
+            Session.Timeout = 100;
         }
     }
 }

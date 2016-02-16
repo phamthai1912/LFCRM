@@ -11,16 +11,16 @@ namespace LFCRM
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            //lbl_fullname.Text = Session["FullName"].ToString();
+            if ((bool)Session["LoggedIn"] == true) lbl_fullname.Text = Session["FullName"].ToString();
 
             if ((string)Session["UserRole"] == "Admin") menu_admin.Visible = true;
             else if ((string)Session["UserRole"] == "User") menu_user.Visible = true;
         }
 
-        protected void btn_logout_Click(object sender, EventArgs e)
+        protected void btn_logout_Click(object sender, ImageClickEventArgs e)
         {
             Session["LoggedIn"] = false;
-            Response.Redirect("Login.aspx");
+            Response.Redirect("../UserPage/Login.aspx");
         }
     }
 }

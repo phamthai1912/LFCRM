@@ -43,6 +43,7 @@ namespace LFCRM.Class
         {
             TextBox tb1 = new TextBox();
             TextBox tb2 = new TextBox();
+            Label lbl1 = new Label();
             Label lbl2 = new Label();
             Label lbl3 = new Label();
             Label lbl4 = new Label();
@@ -53,6 +54,7 @@ namespace LFCRM.Class
             TableCell tbc2 = new TableCell();
             TableCell tbc3 = new TableCell();
             TableCell tbc4 = new TableCell();
+            TableCell tbc5 = new TableCell();
             AutoCompleteExtender autoCompleteExtender = new AjaxControlToolkit.AutoCompleteExtender();
             FilteredTextBoxExtender fteExpectedResouces = new FilteredTextBoxExtender();
             RequiredFieldValidator rfvInputTitle = new RequiredFieldValidator();
@@ -62,6 +64,8 @@ namespace LFCRM.Class
             tb1.AutoPostBack = true;
             tb2.ID = "txt_ExpectedResouces" + Id;
             tb2.AutoPostBack = true;
+            lbl1.ID = "lbl_TrainResources" + Id;
+            lbl1.Text = "0";
             lbl2.ID = "lbl_ActualResources" + Id;
             lbl2.Font.Bold = true;
             lbl2.Text = "0";
@@ -114,11 +118,13 @@ namespace LFCRM.Class
             tbc2.Controls.Add(rfvInputExpected);
             tbc2.Controls.Add(fteExpectedResouces);
             tbc3.Controls.Add(lbl2);
-            tbc4.Controls.Add(btn);
+            tbc4.Controls.Add(lbl1);
+            tbc5.Controls.Add(btn);
             tbr.Cells.Add(tbc1);
             tbr.Cells.Add(tbc2);
             tbr.Cells.Add(tbc3);
             tbr.Cells.Add(tbc4);
+            tbr.Cells.Add(tbc5);
 
             return new Tuple<TableRow, Button, TextBox, TextBox>(tbr, btn, tb1, tb2);
         }
@@ -273,6 +279,15 @@ namespace LFCRM.Class
             return str;
         }
 
+        public string getColorCode(string _LD)
+        {
+            string str = "";
+            string sql = "SELECT ColorCode FROM tbl_Title WHERE [3LD] = '" + _LD + "'";
+            DataTable tb = dbconnect.getDataTable(sql);
+            if (tb.Rows.Count != 0) str = tb.Rows[0][0].ToString();
+            return str;
+        }
+
         //public string getProjectRoleID(string ProjectRoleName)
         //{
         //    string ProjectRoleID = "";
@@ -319,10 +334,10 @@ namespace LFCRM.Class
             dbconnect.ExeCuteNonQuery(sql);
         }
 
-        public void addTitleAllocation(string date, string _3LD, string ExpectedResourceQuantity, string ActualResourceQuantity)
+        public void addTitleAllocation(string date, string _3LD, string ExpectedResourceQuantity, string ActualResourceQuantity, string TrainResourceQuantity)
         {
-            string sql = "INSERT INTO tbl_TitleAllocation (Date,[3LD],ExpectedResourceQuantity,ActualResourceQuantity) " +
-                        "VALUES ('" + date + "','" + _3LD + "','" + ExpectedResourceQuantity + "','" + ActualResourceQuantity + "')";
+            string sql = "INSERT INTO tbl_TitleAllocation (Date,[3LD],ExpectedResourceQuantity,ActualResourceQuantity,TrainResourceQuantity) " +
+                        "VALUES ('" + date + "','" + _3LD + "','" + ExpectedResourceQuantity + "','" + ActualResourceQuantity + "','" + TrainResourceQuantity + "')";
 
             dbconnect.ExeCuteNonQuery(sql);
         }

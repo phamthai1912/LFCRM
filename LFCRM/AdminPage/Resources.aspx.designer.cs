@@ -265,6 +265,15 @@ namespace LFCRM.AdminPage {
         protected global::System.Web.UI.WebControls.Label lb_deleteuser;
         
         /// <summary>
+        /// lb_deletestatus control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lb_deletestatus;
+        
+        /// <summary>
         /// btn_ok control.
         /// </summary>
         /// <remarks>

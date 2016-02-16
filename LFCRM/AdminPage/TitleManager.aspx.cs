@@ -16,7 +16,12 @@ namespace LFCRM.AdminPage
         Class.csTitleManager _titleManager = new Class.csTitleManager();
         protected void Page_Load(object sender, EventArgs e)
         {
-                //load();
+            if (!IsPostBack)
+            {
+                //check admin permission
+                if ((bool)Session["LoggedIn"] == false) Response.Redirect("../UserPage/Login.aspx");
+                if (((bool)Session["LoggedIn"] == true) && ((string)Session["UserRole"] != "Admin")) Response.Redirect("../UserPage/Default.aspx");
+            }
         }
 
         protected void GridView1_RowCommand(object sender, GridViewCommandEventArgs e)
@@ -83,13 +88,15 @@ namespace LFCRM.AdminPage
             string colorcode = txt_color.Text;
             string oricolor = lb_oricolor.Text;
 
-            if (titlename == "")
-            {
-                lb_titlename.Visible = true;
-                lb_titlename.Text = "Title Name should not be empty";
-                lb_titlename.Attributes["class"] = "label label-danger";
-            }
-            else if (colorcode != "")
+            //if (titlename == "")
+            //{
+            //    lb_titlename.Visible = true;
+            //    lb_titlename.Text = "Title Name should not be empty";
+            //    lb_titlename.Attributes["class"] = "label label-danger";
+            //}
+            //else 
+                
+            if (colorcode != "")
             {
                 if (_titleManager.checkcolorExist(colorcode) == false)
                 {
@@ -150,12 +157,12 @@ namespace LFCRM.AdminPage
                 lb_new3ld.Text = "This 3LD exists, please enter other 3LD";
                 lb_new3ld.Attributes["class"] = "label label-danger";
             }
-            else if (txt_newtitlename.Text == "")
-            {
-                lb_newtitlename.Visible = true;
-                lb_newtitlename.Text = "Title Name should not be empty";
-                lb_newtitlename.Attributes["class"] = "label label-danger";
-            }
+            //else if (txt_newtitlename.Text == "")
+            //{
+            //    lb_newtitlename.Visible = true;
+            //    lb_newtitlename.Text = "Title Name should not be empty";
+            //    lb_newtitlename.Attributes["class"] = "label label-danger";
+            //}
             else 
             {
                 lb_new3ld.Visible = false;
@@ -197,16 +204,16 @@ namespace LFCRM.AdminPage
 
         protected void txt_titlename_TextChanged(object sender, EventArgs e)
         {
-            if (txt_titlename.Text == "")
-            {
-                lb_titlename.Visible = true;
-                lb_titlename.Text = "Title Name should not be empty";
-                lb_titlename.Attributes["class"] = "label label-danger";
-            }
-            else
-            {
-                lb_titlename.Visible = false;
-            }
+            //if (txt_titlename.Text == "")
+            //{
+            //    lb_titlename.Visible = true;
+            //    lb_titlename.Text = "Title Name should not be empty";
+            //    lb_titlename.Attributes["class"] = "label label-danger";
+            //}
+            //else
+            //{
+            //    lb_titlename.Visible = false;
+            //}
         }
 
         protected void txt_new3ld_TextChanged(object sender, EventArgs e)
@@ -231,16 +238,16 @@ namespace LFCRM.AdminPage
 
         protected void txt_newtitlename_TextChanged(object sender, EventArgs e)
         {
-            if (txt_newtitlename.Text == "")
-            {
-                lb_newtitlename.Visible = true;
-                lb_newtitlename.Text = "Title Name should not be empty";
-                lb_newtitlename.Attributes["class"] = "label label-danger";
-            }
-            else
-            {
-                lb_newtitlename.Visible = false;
-            }
+            //if (txt_newtitlename.Text == "")
+            //{
+            //    lb_newtitlename.Visible = true;
+            //    lb_newtitlename.Text = "Title Name should not be empty";
+            //    lb_newtitlename.Attributes["class"] = "label label-danger";
+            //}
+            //else
+            //{
+            //    lb_newtitlename.Visible = false;
+            //}
         }
 
         protected void btn_changecolor_Click(object sender, EventArgs e)

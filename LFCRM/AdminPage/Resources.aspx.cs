@@ -65,6 +65,7 @@ namespace LFCRM.AdminPage
                 GridViewRow gvrow = GridView1.Rows[index];
                 lb_deleteid.Text = HttpUtility.HtmlDecode(gvrow.Cells[0].Text).ToString();
                 lb_deleteuser.Text = HttpUtility.HtmlDecode(gvrow.Cells[1].Text).ToString();
+                lb_deletestatus.Visible = false;
 
                 System.Text.StringBuilder sb = new System.Text.StringBuilder();
                 sb.Append(@"<script type='text/javascript'>");
@@ -149,15 +150,24 @@ namespace LFCRM.AdminPage
         protected void btn_ok_Click(object sender, EventArgs e)
         {
             String id = lb_deleteid.Text;
-            resource.deleteResource(id);
-            GridView1.DataBind();
 
-            //Close modal
-            System.Text.StringBuilder sb = new System.Text.StringBuilder();
-            sb.Append(@"<script type='text/javascript'>");
-            sb.Append("$('#DeleteModal').modal('hide');");
-            sb.Append(@"</script>");
-            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "DeleteHideModalScript", sb.ToString(), false);
+            if (resource.checkUserAllocation(id) == true)
+            {
+                lb_deletestatus.Visible = true;
+                lb_deletestatus.Text = "This user exists in allocation. You cannot delete this user.";
+            }
+            else
+            {
+                resource.deleteResource(id);
+                GridView1.DataBind();
+
+                //Close modal
+                System.Text.StringBuilder sb = new System.Text.StringBuilder();
+                sb.Append(@"<script type='text/javascript'>");
+                sb.Append("$('#DeleteModal').modal('hide');");
+                sb.Append(@"</script>");
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "DeleteHideModalScript", sb.ToString(), false);
+            }
         }
 
         protected void btn_add_Click(object sender, EventArgs e)
@@ -207,6 +217,11 @@ namespace LFCRM.AdminPage
             sb.Append("$('#AddModal').modal('show');");
             sb.Append(@"</script>");
             ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "AddModalScript", sb.ToString(), false);
+        }
+
+        protected void txtSearch_TextChanged(object sender, EventArgs e)
+        {
+
         }
 
     }

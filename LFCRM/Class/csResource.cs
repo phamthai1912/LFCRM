@@ -24,6 +24,16 @@ namespace LFCRM.Class
             dbconnect.ExeCuteNonQuery(sql);
         }
 
+        public Boolean checkUserAllocation(String id)
+        {
+            String sql = "SELECT * FROM tbl_ResourceAllocation WHERE EmployeeID = '" + id + "'";
+            DataTable tb = dbconnect.getDataTable(sql);
+            if (tb.Rows.Count == 0)
+                return false;
+            else
+                return true;
+        }
+
         public Boolean idExist(String id)
         {
             String sql = "SELECT EmployeeID FROM tbl_User WHERE EmployeeID = '" + id + "'";
