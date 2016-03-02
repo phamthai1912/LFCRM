@@ -14,11 +14,44 @@
         
         <!--style-->
         <link href="/style.css" rel="stylesheet" />
-        <!-- bootstrap -->
         <link href="/Content/bootstrap.min.css" rel="stylesheet" />
-        <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
-             
+        <link href="/Scripts/Backgrounds.min.css" rel="stylesheet" />
+        <link href="/Scripts/Calendar.css" rel="stylesheet" />
+        <script src="/Scripts/jquery-1.10.2.js"></script>    
+        
+        <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/4.5.1/1/MicrosoftAjax.js"></script>
+        <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/4.5.1/1/WebForms.js"></script>
+        <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/4.5.1/1/MicrosoftAjaxWebForms.js"></script>
+        <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/act/15_1_4/Scripts/AjaxControlToolkit/Release/Common.js"></script>
+        <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/act/15_1_4/Scripts/AjaxControlToolkit/Release/Common.DateTime.js"></script>
+        <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/act/15_1_4/Scripts/AjaxControlToolkit/Release/Compat.Timer.js"></script>
+        <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/act/15_1_4/Scripts/AjaxControlToolkit/Release/BaseScripts.js"></script>
+        <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/act/15_1_4/Scripts/AjaxControlToolkit/Release/Animation.js"></script>
+        <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/act/15_1_4/Scripts/AjaxControlToolkit/Release/AnimationScripts.js"></script>
+        <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/act/15_1_4/Scripts/AjaxControlToolkit/Release/Common.Threading.js"></script>
+        <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/act/15_1_4/Scripts/AjaxControlToolkit/Release/Calendar.js"></script>
+        <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/act/15_1_4/Scripts/AjaxControlToolkit/Release/Popup.js"></script>
+        <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/act/15_1_4/Scripts/AjaxControlToolkit/Release/Localization.Resources.js"></script>
+        <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/act/15_1_4/Scripts/AjaxControlToolkit/Debug/Calendar.debug.js"></script>
+        <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/act/15_1_4/Content/AjaxControlToolkit/Styles/Calendar.css"></script>
+        <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/act/15_1_4/Scripts/AjaxControlToolkit/Debug/Localization.Resources.debug.js"></script>
+        <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/act/15_1_4/Scripts/AjaxControlToolkit/Debug/ComponentSet.debug.js"></script>
+        <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/act/15_1_4/Scripts/AjaxControlToolkit/Debug/Common.debug.js"></script>
+        <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/act/15_1_4/Scripts/AjaxControlToolkit/Debug/Common.DateTime.debug.js"></script>
+        <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/act/15_1_4/Scripts/AjaxControlToolkit/Debug/BaseScripts.debug.js"></script>
+        <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/act/15_1_4/Scripts/AjaxControlToolkit/Debug/Compat.Timer.debug.js"></script>
+        <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/act/15_1_4/Scripts/AjaxControlToolkit/Debug/AnimationScripts.debug.js"></script>
+        <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/act/15_1_4/Scripts/AjaxControlToolkit/Debug/Animation.debug.js"></script>
+        <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/act/15_1_4/Scripts/AjaxControlToolkit/Debug/Popup.debug.js"></script>
+        <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/act/15_1_4/Scripts/AjaxControlToolkit/Debug/Common.Threading.debug.js"></script>
+        <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/4.5.1/1/WebUIValidation.js"></script>
+        <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/act/15_1_4/Scripts/AjaxControlToolkit/Debug/AutoComplete.debug.js"></script>
+        <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/act/15_1_4/Scripts/AjaxControlToolkit/Debug/FilteredTextBox.debug.js"></script>
+        <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/act/15_1_4/Scripts/AjaxControlToolkit/Debug/ColorPicker.debug.js"></script>
 
+        <script>
+            jQuery.fn.validate || document.write('<script src="../Scripts/MicrosoftAjax.js">\x3C/script><script src="../Scripts/WebForms.js">\x3C/script><script src="../Scripts/MicrosoftAjaxWebForms.js">\x3C/script><script src="../Scripts/Common.js">\x3C/script><script src="../Scripts/Common.DateTime.js">\x3C/script><script src="../Scripts/Compat.Timer.js">\x3C/script><script src="../Scripts/BaseScripts.js">\x3C/script><script src="../Scripts/Animation.js">\x3C/script><script src="../Scripts/AnimationScripts.js">\x3C/script><script src="../Scripts/Common.Threading.js">\x3C/script><script src="../Scripts/Calendar.js">\x3C/script><script src="../Scripts/Popup.js">\x3C/script><script src="../Scripts/Localization.Resources.js">\x3C/script><script src="../Scripts/Calendar.debug.js">\x3C/script><script src="../Scripts/Calendar.css">\x3C/script><script src="../Scripts/Localization.Resources.debug.js">\x3C/script><script src="../Scripts/ComponentSet.debug.js">\x3C/script><script src="../Scripts/Common.debug.js">\x3C/script><script src="../Scripts/Common.DateTime.debug.js">\x3C/script><script src="../Scripts/BaseScripts.debug.js">\x3C/script><script src="../Scripts/Compat.Timer.debug.js">\x3C/script><script src="../Scripts/AnimationScripts.debug.js">\x3C/script><script src="../Scripts/Animation.debug.js">\x3C/script><script src="../Scripts/Popup.debug.js">\x3C/script><script src="../Scripts/Common.Threading.debug.js">\x3C/script><script src="../Scripts/WebUIValidation.js">\x3C/script><script src="../Scripts/AutoComplete.debug.js">\x3C/script><script src="../Scripts/FilteredTextBox.debug.js">\x3C/script><script src="../Scripts/ColorPicker.debug.js">\x3C/script><script src="../Scripts/jquery-1.10.2.js">\x3C/script>')
+        </script>
     </head>
 
 <body>

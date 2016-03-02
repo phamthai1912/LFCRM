@@ -85,13 +85,22 @@ namespace LFCRM.AdminPage {
         protected global::System.Web.UI.UpdatePanel UpdatePanel1;
         
         /// <summary>
-        /// lb_3ld control.
+        /// lb_titleid control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lb_3ld;
+        protected global::System.Web.UI.WebControls.Label lb_titleid;
+        
+        /// <summary>
+        /// txt_3ld control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txt_3ld;
         
         /// <summary>
         /// txt_titlename control.
@@ -299,6 +308,15 @@ namespace LFCRM.AdminPage {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lb_deletestatus;
+        
+        /// <summary>
+        /// lb_deleteid control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lb_deleteid;
         
         /// <summary>
         /// btn_ok control.

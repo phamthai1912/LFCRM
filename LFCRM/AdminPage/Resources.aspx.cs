@@ -24,8 +24,9 @@ namespace LFCRM.AdminPage
             if (e.CommandName.Equals("edit_resource"))
             {
                 GridViewRow gvrow = GridView1.Rows[index];
-
-                lb_id.Text = HttpUtility.HtmlDecode(gvrow.Cells[0].Text).ToString();
+                String _emid = HttpUtility.HtmlDecode(gvrow.Cells[0].Text).ToString();
+                lb_oriid.Text = _emid;
+                lb_id.Text = resource.getUserID(_emid);
                 txt_id.Text = HttpUtility.HtmlDecode(gvrow.Cells[0].Text).ToString();
                 txt_name.Text = HttpUtility.HtmlDecode(gvrow.Cells[1].Text).ToString();
                 txt_email.Text = HttpUtility.HtmlDecode(gvrow.Cells[2].Text).ToString();
@@ -52,6 +53,7 @@ namespace LFCRM.AdminPage
                 txt_confirmnewpass.Text = "";
 
                 lb_passid.Text = HttpUtility.HtmlDecode(gvrow.Cells[0].Text).ToString();
+                lb_userid.Text = resource.getUserID(lb_passid.Text);
 
                 System.Text.StringBuilder sb = new System.Text.StringBuilder();
                 sb.Append(@"<script type='text/javascript'>");
@@ -66,6 +68,8 @@ namespace LFCRM.AdminPage
                 lb_deleteid.Text = HttpUtility.HtmlDecode(gvrow.Cells[0].Text).ToString();
                 lb_deleteuser.Text = HttpUtility.HtmlDecode(gvrow.Cells[1].Text).ToString();
                 lb_deletestatus.Visible = false;
+
+                lb_deleteuserid.Text = resource.getUserID(lb_deleteid.Text);
 
                 System.Text.StringBuilder sb = new System.Text.StringBuilder();
                 sb.Append(@"<script type='text/javascript'>");
@@ -88,7 +92,8 @@ namespace LFCRM.AdminPage
 
         protected void btn_update_Click(object sender, EventArgs e)
         {
-            String id = lb_passid.Text;
+            String id = lb_userid.Text;
+
             String newpass = txt_confirmnewpass.Text;
             resource.updatePassword(id, newpass);
             GridView1.DataBind();
@@ -103,7 +108,8 @@ namespace LFCRM.AdminPage
 
         protected void btn_save_Click(object sender, EventArgs e)
         {
-            String origid = lb_id.Text;
+            String userid = lb_id.Text;
+            String origid = lb_oriid.Text;
             String id = txt_id.Text;
             String name = txt_name.Text;
             String email = txt_email.Text;
@@ -121,7 +127,7 @@ namespace LFCRM.AdminPage
                 else
                 {
                     lb_id1.Visible = false;
-                    resource.updateResource(origid, id, name, email, phone, role, active);
+                    resource.updateResource(userid, id, name, email, phone, role, active);
                     GridView1.DataBind();
 
                     //Close modal
@@ -135,7 +141,7 @@ namespace LFCRM.AdminPage
             else
             {
                 lb_id1.Visible = false;
-                resource.updateResource(origid, id, name, email, phone, role, active);
+                resource.updateResource(userid, id, name, email, phone, role, active);
                 GridView1.DataBind();
 
                 //Close modal
@@ -149,8 +155,7 @@ namespace LFCRM.AdminPage
 
         protected void btn_ok_Click(object sender, EventArgs e)
         {
-            String id = lb_deleteid.Text;
-
+            String id = lb_deleteuserid.Text;
             if (resource.checkUserAllocation(id) == true)
             {
                 lb_deletestatus.Visible = true;

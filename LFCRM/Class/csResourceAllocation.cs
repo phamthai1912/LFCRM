@@ -163,6 +163,7 @@ namespace LFCRM.Class
             ddl3.ID = "ddl_WorkingHours" + Id;
             ddl3.AutoPostBack = true;
             btn.ID = "btn_RemoveResource" + Id;
+            tbc4.ID = "tbc_TitleResource" + Id;
             tbr.ID = "tbr_ContentResource" + Id;
             btn.Text = " - ";
 
@@ -191,7 +192,7 @@ namespace LFCRM.Class
             rfvResourceName.CssClass = "label label-danger";
 
             ddl1 = commonClass.AddDBToDDL(ddl1, "SELECT ProjectRoleID, ProjectRoleName FROM tbl_ProjectRole");
-            ddl3 = commonClass.AddDBToDDL(ddl3, "SELECT WorkingHoursID, Value FROM tbl_WorkingHours");
+            ddl3 = commonClass.AddDBToDDL(ddl3, "SELECT WorkingHoursID, Value FROM tbl_WorkingHours ORDER BY Value Desc");
 
             autoCompleteExtender.CompletionListCssClass = "form-control";
             tb.ControlStyle.CssClass = "form-control";
@@ -243,7 +244,7 @@ namespace LFCRM.Class
                 return true;
         }
 
-        public string getEmployeeID(string fullname)
+        public string getEmployeeIDbyName(string fullname)
         {
             string UserID = "";
             string sql = "SELECT EmployeeID FROM tbl_User WHERE FullName = N'" + fullname + "'";
@@ -252,10 +253,46 @@ namespace LFCRM.Class
             return UserID;
         }
 
-        public string getFullName(string ID)
+        public string getIDbyEmployeeID(string eID)
+        {
+            string str = "";
+            string sql = "SELECT UserID FROM tbl_User WHERE EmployeeID = N'" + eID + "'";
+            DataTable tb = dbconnect.getDataTable(sql);
+            if (tb.Rows.Count != 0) str = tb.Rows[0][0].ToString();
+            return str;
+        }
+
+        public string getEmployeeIDbyID(string userID)
+        {
+            string str = "";
+            string sql = "SELECT EmployeeID FROM tbl_User WHERE UserID = N'" + userID + "'";
+            DataTable tb = dbconnect.getDataTable(sql);
+            if (tb.Rows.Count != 0) str = tb.Rows[0][0].ToString();
+            return str;
+        }
+
+        public string get3LDbyID(string titleID)
+        {
+            string str = "";
+            string sql = "SELECT [3LD] FROM tbl_title WHERE titleID = N'" + titleID + "'";
+            DataTable tb = dbconnect.getDataTable(sql);
+            if (tb.Rows.Count != 0) str = tb.Rows[0][0].ToString();
+            return str;
+        }
+      
+        public string getTitleIDby3LD(string _LD)
+        {
+            string str = "";
+            string sql = "SELECT TitleID FROM tbl_title WHERE [3LD] = N'" + _LD + "'";
+            DataTable tb = dbconnect.getDataTable(sql);
+            if (tb.Rows.Count != 0) str = tb.Rows[0][0].ToString();
+            return str;
+        }
+
+        public string getFullName(string eID)
         {
             string fullname = "";
-            string sql = "SELECT FullName FROM tbl_User WHERE EmployeeID = '" + ID + "'";
+            string sql = "SELECT FullName FROM tbl_User WHERE EmployeeID = '" + eID + "'";
             DataTable tb = dbconnect.getDataTable(sql);
             if (tb.Rows.Count != 0) fullname = tb.Rows[0][0].ToString();
             return fullname;
@@ -265,6 +302,15 @@ namespace LFCRM.Class
         {
             string str = "";
             string sql = "SELECT ProjectRoleName FROM tbl_ProjectRole WHERE ProjectRoleID = '" + ID + "'";
+            DataTable tb = dbconnect.getDataTable(sql);
+            if (tb.Rows.Count != 0) str = tb.Rows[0][0].ToString();
+            return str;
+        }
+
+        public string getProjectAbbreviation(string Projectrole)
+        {
+            string str = "";
+            string sql = "SELECT Abbreviation FROM tbl_ProjectRole WHERE ProjectRoleName = '" + Projectrole + "'";
             DataTable tb = dbconnect.getDataTable(sql);
             if (tb.Rows.Count != 0) str = tb.Rows[0][0].ToString();
             return str;
@@ -288,6 +334,15 @@ namespace LFCRM.Class
             return str;
         }
 
+        public string getBirthDay(string eID)
+        {
+            string date = "";
+            string sql = "SELECT Birthday FROM tbl_User WHERE EmployeeID = '" + eID + "'";
+            DataTable tb = dbconnect.getDataTable(sql);
+            if (tb.Rows.Count != 0) date = tb.Rows[0][0].ToString();
+            return date;
+        }
+
         //public string getProjectRoleID(string ProjectRoleName)
         //{
         //    string ProjectRoleID = "";
@@ -297,15 +352,15 @@ namespace LFCRM.Class
         //    return ProjectRoleID;
         //}
 
-        public void addResourceAllocation(string date, string EmployeeID, string ProjectRoleID, string _3LD, string WorkingHoursID)
+        public void addResourceAllocation(string date, string UserID, string ProjectRoleID, string TitleID, string WorkingHoursID)
         {
             string sql = "";
-            if (_3LD != "- Select Item -")
-                sql = "INSERT INTO tbl_ResourceAllocation (Date,EmployeeID,ProjectRoleID,[3LD],WorkingHoursID) " +
-                        "VALUES ('" + date + "','" + EmployeeID + "','" + ProjectRoleID + "','" + _3LD + "','" + WorkingHoursID + "')";
+            if (get3LDbyID(TitleID) != "")
+                sql = "INSERT INTO tbl_ResourceAllocation (Date,UserID,ProjectRoleID,TitleID,WorkingHoursID) " +
+                        "VALUES ('" + date + "','" + UserID + "','" + ProjectRoleID + "','" + TitleID + "','" + WorkingHoursID + "')";
             else
-                sql = "INSERT INTO tbl_ResourceAllocation (Date,EmployeeID,ProjectRoleID,[3LD],WorkingHoursID) " +
-                       "VALUES ('" + date + "','" + EmployeeID + "','" + ProjectRoleID + "', null,'" + WorkingHoursID + "')";
+                sql = "INSERT INTO tbl_ResourceAllocation (Date,UserID,ProjectRoleID,TitleID,WorkingHoursID) " +
+                       "VALUES ('" + date + "','" + UserID + "','" + ProjectRoleID + "', null,'" + WorkingHoursID + "')";
             
 
             dbconnect.ExeCuteNonQuery(sql);
@@ -334,10 +389,10 @@ namespace LFCRM.Class
             dbconnect.ExeCuteNonQuery(sql);
         }
 
-        public void addTitleAllocation(string date, string _3LD, string ExpectedResourceQuantity, string ActualResourceQuantity, string TrainResourceQuantity)
+        public void addTitleAllocation(string date, string TitleID, string ExpectedResourceQuantity, string ActualResourceQuantity, string TrainResourceQuantity)
         {
-            string sql = "INSERT INTO tbl_TitleAllocation (Date,[3LD],ExpectedResourceQuantity,ActualResourceQuantity,TrainResourceQuantity) " +
-                        "VALUES ('" + date + "','" + _3LD + "','" + ExpectedResourceQuantity + "','" + ActualResourceQuantity + "','" + TrainResourceQuantity + "')";
+            string sql = "INSERT INTO tbl_TitleAllocation (Date,TitleID,ExpectedResourceQuantity,ActualResourceQuantity,TrainResourceQuantity) " +
+                        "VALUES ('" + date + "','" + TitleID + "','" + ExpectedResourceQuantity + "','" + ActualResourceQuantity + "','" + TrainResourceQuantity + "')";
 
             dbconnect.ExeCuteNonQuery(sql);
         }

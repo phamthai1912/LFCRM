@@ -6,6 +6,7 @@ using System.Web.Optimization;
 using System.Web.Routing;
 using System.Web.Security;
 using System.Web.SessionState;
+using System.Web.UI;
 
 namespace LFCRM
 {
@@ -16,8 +17,10 @@ namespace LFCRM
             // Code that runs on application startup
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
         }
 
+        
         void Session_Start(object sender, EventArgs e)
         {
             Session["LoggedIn"] = false;

@@ -52,7 +52,7 @@ ORDER BY [3LD] DESC"
     
     <asp:UpdatePanel ID="UpdatePanel2" runat="server" Visible="True" onkeydown = "return (event.keyCode!=13)">
         <ContentTemplate>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+        <script src="../Scripts/bootstrap.min.js"></script>
         
         <div class="topright-grid">
             <ul>
@@ -121,9 +121,17 @@ ORDER BY [3LD] DESC"
                     <div class="modal-body" style=" margin-top: 10px; margin-bottom: 50px;">
                         <table class="table table-striped table-bordered table-responsive table-condensed"> 
                             <tr>
-                                <td class="modal-body">3LD: </td>
                                 <td class="modal-body">
-                                    <asp:Label ID="lb_3ld" runat="server"></asp:Label>
+                                    3LD: 
+                                    <asp:Label ID="lb_titleid" runat="server" Visible="false"></asp:Label>
+                                </td>
+                                <td class="modal-body">
+                                    <asp:TextBox ID="txt_3ld" runat="server" class="form-control"></asp:TextBox>
+                                    <asp:RequiredFieldValidator ErrorMessage="3LD should not be empty." 
+                                            validationgroup="editTitle"
+                                            ControlToValidate="txt_3ld"
+                                            Display="Dynamic" runat="server" 
+                                            CssClass="label label-danger"/>
                                 </td>
                             </tr>
                             <tr>
@@ -176,7 +184,7 @@ ORDER BY [3LD] DESC"
                         </table>
                     </div>
                     <div class="modal-footer">
-                        <asp:Button ID="btn_save" runat="server" Text="Save" class="btn btn-success" OnClick="btn_save_Click"/>
+                        <asp:Button ID="btn_save" runat="server" Text="Save"  validationgroup="editTitle" class="btn btn-success" OnClick="btn_save_Click"/>
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     </div>
                     </ContentTemplate>
@@ -272,6 +280,7 @@ ORDER BY [3LD] DESC"
                             <h3><strong><asp:Label ID="lb_deletetitle" runat="server" ></asp:Label></strong></h3><br />
                             <h4>
                                 <asp:Label ID="lb_deletestatus" runat="server" CssClass="label label-danger"></asp:Label>
+                                <asp:Label ID="lb_deleteid" runat="server" Visible="false"></asp:Label>
                             </h4>
 
                         </center>

@@ -42,7 +42,12 @@
     vertical-align: middle;
 }
 
-#td_ResourceAllocationButtonBar
+#td_ResourceAllocationButtonBar_left
+{
+    text-align: right !important;
+}
+
+#td_ResourceAllocationButtonBar_right
 {
     text-align: right !important;
 }
@@ -61,6 +66,16 @@
     text-align: left !important;
 }
 
+.stuck {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    bottom: 10px;
+    width: 180px;
+    overflow-y: auto;
+    background-color: #eee;
+}
+
 /*Welcome*/
 .welcome{
 	width: 1200px;
@@ -69,6 +84,22 @@
 	padding-right: 50px;
 	padding-top: 10px;
 	padding-bottom: 10px;
+}
+
+/*Loading*/
+.overlay 
+{
+ position: absolute;
+ background-color: white;
+ top: 0px;
+ left: 0px;
+ width: 100%;
+ height: 100%;
+ opacity: 0.8;
+ -moz-opacity: 0.8;
+ filter: alpha(opacity=80);
+ -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";
+ z-index: 10000;
 }
 
 /*Banner*/
@@ -96,8 +127,19 @@
 	width: 1200px;
     margin: 0 auto;
 	padding: 5px 10px 10px 10px;
-	text-align:right;
+	text-align:center;
 	padding-right: 50px;
+
+    font-size: 13px;
+    font-weight: 400;
+    color: #ddb308;
+}
+.footer-text a{
+    color: #ddb308;
+    font-weight: 600;
+}
+.footer-text a:hover {
+    color:red;
 }
 
 
@@ -112,7 +154,11 @@
 }
 
 /*Gridview*/
-#cph_Body_GridView1 tr th,td {
+#cph_Body_GridView1 tr th, td,
+#cph_Body_GridViewFeedback tr th, td,
+#cph_Body_GridViewPeople tr th, td,
+#cph_Body_GridViewTitles tr th,td {
+    vertical-align:middle;
     text-align: center;
 }
 #gridrow td{

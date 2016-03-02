@@ -30,12 +30,14 @@ namespace LFCRM.AdminPage
             if (e.CommandName.Equals("edit_Title"))
             {
                 GridViewRow gvrow = GridView1.Rows[index];
-                lb_3ld.Text = HttpUtility.HtmlDecode(gvrow.Cells[0].Text).ToString();
+                txt_3ld.Text = HttpUtility.HtmlDecode(gvrow.Cells[0].Text).ToString();
                 txt_titlename.Text = HttpUtility.HtmlDecode(gvrow.Cells[1].Text).ToString();
                 txt_tockcode.Text = HttpUtility.HtmlDecode(gvrow.Cells[2].Text).ToString();
                 drop_category.Text = HttpUtility.HtmlDecode(gvrow.Cells[3].Text).ToString();
                 lb_oricolor.Text = HttpUtility.HtmlDecode(gvrow.Cells[4].Text).ToString();
                 lb_oricolor.Attributes["style"] = "background-color: " + lb_oricolor.Text + ";";
+
+                lb_titleid.Text = _titleManager.getTitleID(txt_3ld.Text);
 
                 //string sql = "SELECT Category FROM tbl_TitleCategory";
                 //drop_category.DataSource = dbconnect.getDataTable(sql);
@@ -56,6 +58,7 @@ namespace LFCRM.AdminPage
             {
                 GridViewRow gvrow = GridView1.Rows[index];
                 lb_deletetitle.Text = HttpUtility.HtmlDecode(gvrow.Cells[0].Text).ToString();
+                lb_deleteid.Text = _titleManager.getTitleID(lb_deletetitle.Text);
 
                 lb_deletestatus.Visible = false;
 
@@ -81,20 +84,13 @@ namespace LFCRM.AdminPage
 
         protected void btn_save_Click(object sender, EventArgs e)
         {
-            string _3ld = lb_3ld.Text;
+            string _3ld = txt_3ld.Text;
             string titlename = txt_titlename.Text;
             string code = txt_tockcode.Text;
             string cate = drop_category.SelectedItem.Text;
             string colorcode = txt_color.Text;
             string oricolor = lb_oricolor.Text;
-
-            //if (titlename == "")
-            //{
-            //    lb_titlename.Visible = true;
-            //    lb_titlename.Text = "Title Name should not be empty";
-            //    lb_titlename.Attributes["class"] = "label label-danger";
-            //}
-            //else 
+            string _titleid = lb_titleid.Text;
                 
             if (colorcode != "")
             {
@@ -103,7 +99,7 @@ namespace LFCRM.AdminPage
                     lb_color.Visible = false;
 
                     //Update Title
-                    _titleManager.updateTitle(_3ld, titlename, code, cate, colorcode);
+                    _titleManager.updateTitle(_titleid,_3ld, titlename, code, cate, colorcode);
                     GridView1.DataBind();
 
                     //Close modal
@@ -124,7 +120,7 @@ namespace LFCRM.AdminPage
             {
                 lb_color.Visible = false;
                 //Update Title
-                _titleManager.updateTitle(_3ld, titlename, code, cate, oricolor);
+                _titleManager.updateTitle(_titleid,_3ld, titlename, code, cate, oricolor);
                 GridView1.DataBind();
 
                 //Close modal
@@ -157,12 +153,6 @@ namespace LFCRM.AdminPage
                 lb_new3ld.Text = "This 3LD exists, please enter other 3LD";
                 lb_new3ld.Attributes["class"] = "label label-danger";
             }
-            //else if (txt_newtitlename.Text == "")
-            //{
-            //    lb_newtitlename.Visible = true;
-            //    lb_newtitlename.Text = "Title Name should not be empty";
-            //    lb_newtitlename.Attributes["class"] = "label label-danger";
-            //}
             else 
             {
                 lb_new3ld.Visible = false;
@@ -258,8 +248,9 @@ namespace LFCRM.AdminPage
         protected void btn_ok_Click(object sender, EventArgs e)
         {
             String _3ld = lb_deletetitle.Text;
+            String _id = lb_deleteid.Text;
 
-            if (_titleManager.checkTitle(_3ld) == true)
+            if (_titleManager.checkTitle(_id) == true)
             {
                 lb_deletestatus.Visible = true;
                 lb_deletestatus.Text = "This title has allocation, you cannot delete this title";
@@ -267,7 +258,7 @@ namespace LFCRM.AdminPage
             else
             {
                 lb_deletestatus.Visible = false;
-                _titleManager.deleteTitle(_3ld);
+                _titleManager.deleteTitle(_id);
 
                 GridView1.DataBind();
 

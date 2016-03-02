@@ -35,13 +35,29 @@
                        </li>
                    </ul>
 		       </li>
-		       <li class='active has-sub'><a href='#'><span>Performance Tracking</span></a>
+		       <li class='active has-sub'><a href='#'><span>Performance</span></a>
                     <ul>
                         <li>
-                            <a href="/AdminPage/BugStatistic"><span>Bug Statistic</span></a>
+                            <a href="/AdminPage/BugStatistic"><span>Fill Bug Statistic</span></a>
+                        </li>
+                        <li>
+                            <a href="/AdminPage/PerformanceTracking"><span>Performance Tracking - TBD</span></a>
                         </li>
                     </ul>
 		       </li>
+                <li><a href="/AdminPage/BillingList"><span>Billing List</span></a>
+                </li>
+                <li class='active has-sub'>
+                    <a href="#"><span>Profile</span></a>
+                    <ul>
+                        <li>
+                            <a href="/AdminPage/ByTester"><span>Tester - TBD</span></a>
+                        </li>
+                        <li>
+                            <a href="/AdminPage/ByTitle"><span>Title - TBD</span></a>
+                        </li>
+                    </ul>
+                </li>
 		    </ul>
 		    </div>
         </div>

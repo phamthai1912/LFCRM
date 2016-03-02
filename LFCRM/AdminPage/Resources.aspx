@@ -37,7 +37,8 @@
         ProviderName="System.Data.SqlClient" 
         SelectCommand="SELECT EmployeeID,FullName,Email,PhoneNumber,RoleName,Active
 FROM tbl_User,tbl_UserRole
-WHERE tbl_User.UserRoleID = tbl_UserRole.UserRoleID"></asp:SqlDataSource>
+WHERE tbl_User.UserRoleID = tbl_UserRole.UserRoleID
+ORDER BY EmployeeID ASC"></asp:SqlDataSource>
 
     <asp:SqlDataSource ID="SqlDataSource2" runat="server" 
         ConnectionString="Data Source=LGDN14091\SQLEXPRESS;Initial Catalog=LFCRM;User ID=sa;Password=qwe123" 
@@ -45,7 +46,7 @@ WHERE tbl_User.UserRoleID = tbl_UserRole.UserRoleID"></asp:SqlDataSource>
 
     <asp:UpdatePanel ID="UpdatePanel1" runat="server" Visible="True" onkeydown = "return (event.keyCode!=13)">
         <ContentTemplate>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+        <script src="../Scripts/bootstrap.min.js"></script>
         <div class="topright-grid">
                 <ul>
                     <li>
@@ -133,7 +134,8 @@ WHERE tbl_User.UserRoleID = tbl_UserRole.UserRoleID"></asp:SqlDataSource>
                             <tr>
                                 <td class="modal-body">
                                     Resource ID:
-                                    <asp:Label ID="lb_id" runat="server"></asp:Label>                                    
+                                    <asp:Label ID="lb_id" runat="server" Visible="false"></asp:Label>     
+                                    <asp:Label ID="lb_oriid" runat="server"></asp:Label>                                 
                                 </td>
                                 <td class="modal-body">
                                     <asp:TextBox ID="txt_id" runat="server" class="form-control"></asp:TextBox>
@@ -141,11 +143,7 @@ WHERE tbl_User.UserRoleID = tbl_UserRole.UserRoleID"></asp:SqlDataSource>
                                             validationgroup="editvalidationgroup"
                                             ControlToValidate="txt_id"
                                             Display="Dynamic" runat="server" 
-                                            CssClass="label label-danger"/>
-                                    <asp:CompareValidator ControlToValidate="txt_id" 
-                                        runat="server" ErrorMessage="Please enter number only" 
-                                        Operator="DataTypeCheck" Type="Integer" CssClass="label label-danger">
-                                    </asp:CompareValidator><br />
+                                            CssClass="label label-danger"/><br />
                                     <asp:Label ID="lb_id1" runat="server" CssClass="label label-danger"></asp:Label>
                                 </td>                                
                             </tr>
@@ -248,6 +246,7 @@ WHERE tbl_User.UserRoleID = tbl_UserRole.UserRoleID"></asp:SqlDataSource>
                             <tr>
                                 <td class="modal-body">
                                     User ID:
+                                    <asp:Label ID="lb_userid" runat="server" Visible="false"></asp:Label>
                                 </td>
                                 <td class="modal-body">
                                     <asp:Label ID="lb_passid" runat="server"></asp:Label>
@@ -323,8 +322,9 @@ WHERE tbl_User.UserRoleID = tbl_UserRole.UserRoleID"></asp:SqlDataSource>
                                 <asp:Label ID="lb_deleteid" runat="server"></asp:Label><br />
                                 Name:
                                 <asp:Label ID="lb_deleteuser" runat="server" ></asp:Label>
+                                <asp:Label ID="lb_deleteuserid" runat="server" Visible="false" ></asp:Label>
                                 </strong></h3>  
-                            
+                                
                              <h5><asp:Label ID="lb_deletestatus" runat="server" CssClass="label label-danger"></asp:Label> </h5>                         
                         </center>
                     </div>
@@ -362,13 +362,7 @@ WHERE tbl_User.UserRoleID = tbl_UserRole.UserRoleID"></asp:SqlDataSource>
                                             validationgroup="addvalidationgroup"
                                             ControlToValidate="txt_newid"
                                             Display="Dynamic" runat="server" 
-                                            CssClass="label label-danger"/>
-                                    <asp:CompareValidator ControlToValidate="txt_newid" 
-                                        validationgroup="addvalidationgroup"
-                                        runat="server" ErrorMessage="Please enter number only" 
-                                        Display="Dynamic"
-                                        Operator="DataTypeCheck" Type="Integer" CssClass="label label-danger">
-                                    </asp:CompareValidator><br />
+                                            CssClass="label label-danger"/><br />
                                     <asp:Label ID="lb_newid" runat="server" CssClass="label label-danger"></asp:Label>
                                 </td>
                             </tr>

@@ -172,8 +172,11 @@
     <Content Include="Account\OpenAuthProviders.ascx" />
     <Content Include="Account\Register.aspx" />
     <Content Include="Account\RegisterExternalLogin.aspx" />
+    <Content Include="AdminPage\BillingList.aspx" />
     <Content Include="AdminPage\BugStatistic.aspx" />
+    <Content Include="AdminPage\ByTester.aspx" />
     <Content Include="AdminPage\Category.aspx" />
+    <Content Include="AdminPage\PerformanceTracking.aspx" />
     <Content Include="AdminPage\ResourceAllocation.aspx" />
     <Content Include="AdminPage\Resources.aspx" />
     <Content Include="AdminPage\TitleManager.aspx" />
@@ -184,14 +187,47 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Site.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Scripts\Animation.debug.js" />
+    <Content Include="Scripts\Animation.js" />
+    <Content Include="Scripts\AnimationScripts.debug.js" />
+    <Content Include="Scripts\AnimationScripts.js" />
+    <Content Include="Scripts\AutoComplete.debug.js" />
+    <Content Include="Scripts\Backgrounds.css" />
+    <Content Include="Scripts\Backgrounds.min.css" />
+    <Content Include="Scripts\BaseScripts.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\Calendar.css" />
+    <Content Include="Scripts\Calendar.debug.js" />
+    <Content Include="Scripts\Calendar.js" />
+    <Content Include="Scripts\ColorPicker.css" />
+    <Content Include="Scripts\ColorPicker.debug.js" />
+    <Content Include="Scripts\Common.DateTime.debug.js" />
+    <Content Include="Scripts\Common.DateTime.js" />
+    <Content Include="Scripts\Common.debug.js" />
+    <Content Include="Scripts\Common.js" />
+    <Content Include="Scripts\Common.Threading.debug.js" />
+    <Content Include="Scripts\Common.Threading.js" />
+    <Content Include="Scripts\Compat.Timer.debug.js" />
+    <Content Include="Scripts\Compat.Timer.js" />
+    <Content Include="Scripts\ComponentSet.debug.js" />
+    <Content Include="Scripts\FilteredTextBox.debug.js" />
     <Content Include="Scripts\html2canvas.js" />
     <Content Include="Scripts\jquery-latest.js" />
     <Content Include="Scripts\jquery.base64.js" />
     <Content Include="Scripts\jquery.sortElements.js" />
     <Content Include="Scripts\jquery.tablesorter.js" />
+    <Content Include="Scripts\Localization.Resources.debug.js" />
+    <Content Include="Scripts\Localization.Resources.js" />
+    <Content Include="Scripts\MicrosoftAjax.js" />
+    <Content Include="Scripts\MicrosoftAjaxCore.debug.js" />
+    <Content Include="Scripts\MicrosoftAjaxCore.js" />
+    <Content Include="Scripts\MicrosoftAjaxWebForms.js" />
+    <Content Include="Scripts\Popup.debug.js" />
+    <Content Include="Scripts\Popup.js" />
     <Content Include="Scripts\tableExport.js" />
+    <Content Include="Scripts\WebForms.js" />
+    <Content Include="Scripts\WebUIValidation.js" />
     <Content Include="style.css" />
     <Content Include="WebForm1.aspx" />
     <Content Include="WebFormUserControl\Footer.ascx" />
@@ -209,6 +245,9 @@
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\bootstrap.min.css.map" />
     <Content Include="Content\bootstrap.css.map" />
+    <Content Include="AdminPage\zvqzr5dc.luf" />
+    <Content Include="AdminPage\bmb0bgji.kol" />
+    <Content Include="AdminPage\kzyjufgl.mi2" />
     <None Include="Properties\PublishProfiles\LFCRM.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -280,6 +319,13 @@
     <Compile Include="Account\RegisterExternalLogin.aspx.designer.cs">
       <DependentUpon>RegisterExternalLogin.aspx</DependentUpon>
     </Compile>
+    <Compile Include="AdminPage\BillingList.aspx.cs">
+      <DependentUpon>BillingList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdminPage\BillingList.aspx.designer.cs">
+      <DependentUpon>BillingList.aspx</DependentUpon>
+    </Compile>
     <Compile Include="AdminPage\BugStatistic.aspx.cs">
       <DependentUpon>BugStatistic.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -287,12 +333,25 @@
     <Compile Include="AdminPage\BugStatistic.aspx.designer.cs">
       <DependentUpon>BugStatistic.aspx</DependentUpon>
     </Compile>
+    <Compile Include="AdminPage\ByTester.aspx.cs">
+      <DependentUpon>ByTester.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AdminPage\ByTester.aspx.designer.cs">
+      <DependentUpon>ByTester.aspx</DependentUpon>
+    </Compile>
     <Compile Include="AdminPage\Category.aspx.cs">
       <DependentUpon>Category.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="AdminPage\Category.aspx.designer.cs">
       <DependentUpon>Category.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AdminPage\PerformanceTracking.aspx.cs">
+      <DependentUpon>PerformanceTracking.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdminPage\PerformanceTracking.aspx.designer.cs">
+      <DependentUpon>PerformanceTracking.aspx</DependentUpon>
     </Compile>
     <Compile Include="AdminPage\ResourceAllocation.aspx.cs">
       <DependentUpon>ResourceAllocation.aspx</DependentUpon>
@@ -322,9 +381,12 @@
       <SubType>Component</SubType>
       <DependentUpon>AutoComplete.asmx</DependentUpon>
     </Compile>
+    <Compile Include="Class\csBillingList.cs" />
     <Compile Include="Class\csBugStatistic.cs" />
+    <Compile Include="Class\csByTester.cs" />
     <Compile Include="Class\csCategory.cs" />
     <Compile Include="Class\csCommonClass.cs" />
+    <Compile Include="Class\csPerformanceTracking.cs" />
     <Compile Include="Class\csResource.cs" />
     <Compile Include="Class\csResourceAllocation.cs" />
     <Compile Include="Class\csDBConnect.cs" />

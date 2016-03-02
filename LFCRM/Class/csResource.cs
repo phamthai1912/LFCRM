@@ -11,22 +11,31 @@ namespace LFCRM.Class
     {
         Class.csDBConnect dbconnect = new Class.csDBConnect();
 
-        public void updateResource(String oridi,String id, String name, String email, String phone, String role, String active)
+        public void updateResource(String _userid,String emid, String name, String email, String phone, String role, String active)
         {
             String sqlrole = "SELECT UserRoleID FROM tbl_UserRole WHERE RoleName='" + role + "'";
             DataTable tb = dbconnect.getDataTable(sqlrole);
             String roleid=tb.Rows[0][0].ToString();
 
             String sql = "UPDATE tbl_User "+
-                "SET EmployeeID = '" + id + "', UserRoleID = '" + roleid + "', FullName = '" + name + "', Email = '" + email + "', PhoneNumber = '" + phone + "', Active = '" + active + "'" +
-                "WHERE EmployeeID = '" + oridi + "'";
+                "SET EmployeeID = '" + emid + "', UserRoleID = '" + roleid + "', FullName = '" + name + "', Email = '" + email + "', PhoneNumber = '" + phone + "', Active = '" + active + "'" +
+                "WHERE UserID = '" + _userid + "'";
 
             dbconnect.ExeCuteNonQuery(sql);
         }
 
-        public Boolean checkUserAllocation(String id)
+        public String getUserID(String emid)
         {
-            String sql = "SELECT * FROM tbl_ResourceAllocation WHERE EmployeeID = '" + id + "'";
+            String sql = "SELECT UserID FROM tbl_User WHERE EmployeeID = '" + emid + "'";
+            DataTable tb = dbconnect.getDataTable(sql);
+            if (tb.Rows.Count != 0)
+                return tb.Rows[0][0].ToString();
+            return "";
+        }
+
+        public Boolean checkUserAllocation(String userid)
+        {
+            String sql = "SELECT * FROM tbl_ResourceAllocation WHERE UserID = '" + userid + "'";
             DataTable tb = dbconnect.getDataTable(sql);
             if (tb.Rows.Count == 0)
                 return false;
@@ -48,13 +57,13 @@ namespace LFCRM.Class
         {
             String sql = "UPDATE tbl_User " +
                     "SET Password = '" + newpass + "'" +
-                    "WHERE EmployeeID = '" + id + "'";
+                    "WHERE UserID = '" + id + "'";
             dbconnect.ExeCuteNonQuery(sql);
         }
 
         public void deleteResource(String id)
         {
-            String sql = "DELETE FROM tbl_User WHERE EmployeeID = '" + id + "'";
+            String sql = "DELETE FROM tbl_User WHERE UserID = '" + id + "'";
             dbconnect.ExeCuteNonQuery(sql);
         }
 

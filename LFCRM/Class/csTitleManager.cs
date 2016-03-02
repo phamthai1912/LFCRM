@@ -12,31 +12,40 @@ namespace LFCRM.Class
     {
         Class.csDBConnect dbconnect = new Class.csDBConnect();
 
-        public void updateTitle(String _3ld, String titlename, String tockcode, String Category, String Color)
+        public void updateTitle(String _titleid,String _3ld, String titlename, String tockcode, String Category, String Color)
         {
-            string CategoryID = getCateID(Category);            
+            string CategoryID = getCateID(Category);
 
-            string currentcolor = getColor(_3ld);
+            string currentcolor = getColor(_titleid);
             if (Color.Equals(currentcolor))
                 Color = currentcolor;
             else Color = getRandomColor(Color);
 
             string update = "UPDATE tbl_Title " +
-                    "SET ColorCode = '" + Color + "', TitleName = '" + titlename + "', TOCKCode = '" + tockcode + "', TitleCategoryID = '" + CategoryID + "' " +
-                    "WHERE [3LD] = '" + _3ld + "'";
+                    "SET [3LD] = '" + _3ld + "', ColorCode = '" + Color + "', TitleName = '" + titlename + "', TOCKCode = '" + tockcode + "', TitleCategoryID = '" + CategoryID + "' " +
+                    "WHERE TitleID = '" + _titleid + "'";
             dbconnect.ExeCuteNonQuery(update);
             
         }
 
-        public void deleteTitle(String _3ld)
+        public String getTitleID(String _3ld)
         {
-            String sql = "DELETE FROM tbl_Title WHERE [3LD] = '" + _3ld + "'";
+            String sql = "SELECT TitleID FROM tbl_Title WHERE [3LD] = '" + _3ld + "'";
+            DataTable tb = dbconnect.getDataTable(sql);
+            if (tb.Rows.Count != 0)
+                return tb.Rows[0][0].ToString();
+            return "";
+        }
+
+        public void deleteTitle(String _id)
+        {
+            String sql = "DELETE FROM tbl_Title WHERE TitleID = '" + _id + "'";
             dbconnect.ExeCuteNonQuery(sql);
         }
 
-        public Boolean checkTitle(String _3ld)
+        public Boolean checkTitle(String _id)
         {
-            String sql = "SELECT * FROM tbl_ResourceAllocation WHERE [3LD] = '" + _3ld + "'";
+            String sql = "SELECT * FROM tbl_ResourceAllocation WHERE TitleID = '" + _id + "'";
             DataTable tb = dbconnect.getDataTable(sql);
             if (tb.Rows.Count != 0)
                 return true;
@@ -87,9 +96,9 @@ namespace LFCRM.Class
             return _color;
         }
 
-        public String getColor(String _3ld)
+        public String getColor(String _id)
         {
-            string sql = "SELECT ColorCode FROM tbl_Title WHERE [3LD] = '" + _3ld + "'";
+            string sql = "SELECT ColorCode FROM tbl_Title WHERE TitleID = '" + _id + "'";
             DataTable tbcolor = dbconnect.getDataTable(sql);
             string color = tbcolor.Rows[0][0].ToString();
 

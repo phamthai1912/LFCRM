@@ -2,7 +2,7 @@
 <footer>
     <div class="footer">
 		<div class="footer-text">
-			Designed by Thai Pham & Tan Vo - Jan/2015
+			© 2016 By LF Content - Designed by <a href="mailto:thai.pham@logigear.com">Thai Pham</a> & <a href="mailto:tan.thanh.vo@logigear.com">Tan Vo</a>. All Rights Reserved.
 		</div>
 		
 	</div>

@@ -13,19 +13,28 @@ namespace LFCRM.Class
         public DataSet getResourceAlocation(String date) 
         {
             String sql;
-            if(date == "")
-                sql = "SELECT Date,FullName,[3LD],ProjectRoleName,Value " +
-                           "FROM tbl_User, tbl_ResourceAllocation, tbl_ProjectRole, tbl_WorkingHours " +
-                           "WHERE tbl_ResourceAllocation.EmployeeID = tbl_User.EmployeeID " +
+            if (date == "")
+                sql = "SELECT CONVERT(VARCHAR(10), Date, 101) AS Date,EmployeeID,FullName,tbl_ResourceAllocation.TitleID,[3LD],ProjectRoleName,Value " +
+                           "FROM tbl_User, tbl_ResourceAllocation, tbl_ProjectRole, tbl_WorkingHours,tbl_Title " +
+                           "WHERE tbl_ResourceAllocation.UserID = tbl_User.UserID " +
+                           "AND tbl_Title.TitleID = tbl_ResourceAllocation.TitleID "+
                            "AND tbl_ResourceAllocation.ProjectRoleID = tbl_ProjectRole.ProjectRoleID " +
-                           "AND tbl_ResourceAllocation.WorkingHoursID = tbl_WorkingHours.WorkingHoursID ";
+                           "AND tbl_ResourceAllocation.WorkingHoursID = tbl_WorkingHours.WorkingHoursID " +
+                           "AND RIGHT(CONVERT(VARCHAR(10), Date, 103), 7) = RIGHT(CONVERT(VARCHAR(10), GETDATE(), 103), 7) " +
+                           "ORDER BY Date DESC";
             else
-                sql = "SELECT Date,FullName,[3LD],ProjectRoleName,Value "+
-                "FROM tbl_User, tbl_ResourceAllocation, tbl_ProjectRole, tbl_WorkingHours "+
-                "WHERE tbl_ResourceAllocation.EmployeeID = tbl_User.EmployeeID " +
+            {
+                DateTime datetime = Convert.ToDateTime(date);
+                date = datetime.ToString("MM/yyyy");
+                sql = "SELECT CONVERT(VARCHAR(10), Date, 101) AS Date,EmployeeID,FullName,tbl_ResourceAllocation.TitleID,[3LD],ProjectRoleName,Value " +
+                "FROM tbl_User, tbl_ResourceAllocation, tbl_ProjectRole, tbl_WorkingHours,tbl_Title " +
+                "WHERE tbl_ResourceAllocation.UserID = tbl_User.UserID " +
+                "AND tbl_Title.TitleID = tbl_ResourceAllocation.TitleID " +
                 "AND tbl_ResourceAllocation.ProjectRoleID = tbl_ProjectRole.ProjectRoleID " +
                 "AND tbl_ResourceAllocation.WorkingHoursID = tbl_WorkingHours.WorkingHoursID " +
-                "AND Date = '" + date + "'";
+                "AND RIGHT(CONVERT(VARCHAR(10), Date, 103), 7) = '" + date + "'"+
+                "ORDER BY Date DESC";
+            }
             
             DataSet dt = dbconnect.getDataSet(sql);
 
@@ -41,10 +50,10 @@ namespace LFCRM.Class
             return id;
         }
 
-        public String getNoBugs(String _date, String name, String _3ld)
+        public String getNoBugs(String _date, String _employeeid, String _titleid)
         {
-            String _id = getEmployeeID(name);
-            String sql = "SELECT NumberOfBugs FROM tbl_BugTracking WHERE Date = '" + _date + "' AND EmployeeID = '" + _id + "' AND [3LD] = '" + _3ld + "'";
+            String _id = getUserID(_employeeid);
+            String sql = "SELECT NumberOfBugs FROM tbl_BugTracking WHERE Date = '" + _date + "' AND UserID = '" + _id + "' AND TitleID = '" + _titleid + "'";
             DataTable tb = dbconnect.getDataTable(sql);
             String number;
 
@@ -55,28 +64,38 @@ namespace LFCRM.Class
             return number;
         }
 
-        public void updateBugs(String _date, String name, String _3ld, String number)
+        public String getBugID(String _date, String _userid, String _titleID)
         {
-            String _id = getEmployeeID(name);
-            String sql = "UPDATE tbl_BugTracking SET NumberOfBugs = '" + number + "' " +
-                "WHERE Date = '" + _date + "' AND EmployeeID = '" + _id + "' AND [3LD] = '" + _3ld + "' ";
+            String sql = "SELECT BugID FROM tbl_BugTracking WHERE Date = '" + _date + "' AND UserID = '" + _userid + "' AND TitleID = '" + _titleID + "'";
+            DataTable tb = dbconnect.getDataTable(sql);
+            if (tb.Rows.Count != 0)
+                return tb.Rows[0][0].ToString();
+            return "";
+        }
+
+        public String getUserID(String _employeeID)
+        {
+            String sql = "SELECT UserID FROM tbl_User WHERE EmployeeID = '" + _employeeID + "'";
+            DataTable tb = dbconnect.getDataTable(sql);
+            if (tb.Rows.Count != 0)
+                return tb.Rows[0][0].ToString();
+            return "";
+        }
+
+        public void updateBugs(String _date, String _employeeid, String _titleid,String _bugs)
+        {
+            String bugid = getBugID(_date, getUserID(_employeeid), _titleid);
+            String sql = "UPDATE tbl_BugTracking SET NumberOfBugs = '" + _bugs + "' " +
+                "WHERE BugID = '" + bugid + "'";
             dbconnect.ExeCuteNonQuery(sql);
         }
 
-        //public Boolean checkEmployeeHasBugs(String _date, String name, String _3ld, String number)
-        //{
-        //    String _id = getEmployeeID(name);
-        //    String sql = "UPDATE tbl_BugTracking SET NumberOfBugs = '" + number + "' " +
-        //        "WHERE Date = '" + _date + "' AND EmployeeID = '" + _id + "' AND [3LD] = '" + _3ld + "' ";
-        //    dbconnect.ExeCuteNonQuery(sql);
-        //}
-
-        public void addBugs(String _date, String name, String _3ld, String number)
+        public void addBugs(String _date, String _employeeid, String _titleid, String number)
         {
-            String _id = getEmployeeID(name);
+            String userid = getUserID(_employeeid);
 
-            String sql = "INSERT INTO tbl_BugTracking (Date,EmployeeID,[3LD],NumberOfBugs) "+
-                    "VALUES ('" + _date + "','" + _id + "','" + _3ld + "','" + number + "')";
+            String sql = "INSERT INTO tbl_BugTracking (Date,UserID,TitleID,NumberOfBugs) "+
+                    "VALUES ('" + _date + "','" + userid + "','" + _titleid + "','" + number + "')";
             dbconnect.ExeCuteNonQuery(sql);
         }
 
@@ -87,6 +106,46 @@ namespace LFCRM.Class
 
             return temp[0];
 
+        }
+
+        public DataSet searchName(String _search, String date)
+        {
+            String sql;
+
+            String[] temp;
+            temp = _search.Split(' ');
+            String newsearch = "";
+            for (int i = 0; i < temp.Length; i++)
+            {
+                newsearch = newsearch + "%" + temp[i];
+            }
+            if (date == "")
+                sql = "SELECT CONVERT(VARCHAR(10), Date, 101) AS Date,EmployeeID,FullName,tbl_ResourceAllocation.TitleID,[3LD],ProjectRoleName,Value " +
+                           "FROM tbl_User, tbl_ResourceAllocation, tbl_ProjectRole, tbl_WorkingHours,tbl_Title " +
+                           "WHERE tbl_ResourceAllocation.UserID = tbl_User.UserID " +
+                           "AND tbl_Title.TitleID = tbl_ResourceAllocation.TitleID "+
+                           "AND tbl_ResourceAllocation.ProjectRoleID = tbl_ProjectRole.ProjectRoleID " +
+                           "AND tbl_ResourceAllocation.WorkingHoursID = tbl_WorkingHours.WorkingHoursID " +
+                           "AND FullName LIKE '" + newsearch + "%'" +
+                           "ORDER BY Date DESC";
+            else
+            {
+                DateTime datetime = Convert.ToDateTime(date);
+                date = datetime.ToString("MM/yyyy");
+
+                sql = "SELECT CONVERT(VARCHAR(10), Date, 101) AS Date,EmployeeID,FullName,tbl_ResourceAllocation.TitleID,[3LD],ProjectRoleName,Value " +
+                "FROM tbl_User, tbl_ResourceAllocation, tbl_ProjectRole, tbl_WorkingHours,tbl_Title " +
+                "WHERE tbl_ResourceAllocation.UserID = tbl_User.UserID " +
+                "AND tbl_Title.TitleID = tbl_ResourceAllocation.TitleID " +
+                "AND tbl_ResourceAllocation.ProjectRoleID = tbl_ProjectRole.ProjectRoleID " +
+                "AND tbl_ResourceAllocation.WorkingHoursID = tbl_WorkingHours.WorkingHoursID " +
+                "AND RIGHT(CONVERT(VARCHAR(10), Date, 103), 7) = '" + date + "' " +
+                "AND FullName LIKE '" + newsearch + "%'"+
+                "ORDER BY Date DESC";
+            }
+            DataSet dt = dbconnect.getDataSet(sql);
+
+            return dt;
         }
     }
 }
