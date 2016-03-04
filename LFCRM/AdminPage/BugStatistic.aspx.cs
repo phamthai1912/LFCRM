@@ -181,14 +181,14 @@ namespace LFCRM.AdminPage
             btn_updatebugs.Visible = isUpdateVisible;
 
             //Navigate to current row
-            if (chk.ID != "chkAll")
-            {
-                GridViewRow grid = (sender as CheckBox).Parent.Parent as GridViewRow;
-                if (grid.Cells[7].Controls.OfType<TextBox>().FirstOrDefault().Visible == true)                
-                    GridView1.Rows[grid.RowIndex].Cells[7].Focus();
-                else
-                    GridView1.Rows[grid.RowIndex].Cells[8].Focus();
-            }
+            //if (chk.ID != "chkAll")
+            //{
+            //    GridViewRow grid = (sender as CheckBox).Parent.Parent as GridViewRow;
+            //    if (grid.Cells[7].Controls.OfType<TextBox>().FirstOrDefault().Visible == true)                
+            //        GridView1.Rows[grid.RowIndex].Cells[7].Focus();
+            //    else
+            //        GridView1.Rows[grid.RowIndex].Cells[8].Focus();
+            //}
         }
 
         protected void btn_search_Click(object sender, EventArgs e)

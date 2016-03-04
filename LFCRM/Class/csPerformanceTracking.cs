@@ -62,13 +62,33 @@ namespace LFCRM.Class
 
         public DataTable getNoBug_ColorCode(string UID, string date)
         {
-            DataTable dt = dbconnect.getDataTable("Select NumberOfBugs, ColorCode From tbl_BugTracking, tbl_Title Where tbl_BugTracking.TitleID = tbl_Title.TitleID AND tbl_BugTracking.date = '"+date+"' AND tbl_BugTracking.UserID = "+UID);
+            DataTable dt = dbconnect.getDataTable("Select NumberOfBugs, ColorCode "
+                                                +"From tbl_BugTracking, tbl_Title "
+                                                +"Where tbl_BugTracking.TitleID = tbl_Title.TitleID "
+                                                + "AND tbl_BugTracking.date = '" + date + "' "
+                                                +"AND tbl_BugTracking.UserID = "+UID);
+            return dt;
+        }
+
+        public DataTable get_Mul_NoBug_ColorCode(string UID, string date, string titleID)
+        {
+            DataTable dt = dbconnect.getDataTable("Select NumberOfBugs, ColorCode "
+                                                    +"From tbl_BugTracking, tbl_Title "
+                                                    +"Where tbl_BugTracking.TitleID = tbl_Title.TitleID "
+                                                    +"AND tbl_BugTracking.date = '"+date+"' "
+                                                    +"AND tbl_BugTracking.UserID = '"+UID+"' "
+                                                    + "AND tbl_BugTracking.TitleID = '"+titleID+"' ");
             return dt;
         }
 
         public DataTable getRole_Hour(string UID, string date)
         {
-            DataTable dt = dbconnect.getDataTable("Select ProjectRoleName, Value From tbl_ResourceAllocation, tbl_ProjectRole, tbl_WorkingHours Where tbl_ProjectRole.ProjectRoleID = tbl_ResourceAllocation.ProjectRoleID AND tbl_WorkingHours.WorkingHoursID = tbl_ResourceAllocation.WorkingHoursID AND UserID="+UID+" AND Date='"+date+"'");
+            DataTable dt = dbconnect.getDataTable("Select ProjectRoleName, Value, TitleID"
+                                                   +" From tbl_ResourceAllocation, tbl_ProjectRole, tbl_WorkingHours"
+                                                   +" Where tbl_ProjectRole.ProjectRoleID = tbl_ResourceAllocation.ProjectRoleID" 
+                                                   +" AND tbl_WorkingHours.WorkingHoursID = tbl_ResourceAllocation.WorkingHoursID" 
+                                                   +" AND UserID='"+UID+"'"
+                                                   +" AND Date='"+date+"'");
             return dt;
         }
     }

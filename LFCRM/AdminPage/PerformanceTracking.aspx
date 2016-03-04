@@ -12,6 +12,50 @@
             $('[rel=tooltip]').tooltip();
         });
     </script>
+    <script type="text/javascript">
+        function onCalendarHidden() {
+            var cal = $find("txt_date_CalendarExtender");
+
+            if (cal._monthsBody) {
+                for (var i = 0; i < cal._monthsBody.rows.length; i++) {
+                    var row = cal._monthsBody.rows[i];
+                    for (var j = 0; j < row.cells.length; j++) {
+                        Sys.UI.DomEvent.removeHandler(row.cells[j].firstChild, "click", call);
+                    }
+                }
+            }
+        }
+
+        function onCalendarShown() {
+
+            var cal = $find("txt_date_CalendarExtender");
+
+            cal._switchMode("months", true);
+
+            if (cal._monthsBody) {
+                for (var i = 0; i < cal._monthsBody.rows.length; i++) {
+                    var row = cal._monthsBody.rows[i];
+                    for (var j = 0; j < row.cells.length; j++) {
+                        Sys.UI.DomEvent.addHandler(row.cells[j].firstChild, "click", call);
+                    }
+                }
+            }
+        }
+
+        function call(eventElement) {
+            var target = eventElement.target;
+            switch (target.mode) {
+                case "month":
+                    var cal = $find("txt_date_CalendarExtender");
+                    cal._visibleDate = target.date;
+                    cal.set_selectedDate(target.date);
+                    //cal._switchMonth(target.date);
+                    cal._blur.post(true);
+                    cal.raiseDateSelectionChanged();
+                    break;
+            }
+        }
+                            </script>
 
     <asp:UpdatePanel ID="UpdatePanel1" runat="server">
         <ContentTemplate>
@@ -24,59 +68,16 @@
 
             <table>
                 <tr>
-                    <td style="width: 1180px" colspan="2">
+                    <td style="width: 1180px; text-align: right" colspan="2">
                         <div style="text-align: right">
                             <asp:TextBox ID="txt_date" placeholder="Select a months" runat="server" AutoPostBack="true" class="form-control" Width="200px" OnTextChanged="txt_date_TextChanged"></asp:TextBox>
                             <ajaxToolkit:CalendarExtender ID="txt_date_CalendarExtender" runat="server" BehaviorID="txt_date_CalendarExtender" TargetControlID="txt_date" Format="MM/yyyy" DefaultView="Months" OnClientShown="onCalendarShown" OnClientHidden="onCalendarHidden" />
-                            <script type="text/javascript">
-                                function onCalendarHidden() {
-                                    var cal = $find("txt_date_CalendarExtender");
-
-                                    if (cal._monthsBody) {
-                                        for (var i = 0; i < cal._monthsBody.rows.length; i++) {
-                                            var row = cal._monthsBody.rows[i];
-                                            for (var j = 0; j < row.cells.length; j++) {
-                                                Sys.UI.DomEvent.removeHandler(row.cells[j].firstChild, "click", call);
-                                            }
-                                        }
-                                    }
-                                }
-
-                                function onCalendarShown() {
-
-                                    var cal = $find("txt_date_CalendarExtender");
-
-                                    cal._switchMode("months", true);
-
-                                    if (cal._monthsBody) {
-                                        for (var i = 0; i < cal._monthsBody.rows.length; i++) {
-                                            var row = cal._monthsBody.rows[i];
-                                            for (var j = 0; j < row.cells.length; j++) {
-                                                Sys.UI.DomEvent.addHandler(row.cells[j].firstChild, "click", call);
-                                            }
-                                        }
-                                    }
-                                }
-
-                                function call(eventElement) {
-                                    var target = eventElement.target;
-                                    switch (target.mode) {
-                                        case "month":
-                                            var cal = $find("txt_date_CalendarExtender");
-                                            cal._visibleDate = target.date;
-                                            cal.set_selectedDate(target.date);
-                                            //cal._switchMonth(target.date);
-                                            cal._blur.post(true);
-                                            cal.raiseDateSelectionChanged();
-                                            break;
-                                    }
-                                }
-                            </script>
+                            
                         </div>
                     </td>
                 </tr>
                 <tr>
-                    <td>
+                    <td style='vertical-align:top'>
                         <br />
                         <asp:Label ID="lbl_PT" runat="server" Text="" AutoPostBack="true"></asp:Label>
                         
@@ -84,7 +85,7 @@
                         <br /><br />
                     </td>
                     <td style='width:10px;'></td>
-                    <td valign="top">
+                    <td style='vertical-align:top'>
                         <br />
                         <asp:Label ID="lbl_Title" runat="server" Text="" AutoPostBack="true"></asp:Label>
                     </td>

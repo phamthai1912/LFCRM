@@ -139,6 +139,15 @@ namespace LFCRM.AdminPage {
         protected global::System.Web.UI.WebControls.Image img_profile;
         
         /// <summary>
+        /// Rating1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.Rating Rating1;
+        
+        /// <summary>
         /// lb_fullname control.
         /// </summary>
         /// <remarks>

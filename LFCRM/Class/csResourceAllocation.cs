@@ -396,5 +396,18 @@ namespace LFCRM.Class
 
             dbconnect.ExeCuteNonQuery(sql);
         }
+
+        public DataTable getHintbyTitle(string _LD)
+        {
+            DataTable dt = dbconnect.getDataTable("Select COUNT(tbl_ResourceAllocation.UserID) AS Numbers, Fullname, ProjectRoleName "
+                                                    + "From tbl_ResourceAllocation, tbl_user, tbl_ProjectRole, tbl_title "
+                                                    + "Where [3LD] = '" + _LD + "' "
+                                                    + "And tbl_user.UserID = tbl_ResourceAllocation.UserID "
+                                                    + "AND tbl_ProjectRole.ProjectRoleID = tbl_ResourceAllocation.ProjectRoleID "
+                                                    + "And tbl_title.TitleID = tbl_ResourceAllocation.TitleID "
+                                                    + "group by projectrolename, Fullname "
+                                                    + "Order by Numbers Desc");
+            return dt;
+        }
     }
 }

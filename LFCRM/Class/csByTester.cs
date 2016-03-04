@@ -315,7 +315,7 @@ namespace LFCRM.Class
             DataTable tb = dbconnect.getDataTable(sql);
             if (tb.Rows.Count != 0)
             {
-                total = Convert.ToString(tb.Rows.Count+1);
+                total = Convert.ToString(tb.Rows.Count);
                 if (total == null)
                     total = "0";
             }
@@ -387,7 +387,7 @@ namespace LFCRM.Class
         //Get Feed Back
         public DataSet getFeedBack(String _id, String _start, String _end)
         {
-            String sql = "SELECT CONVERT(VARCHAR(10), Date, 101) AS Date,[3LD],Message,Point " +
+            String sql = "SELECT UserSendID,CONVERT(VARCHAR(10), Date, 101) AS Date,[3LD],Message,Point " +
                         "FROM tbl_FeedBack,tbl_Title,tbl_User " +
                         "WHERE tbl_User.UserID = tbl_FeedBack.UserReceiveID " +
                         "AND tbl_Title.TitleID = tbl_FeedBack.TitleID " +
@@ -399,6 +399,37 @@ namespace LFCRM.Class
                 return ds;
             else
                 return null;
+        }
+        //Get Name user sent feedback
+        public String getUserSentFeedBack(String _userid)
+        {
+            String sql = "SELECT FullName FROM tbl_User WHERE UserID = '" + _userid + "'";
+            String username = "Anonymous";
+            DataTable tb = dbconnect.getDataTable(sql);
+            if (tb.Rows.Count != 0)
+            {
+                username = tb.Rows[0][0].ToString();
+                if (username == null)
+                    username = "Anonymous";
+            }
+
+            return username;
+        }
+
+        //Get Point for Rating
+        public DataTable getRating(String _id, String _start, String _end)
+        {
+            String sql = "SELECT Point " +
+                        "FROM tbl_FeedBack,tbl_User "+
+                        "WHERE tbl_User.UserID = tbl_FeedBack.UserReceiveID "+
+                        "AND (Date BETWEEN '" + _start + "' AND '" + _end + "') " +
+                        "AND EmployeeID = '" + _id + "'";
+
+            DataTable tbl = dbconnect.getDataTable(sql);
+
+            if (tbl.Rows.Count != 0)
+                return tbl;
+            else return null;
         }
     }
 }

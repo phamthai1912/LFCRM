@@ -135,7 +135,7 @@ ORDER BY EmployeeID ASC"></asp:SqlDataSource>
                                 <td class="modal-body">
                                     Resource ID:
                                     <asp:Label ID="lb_id" runat="server" Visible="false"></asp:Label>     
-                                    <asp:Label ID="lb_oriid" runat="server"></asp:Label>                                 
+                                    <asp:Label ID="lb_oriid" runat="server" Visible="false"></asp:Label>                                 
                                 </td>
                                 <td class="modal-body">
                                     <asp:TextBox ID="txt_id" runat="server" class="form-control"></asp:TextBox>
@@ -166,12 +166,6 @@ ORDER BY EmployeeID ASC"></asp:SqlDataSource>
                                 </td>
                                 <td class="modal-body">
                                     <asp:TextBox ID="txt_email" runat="server" class="form-control"></asp:TextBox>
-                                    <asp:RequiredFieldValidator ErrorMessage="Email should not be null" 
-                                            validationgroup="editvalidationgroup"
-                                            Display="Dynamic"
-                                            ControlToValidate="txt_email"
-                                            runat="server" 
-                                            class="label label-danger"/><br />
                                     <asp:RegularExpressionValidator ErrorMessage="Invalid Email Format"
                                         ID="regexEmailValid" 
                                         validationgroup="editvalidationgroup"

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AjaxControlToolkit;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
@@ -43,12 +44,47 @@ namespace LFCRM.AdminPage
                 loadTitles(lb_id.Text, _start, _end);
                 loadPeoples(lb_id.Text, lb_fullname.Text, _start, _end);
                 loadMessage(lb_id.Text, _start, _end);
+
+                loadRating(lb_id.Text, _start, _end);
             }
             else
             {
                 lb_userstatus.Visible = true;
                 lb_userstatus.Text = "This user does not exist";
             }
+        }
+
+        //Rating
+        public void loadRating(String _id, String _start, String _end)
+        {
+            DataTable tb = tester.getRating(_id, _start, _end);
+            float _point = 0;
+            if (tb != null)
+            {
+                for (int i = 0; i < tb.Rows.Count; i++)
+                {
+                    if (tb.Rows[i][0].ToString() == "")
+                        _point = 0;
+                    else _point = _point + float.Parse(tb.Rows[i][0].ToString());
+                }
+                _point = (_point / tb.Rows.Count);
+            }
+            else _point = 0;
+            
+
+            int point = Convert.ToInt32(_point);
+            Rating1.CurrentRating = point;
+            
+        }
+        protected void Rating1_Changed(object sender, AjaxControlToolkit.RatingEventArgs e)
+        {
+            String _id = lb_id.Text;
+            String _start = txt_startdate.Text;
+            String _end = txt_enddate.Text;
+            if (_id == "" || _start == "" || _end == "")
+                Rating1.CurrentRating = 0;
+            else loadRating(_id, _start, _end);
+            loadBugHunter(_id);
         }
 
         //Get List Worked Titles
@@ -113,26 +149,35 @@ namespace LFCRM.AdminPage
                 lbbackup.Text = tester.getBackup(_id, _3ld, _start, _end, _month) + " Day(s)";
 
                 Label lbtotalday = ((Label)e.Row.FindControl("lb_numberdays"));
-                int x = Convert.ToInt32(tester.getBill(_id, _3ld, _start, _end, _month)) + Convert.ToInt32(tester.getCore(_id, _3ld, _start, _end, _month)) + Convert.ToInt32(tester.getBackup(_id, _3ld, _start, _end, _month));
-                lbtotalday.Text = Convert.ToString(x) + " Day(s)";
+                int totaldays = Convert.ToInt32(tester.getBill(_id, _3ld, _start, _end, _month)) + Convert.ToInt32(tester.getCore(_id, _3ld, _start, _end, _month)) + Convert.ToInt32(tester.getBackup(_id, _3ld, _start, _end, _month));
+                lbtotalday.Text = Convert.ToString(totaldays) + " Day(s)";
 
-                Label lbtotalbug = ((Label)e.Row.FindControl("lb_totalbugs"));
+                Label lbtotalbugofuser = ((Label)e.Row.FindControl("lb_totalbugofuser"));
+                Label lbtotalbugofteam = ((Label)e.Row.FindControl("lb_tototalbugofteam"));
+                Label lbavebugs = ((Label)e.Row.FindControl("lb_bugperformance"));
+                String totlbuguser = tester.getTotalBugUser(_id, _3ld, _start, _end, _month);
                 String totalBugOfTeam = tester.getTotalBugTeam(_id, _3ld, _start, _end, _month);
+                float totalpeople = Convert.ToInt64(tester.getTotalPeopleOnTitle(_id, _3ld, _start, _end, _month)); 
+
                 if (totalBugOfTeam == "")
                     totalBugOfTeam = "0";
-                lbtotalbug.Attributes["Title"] = "Bug in " + lbtotalday.Text;
-
-                String totlbuguser = tester.getTotalBugUser(_id, _3ld, _start, _end, _month);
                 if (totlbuguser == "")
                     totlbuguser = "0";
-                lbtotalbug.Text = totlbuguser + "/" + totalBugOfTeam;
 
-                Label lbavebugs = ((Label)e.Row.FindControl("lb_bugperformance"));
-                float totalday = x;
-                float totalpeople = Convert.ToInt64(tester.getTotalPeopleOnTitle(_id, _3ld, _start, _end, _month));
-                float totalbugteam = Convert.ToInt64(totalBugOfTeam);
-                float ave = (totalbugteam / totalday / totalpeople);
-                lbavebugs.Text = ave.ToString("0.00") + " Bug(s)/Day";
+                lbtotalbugofuser.Text = totlbuguser + " Bug(s)";
+                lbtotalbugofteam.Text = totalBugOfTeam + " Bug(s)";
+
+                //Count average of user with team
+                float average = 0;
+                if ((float.Parse(totalBugOfTeam)) != 0)
+                {
+                    float _user = (float.Parse(totlbuguser)) / totaldays;
+                    float _team = (float.Parse(totalBugOfTeam)) / totalpeople / totaldays;
+                    average = _user / _team;
+                }
+                
+                lbavebugs.Text = average.ToString("0.0") + "";
+                lbavebugs.Attributes["Title"] = "The Average Bugs Of User With Team In " + totaldays + " day(s)";
 
             }
 
@@ -207,6 +252,7 @@ namespace LFCRM.AdminPage
             String userid = lb_id.Text;
             String _start = txt_startdate.Text;
             String _end = txt_enddate.Text;
+
             if (e.Row.DataItem != null)
             {
                 String _fullname = ((Label)e.Row.FindControl("lb_P_fullname")).Text;
@@ -219,10 +265,12 @@ namespace LFCRM.AdminPage
                 String listtitle = "";
                 for (int i = 0; i < tb.Rows.Count; i++)
                 {
-                    listtitle = listtitle + tb.Rows[i][0].ToString() + ", ";
+                    listtitle = listtitle + "<button type='button' class='btn btn-default btn-sm'><span class='glyphicon glyphicon-tag'></span> " + tb.Rows[i][0].ToString() + "</button> ";
                 }
-                _titles.Text = listtitle;
-            }
+                e.Row.Cells[1].Text = listtitle;
+                e.Row.Cells[1].Attributes["style"] = "text-align:left; vertical-align:middle; padding-top:5px;";
+            }            
+
         }
 
         protected void GridViewPeople_RowCommand(object sender, GridViewCommandEventArgs e)
@@ -294,6 +342,7 @@ namespace LFCRM.AdminPage
             return dt;
         }
 
+        //Merge Titlee Accoring to Month
         protected void GridViewTitles_DataBound(object sender, EventArgs e)
         {
 
@@ -313,12 +362,12 @@ namespace LFCRM.AdminPage
                             if (row.Cells[j].RowSpan == 0)
                             {
                                 previousRow.Cells[j].RowSpan += 2;
-                                previousRow.Cells[j].Attributes["style"] = "padding-top:"+previousRow.Cells[j].RowSpan*3+"%;";
+                                previousRow.Cells[j].Attributes["style"] = "vertical-align:middle;";
                             }
                             else
                             {
                                 previousRow.Cells[j].RowSpan = row.Cells[j].RowSpan + 1;
-                                previousRow.Cells[j].Attributes["style"] = "padding-top:" + previousRow.Cells[j].RowSpan * 3 + "%;";
+                                previousRow.Cells[j].Attributes["style"] = "vertical-align:middle;";
                             }
                             row.Cells[j].Visible = false;
                         }
@@ -326,5 +375,24 @@ namespace LFCRM.AdminPage
                 }
             }
         }
+
+        //Feedback from Others
+        protected void GridViewFeedback_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                float point = float.Parse(((Label)e.Row.FindControl("lb_FB_point")).Text);
+                int rate = Convert.ToInt32(point);
+                AjaxControlToolkit.Rating rt = (AjaxControlToolkit.Rating)(e.Row.FindControl("RatingPoint"));
+                rt.CurrentRating = rate;
+
+                String userfeedback = tester.getUserSentFeedBack(((Label)e.Row.FindControl("lb_FB_sendid")).Text);
+                if (rate > 2)
+                    ((Label)e.Row.FindControl("lb_FB_usersend")).Text = userfeedback + " <img width='15px' height='15px' src='../Image/heart_80_anim_gif.gif' />";
+                else
+                    ((Label)e.Row.FindControl("lb_FB_usersend")).Text = userfeedback + " <img width='15px' height='15px' src='../Image/brokenheart_80_anim_gif.gif' />";
+            }
+        }
+
     }
 }

@@ -10,6 +10,31 @@
              display:none;
          }
     </style>
+    <script type="text/javascript">
+        // It is important to place this JavaScript code after ScriptManager1
+        var xPos, yPos;
+        var prm = Sys.WebForms.PageRequestManager.getInstance();
+
+        function BeginRequestHandler(sender, args) {
+            if ($get('<%=Panel1.ClientID%>') != null) {
+                // Get X and Y positions of scrollbar before the partial postback
+                xPos = $get('<%=Panel1.ClientID%>').scrollLeft;
+                yPos = $get('<%=Panel1.ClientID%>').scrollTop;
+            }
+        }
+
+        function EndRequestHandler(sender, args) {
+            if ($get('<%=Panel1.ClientID%>') != null) {
+               // Set X and Y positions back to the scrollbar
+               // after partial postback
+               $get('<%=Panel1.ClientID%>').scrollLeft = xPos;
+               $get('<%=Panel1.ClientID%>').scrollTop = yPos;
+           }
+       }
+
+       prm.add_beginRequest(BeginRequestHandler);
+       prm.add_endRequest(EndRequestHandler);
+    </script>
     <asp:UpdatePanel ID="UpdatePanel1" UpdateMode="Conditional" runat="server" Visible="True" onkeydown = "return (event.keyCode!=13)">
         <ContentTemplate>
             <asp:UpdateProgress ID="UpdateProgress1" runat="server">
@@ -124,7 +149,8 @@
                     </li>
                 </ul>
             </div><br /><br />
-            <div class="grid-style" style="height:470px; ">
+            <!--<div class="grid-style" style="height:470px; "> -->
+                <asp:Panel ID="Panel1" runat="server" ScrollBars="Auto" Height="470px">
                 <asp:GridView ID="GridView1" GridLines="Horizontal" runat="server" AutoGenerateColumns="False" AllowSorting="True"
                     CssClass="table table-striped table-bordered table-responsive table-condensed table-hover" OnRowDataBound="GridView1_RowDataBound" OnRowCommand="GridView1_RowCommand">
                     <Columns>
@@ -220,7 +246,8 @@
                         </asp:TemplateField>
                     </Columns>
                 </asp:GridView>
-            </div>                        
+                </asp:Panel>
+            <!--</div>                        -->
     </ContentTemplate>
  </asp:UpdatePanel>
 </asp:Content>

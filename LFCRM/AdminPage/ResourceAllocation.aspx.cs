@@ -74,7 +74,6 @@ namespace LFCRM.AdminPage
 
             //--------------------------Add title to new resource----------------
             AddTitletoResource(ViewState["ResourceCounter"].ToString());
-
         }
 
         protected void btn_MinusTitleClick_event(object sender, EventArgs e)
@@ -356,8 +355,8 @@ namespace LFCRM.AdminPage
             }
 
             string tb_final = "<table valign='top' style='font-family: Times New Roman; font-size: 12pt'"
-                                + "<tr><td rowspan='2' valign='top'>" + tb_resource + "</table></td><td rowspan='2'>&nbsp;&nbsp;&nbsp;</td><td valign='top' style='height: 70px'>" + tb_title + "</table></td></tr>"
-	                            +"<tr><td valign='top'> <br />" + tb_headcount + "</td></tr>"
+                                + "<tr><td rowspan='2' style='vertical-align:top'>" + tb_resource + "</table></td><td rowspan='2'>&nbsp;&nbsp;&nbsp;</td><td style='vertical-align:top; height: 70px'>" + tb_title + "</table></td></tr>"
+                                + "<tr><td style='vertical-align:top'> <br />" + tb_headcount + "</td></tr>"
                             +"</table><br /><br />";
 
             lbl_titlexport.Text = "[LFDN] - Resource allocation for Content (" + System.DateTime.Now.ToString("ddd") + ")";
@@ -487,6 +486,7 @@ namespace LFCRM.AdminPage
             Label lb = new Label();
 
             string textboxId = tb.ID;
+            string str_ToolTip = "";
             lb = (Label)ph_DynamicTitleTableRow.FindControl("lbl_TitleExist" + Regex.Match(textboxId, @"\d+").Value);
 
             if (!titleManager.LDExist(tb.Text)) lb.Visible = true;
@@ -495,6 +495,18 @@ namespace LFCRM.AdminPage
                 lb.Visible = false;
                 for (int i = 1; i <= (int)ViewState["ResourceCounter"]; i++)
                     AddTitletoResource(i.ToString());
+
+                //---------------------- Get Hint -----------------------------------------
+                DataTable tb_Hint = RA.getHintbyTitle(tb.Text);
+                if (tb_Hint.Rows.Count > 0)
+                {
+                    for (int i = 0; i < tb_Hint.Rows.Count; i++)
+                    {
+                        tb.ToolTip = tb.ToolTip + tb_Hint.Rows[i].ItemArray[1].ToString() + " - (" + tb_Hint.Rows[i].ItemArray[0].ToString() + ")(" + tb_Hint.Rows[i].ItemArray[2].ToString() + ")" + " \r\n";
+                    }
+                    //tb.ToolTip = str_ToolTip;
+                    tb.Attributes.Add("style", "white-space:pre-wrap;");
+                }
             }
 
             //---------------------- highlight duplicate-----------------------------------

@@ -5,6 +5,47 @@
     <script src="../Scripts/bootstrap.min.js"></script>
     <asp:ScriptManager ID="ScriptManager1" runat="server" EnableCdn="true"></asp:ScriptManager>
 
+    <script type="text/javascript">
+        // It is important to place this JavaScript code after ScriptManager1
+        var xPos, yPos;
+        var prm = Sys.WebForms.PageRequestManager.getInstance();
+
+        function BeginRequestHandler(sender, args)
+        {
+            if ($get('<%=Panel1.ClientID%>') != null)
+            {
+               // Get X and Y positions of scrollbar before the partial postback
+               xPos = $get('<%=Panel1.ClientID%>').scrollLeft;
+               yPos = $get('<%=Panel1.ClientID%>').scrollTop;
+            }
+            else if ($get('<%=Panel2.ClientID%>') != null) {
+                // Get X and Y positions of scrollbar before the partial postback
+                xPos = $get('<%=Panel2.ClientID%>').scrollLeft;
+                yPos = $get('<%=Panel2.ClientID%>').scrollTop;
+            }
+       }
+
+        function EndRequestHandler(sender, args)
+        {
+            if ($get('<%=Panel1.ClientID%>') != null)
+            {
+               // Set X and Y positions back to the scrollbar
+               // after partial postback
+               $get('<%=Panel1.ClientID%>').scrollLeft = xPos;
+               $get('<%=Panel1.ClientID%>').scrollTop = yPos;
+            }
+            else if ($get('<%=Panel2.ClientID%>') != null) {
+                // Set X and Y positions back to the scrollbar
+                // after partial postback
+                $get('<%=Panel2.ClientID%>').scrollLeft = xPos;
+                $get('<%=Panel2.ClientID%>').scrollTop = yPos;
+            }
+       }
+
+       prm.add_beginRequest(BeginRequestHandler);
+       prm.add_endRequest(EndRequestHandler);
+    </script>
+
     <asp:UpdatePanel ID="UpdatePanel1" runat="server">
         <ContentTemplate>
             <asp:UpdateProgress ID="UpdateProgress1" runat="server">
@@ -22,7 +63,7 @@
                                 <tr>
                                     <td style="width: 270px;">                            
                                         <div style='text-align: left;'>
-                                            <asp:ImageButton ID="btn_MultAdd" runat="server" ImageUrl="../Image/mulitplus.ico" Height="37px" Width="37px" OnClick="btn_MultAdd_Click" />
+                                            <asp:ImageButton ID="btn_MultAdd" runat="server" ImageUrl="../Image/mulitplus.ico" Height="37px" Width="37px" OnClick="btn_MultAdd_Click" ToolTip="2222  &#013; aaa" />
                                         </div></td>
                                     <td style="width: 500px;">
                                         <div style='text-align: right;'>

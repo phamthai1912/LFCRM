@@ -12,6 +12,7 @@ namespace LFCRM.AdminPage
     public partial class PerformanceTracking : System.Web.UI.Page
     {
         csPerformanceTracking PT = new csPerformanceTracking();
+        csResourceAllocation RA = new csResourceAllocation();
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -36,16 +37,15 @@ namespace LFCRM.AdminPage
             DataTable list_user = PT.getUserListbyMonth(month, year);
 
             //-------------------------------Header--------------------------------------
-            string header_PT = "<tr style='background-color: #00502F; color:white; font-weight: bold;'>"
-                                +"<td data-toggle='tooltip' title='Add new Title'>No</td><td>Name</td>";
+            string header_PT = "<tr style='background-color: #00502F; color:white; font-weight: bold;' valign='top'>"
+                                +"<td>No</td><td>Name</td>";
             for (int i=1; i<= list_date.Count; i++)
             {
                 DateTime date = Convert.ToDateTime(month.ToString()+"/"+i.ToString()+"/"+year.ToString());
                 if (date.ToString("ddd") == "Sun" || date.ToString("ddd") == "Sat") header_PT += "<td style='background-color: grey'>" + i.ToString() + "</td>";
                 else header_PT += "<td>" + i.ToString() + "</td>";
             }
-            header_PT = header_PT + "<td>Bug</td><td>Day</td></tr>";
-
+            header_PT = header_PT + "<td>B</td><td>D</td></tr>";
 
             //------------------------------Content-----------------------------------
             string content_PT = "";
@@ -61,6 +61,7 @@ namespace LFCRM.AdminPage
                     string text_color = "";
                     string no_bug = "";
                     string bg_image = "";
+                    string tooltip = "";
                     string date = month.ToString() + "/" + j.ToString() + "/" + year.ToString();
 
                     //------------------------------------ Grey Sun & Sat ----------------------------------------
@@ -92,27 +93,58 @@ namespace LFCRM.AdminPage
                         else if (Role_Hour.Rows.Count == 0) back_color = "lightgrey";
                         else if (Role_Hour.Rows.Count > 1)
                         {
-                            bg_image = "background-image:url(../Image/2T.gif);background-repeat:no-repeat;background-size:30px 30px;";
-                            no_bug = "2T";
-                            text_color = "black; font-weight: bold";
+                            string str_tooltip = "";
+                            bool m = false;
+                            int sum_bug = 0;
+
+                            for (int k = 0; k < Role_Hour.Rows.Count; k++)
+                            {
+                                string role = Role_Hour.Rows[k].ItemArray[0].ToString();
+                                string hour = Role_Hour.Rows[k].ItemArray[1].ToString();
+                                string titleID = Role_Hour.Rows[k].ItemArray[2].ToString();
+
+                                if ((titleID == "") && (role == "Off")) str_tooltip = str_tooltip + "Off - " + hour + "h \r\n";
+                                else if (titleID != "")
+                                {
+                                    DataTable data = PT.get_Mul_NoBug_ColorCode(UID, date, titleID);
+
+                                    if (data.Rows.Count > 0)
+                                    {
+                                        str_tooltip = str_tooltip + RA.get3LDbyID(titleID) + " - " + hour + "h - " + data.Rows[0].ItemArray[0].ToString() + " bug(s) \r\n";
+                                        sum_bug = sum_bug + (int)data.Rows[0].ItemArray[0];
+                                    }
+                                    else
+                                    {
+                                        str_tooltip = str_tooltip + RA.get3LDbyID(titleID) + " - " + hour + "h - " + "Not filled bug yet \r\n";
+                                        m = true;
+                                    }
+                                }
+                            }
+
+                            if (m) { no_bug = "M"; text_color = "red"; }
+                            else { no_bug = sum_bug.ToString(); sum += Convert.ToInt32(no_bug);  text_color = "black"; } 
+
+                            bg_image = "background-image:url(../Image/2T.gif);background-repeat:no-repeat;background-size:100% 100%;";
+                            text_color = text_color+ "; font-weight: bold;";
+                            tooltip = "data-toggle='tooltip' title='" + str_tooltip + "'";
                         }
                     }
-                    content_PT = content_PT + "<td style='background-color: " + back_color + "; color: "+text_color+"; "+ bg_image +"'>" + no_bug + "</td>";
+                    content_PT = content_PT + "<td style='background-color: " + back_color + "; color: "+text_color+"; "+ bg_image +"' "+tooltip+">" + no_bug + "</td>";
                 }
                 content_PT = content_PT + "<td><b>" + sum.ToString() + "</b></td><td><b>0</b></td>";
             }
             content_PT = content_PT + "</tr>";
 
             //-----------------------------Print--------------------------------------
-            lbl_PT.Text = "<table style='width: 1050px' class='table table-striped table-bordered table-responsive table-condensed table-hover'>"
+            lbl_PT.Text = "<table style='width: 1050px' class='table table-striped table-bordered table-responsive table-condensed table-hover' valign='top'>"
                             + header_PT + content_PT + "</table>";
         }
 
         public void printTitlebyMonth(int month, int year)
         {
             DataTable list_title = PT.getTitleListbyMonth(month, year);
-            string title_table = "<table style='width:120px;' class='table table-striped table-bordered table-responsive table-condensed table-hover'>"
-                            +"<tr><td style='background-color: #00502F; color:white; font-weight: bold;'>Title</td></tr>";
+            string title_table = "<table style='width:120px;' class='table table-striped table-bordered table-responsive table-condensed table-hover' valign='top'>"
+                            + "<tr valign='top'><td style='background-color: #00502F; color:white; font-weight: bold;' valign='top'>Title</td></tr>";
 
             if (list_title.Rows.Count > 0)
             {
