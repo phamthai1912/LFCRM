@@ -60,13 +60,22 @@ namespace LFCRM.Class
             return fullname;
         }
 
-        public DataTable getNoBug_ColorCode(string UID, string date)
+        public DataTable getNoBug_ColorCode(string UID, string date, string titleID)
         {
-            DataTable dt = dbconnect.getDataTable("Select NumberOfBugs, ColorCode "
-                                                +"From tbl_BugTracking, tbl_Title "
-                                                +"Where tbl_BugTracking.TitleID = tbl_Title.TitleID "
-                                                + "AND tbl_BugTracking.date = '" + date + "' "
-                                                +"AND tbl_BugTracking.UserID = "+UID);
+            string sql ="";
+            if (titleID =="") sql = "Select NumberOfBugs, ColorCode "
+                                +"From tbl_BugTracking, tbl_Title "
+                                +"Where tbl_BugTracking.TitleID = tbl_Title.TitleID "
+                                + "AND tbl_BugTracking.date = '" + date + "' "
+                                +"AND tbl_BugTracking.UserID = "+UID;
+            else sql = "Select NumberOfBugs, ColorCode "
+                                +"From tbl_BugTracking, tbl_Title "
+                                +"Where tbl_BugTracking.TitleID = tbl_Title.TitleID "
+                                +"AND tbl_BugTracking.TitleID = '" +titleID+ "'"
+                                +"AND tbl_BugTracking.date = '" + date + "' "
+                                +"AND tbl_BugTracking.UserID = "+UID;
+            
+            DataTable dt = dbconnect.getDataTable(sql);
             return dt;
         }
 

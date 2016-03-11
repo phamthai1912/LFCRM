@@ -13,10 +13,16 @@ namespace LFCRM.AdminPage
     {
         csPerformanceTracking PT = new csPerformanceTracking();
         csResourceAllocation RA = new csResourceAllocation();
+        csCommonClass CC = new csCommonClass();
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            
+            if (!IsPostBack)
+            {
+                //check admin permission
+                if ((bool)Session["LoggedIn"] == false) Response.Redirect("../UserPage/Login.aspx");
+                if (((bool)Session["LoggedIn"] == true) && ((string)Session["UserRole"] != "Admin")) Response.Redirect("../UserPage/Default.aspx");
+            }
         }
 
         public static List<DateTime> GetDates(int month, int year)
@@ -31,7 +37,7 @@ namespace LFCRM.AdminPage
             return dates;
         }
 
-        public void printPTbyMonth(int month, int year)
+        public void printPTbyMonth(int month, int year, string b_TitleID)
         {
             List<DateTime> list_date = GetDates(month, year);
             DataTable list_user = PT.getUserListbyMonth(month, year);
@@ -53,6 +59,7 @@ namespace LFCRM.AdminPage
             for (int i = 0; i < list_user.Rows.Count; i++)
             {
                 int sum = 0;
+                int no_day = 0;
                 string UID = list_user.Rows[i].ItemArray[0].ToString();
                 content_PT = content_PT + "<tr><td>"+(i+1).ToString()+"</td><td style='text-align:left;'>" + PT.getFullName(UID) + "</td>";
                 for (int j = 1; j <= list_date.Count; j++)
@@ -67,71 +74,85 @@ namespace LFCRM.AdminPage
                     //------------------------------------ Grey Sun & Sat ----------------------------------------
                     DateTime dt_date = Convert.ToDateTime(date);
                     if (dt_date.ToString("ddd") == "Sun" || dt_date.ToString("ddd") == "Sat") back_color = "grey";
-                    else
+
+                    DataTable Role_Hour = PT.getRole_Hour(UID, date);
+                    if (Role_Hour.Rows.Count == 1)
                     {
-                        DataTable Role_Hour = PT.getRole_Hour(UID, date);
-                        if (Role_Hour.Rows.Count == 1)
+                        string role = Role_Hour.Rows[0].ItemArray[0].ToString();
+                        string hour = Role_Hour.Rows[0].ItemArray[1].ToString();
+
+                        if (role == "Off") { if (b_TitleID=="") { no_bug = "Off"; back_color = "grey"; text_color = "white"; } }
+                        //else if ((role == "Billable") || (role == "Core") || (role == "Backup"))
+                        else
                         {
-                            string role = Role_Hour.Rows[0].ItemArray[0].ToString();
-                            string hour = Role_Hour.Rows[0].ItemArray[1].ToString();
-
-                            if (role == "Off") { no_bug = "Off"; back_color = "grey"; text_color = "white"; }
-                            else if ((role == "Trainee") || (role == "Trainer")) { no_bug = "T"; back_color = "yellow"; }
-                            else if ((role == "Billable") || (role == "Core") || (role == "Backup"))
+                            DataTable data = PT.getNoBug_ColorCode(UID, date, b_TitleID);
+                            if (data.Rows.Count > 0)
                             {
-                                DataTable data = PT.getNoBug_ColorCode(UID, date);
-                                if (data.Rows.Count > 0)
-                                {
-                                    back_color = data.Rows[0].ItemArray[1].ToString();
-                                    no_bug = data.Rows[0].ItemArray[0].ToString();
+                                back_color = data.Rows[0].ItemArray[1].ToString();
+                                no_bug = data.Rows[0].ItemArray[0].ToString();
 
-                                    sum += Convert.ToInt32(no_bug);
-                                }
-                                else { no_bug = "M"; text_color = "red"; } 
+                                sum += Convert.ToInt32(no_bug);
+                                no_day++;
                             }
-                        }
-                        else if (Role_Hour.Rows.Count == 0) back_color = "lightgrey";
-                        else if (Role_Hour.Rows.Count > 1)
-                        {
-                            string str_tooltip = "";
-                            bool m = false;
-                            int sum_bug = 0;
-
-                            for (int k = 0; k < Role_Hour.Rows.Count; k++)
-                            {
-                                string role = Role_Hour.Rows[k].ItemArray[0].ToString();
-                                string hour = Role_Hour.Rows[k].ItemArray[1].ToString();
-                                string titleID = Role_Hour.Rows[k].ItemArray[2].ToString();
-
-                                if ((titleID == "") && (role == "Off")) str_tooltip = str_tooltip + "Off - " + hour + "h \r\n";
-                                else if (titleID != "")
-                                {
-                                    DataTable data = PT.get_Mul_NoBug_ColorCode(UID, date, titleID);
-
-                                    if (data.Rows.Count > 0)
-                                    {
-                                        str_tooltip = str_tooltip + RA.get3LDbyID(titleID) + " - " + hour + "h - " + data.Rows[0].ItemArray[0].ToString() + " bug(s) \r\n";
-                                        sum_bug = sum_bug + (int)data.Rows[0].ItemArray[0];
-                                    }
-                                    else
-                                    {
-                                        str_tooltip = str_tooltip + RA.get3LDbyID(titleID) + " - " + hour + "h - " + "Not filled bug yet \r\n";
-                                        m = true;
-                                    }
-                                }
+                            else 
+                            { 
+                                if (b_TitleID == "") 
+                                { 
+                                    if ((role == "Trainee") || (role == "Trainer")) { if (b_TitleID == "") { no_bug = "T"; back_color = "yellow"; } }
+                                    else no_bug = "N"; text_color = "red"; no_day++; 
+                                } 
                             }
-
-                            if (m) { no_bug = "M"; text_color = "red"; }
-                            else { no_bug = sum_bug.ToString(); sum += Convert.ToInt32(no_bug);  text_color = "black"; } 
-
-                            bg_image = "background-image:url(../Image/2T.gif);background-repeat:no-repeat;background-size:100% 100%;";
-                            text_color = text_color+ "; font-weight: bold;";
-                            tooltip = "data-toggle='tooltip' title='" + str_tooltip + "'";
                         }
                     }
+                    else if (Role_Hour.Rows.Count == 0)
+                    {
+                        if (dt_date.ToString("ddd") == "Sun" || dt_date.ToString("ddd") == "Sat") back_color = "grey";
+                        else back_color = "lightgrey";
+                    }
+                    else if (Role_Hour.Rows.Count > 1)
+                    {
+                        string str_tooltip = "";
+                        bool m = false;
+                        int sum_bug = 0;
+                        no_day++;
+
+                        for (int k = 0; k < Role_Hour.Rows.Count; k++)
+                        {
+                            string role = Role_Hour.Rows[k].ItemArray[0].ToString();
+                            string hour = Role_Hour.Rows[k].ItemArray[1].ToString();
+                            string titleID = Role_Hour.Rows[k].ItemArray[2].ToString();
+
+                            if ((titleID == "") && (role == "Off")) str_tooltip = str_tooltip + "Off - " + hour + "h \r\n";
+                            else if (titleID != "")
+                            {
+                                //if (b_TitleID != "") titleID = b_TitleID;
+
+                                DataTable data = PT.get_Mul_NoBug_ColorCode(UID, date, titleID);
+
+                                if (data.Rows.Count > 0)
+                                {
+                                    str_tooltip = str_tooltip + RA.get3LDbyID(titleID) + " - " + hour + "h - " + data.Rows[0].ItemArray[0].ToString() + " bug(s) \r\n";
+                                    sum_bug = sum_bug + (int)data.Rows[0].ItemArray[0];
+                                }
+                                else
+                                {
+                                    str_tooltip = str_tooltip + RA.get3LDbyID(titleID) + " - " + hour + "h - " + "Not filled bug yet \r\n";
+                                    m = true;
+                                }
+                            }
+                        }
+
+                        if (m) { no_bug = "N"; text_color = "red"; }
+                        else { no_bug = sum_bug.ToString(); sum += Convert.ToInt32(no_bug); text_color = "black"; }
+
+                        bg_image = "background-image:url(../Image/2T.png);background-repeat:no-repeat;background-size:100% 100%;";
+                        text_color = text_color + "; font-weight: bold;";
+                        tooltip = "data-toggle='tooltip' title='" + str_tooltip + "'";
+                    }
+
                     content_PT = content_PT + "<td style='background-color: " + back_color + "; color: "+text_color+"; "+ bg_image +"' "+tooltip+">" + no_bug + "</td>";
                 }
-                content_PT = content_PT + "<td><b>" + sum.ToString() + "</b></td><td><b>0</b></td>";
+                content_PT = content_PT + "<td><b>" + sum.ToString() + "</b></td><td><b>"+no_day.ToString()+"</b></td>";
             }
             content_PT = content_PT + "</tr>";
 
@@ -162,8 +183,24 @@ namespace LFCRM.AdminPage
         {
             string[] s = txt_date.Text.Split('/');
 
-            printPTbyMonth(Convert.ToInt32(s[0]),Convert.ToInt32(s[1]));
+            tb_Reference.Visible = true;
+
+            ddl_TitleList.Items.Clear();
+            ListItem l = new ListItem();
+            l.Value = "";
+            l.Text = "- All titles -";
+            ddl_TitleList.Items.Add(l);
+            CC.AddDBToDDL(ddl_TitleList, "Select distinct tbl_title.TitleID, [3LD] From tbl_resourceallocation, tbl_title where tbl_resourceallocation.titleID = tbl_title.titleID AND MONTH(date) = " + Convert.ToInt32(s[0]) + " AND YEAR(date) = " + Convert.ToInt32(s[1]));
+            
+            printPTbyMonth(Convert.ToInt32(s[0]),Convert.ToInt32(s[1]), "");
             printTitlebyMonth(Convert.ToInt32(s[0]), Convert.ToInt32(s[1]));
+        }
+
+        protected void ddl_TitleList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string[] s = txt_date.Text.Split('/');
+
+            printPTbyMonth(Convert.ToInt32(s[0]), Convert.ToInt32(s[1]), ddl_TitleList.SelectedValue.ToString());
         }
     }
 }

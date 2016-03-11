@@ -41,7 +41,7 @@
                             <a href="/AdminPage/BugStatistic"><span>Fill Bug Statistic</span></a>
                         </li>
                         <li>
-                            <a href="/AdminPage/PerformanceTracking"><span>Performance Tracking - TBD</span></a>
+                            <a href="/AdminPage/PerformanceTracking"><span>Performance Tracking</span></a>
                         </li>
                     </ul>
 		       </li>
@@ -51,12 +51,15 @@
                     <a href="#"><span>Profile</span></a>
                     <ul>
                         <li>
-                            <a href="/AdminPage/ByTester"><span>Tester - TBD</span></a>
+                            <a href="/AdminPage/ByTester"><span>Tester</span></a>
                         </li>
                         <li>
                             <a href="/AdminPage/ByTitle"><span>Title - TBD</span></a>
                         </li>
                     </ul>
+                </li>
+                <li>
+                    <a href="/AdminPage/CoreTracking"><span>Core Tracking</span></a>
                 </li>
 		    </ul>
 		    </div>

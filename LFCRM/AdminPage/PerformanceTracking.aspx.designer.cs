@@ -40,6 +40,15 @@ namespace LFCRM.AdminPage {
         protected global::System.Web.UI.UpdateProgress UpdateProgress1;
         
         /// <summary>
+        /// ddl_TitleList control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddl_TitleList;
+        
+        /// <summary>
         /// txt_date control.
         /// </summary>
         /// <remarks>
@@ -83,5 +92,14 @@ namespace LFCRM.AdminPage {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lbl_Title;
+        
+        /// <summary>
+        /// tb_Reference control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTable tb_Reference;
     }
 }

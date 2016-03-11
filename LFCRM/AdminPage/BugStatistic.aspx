@@ -137,6 +137,9 @@
                             placeholder="Search User" class="form-control" style="width:200px;"></asp:TextBox>
                     </li>
                     <li>
+                        <asp:TextBox ID="txt_title" placeholder="Search title" class="form-control" runat="server" style="width:200px;"></asp:TextBox>
+                    </li>
+                    <li>
                         <asp:Button ID="btn_search" runat="server" Text="Search" class="btn btn-success" OnClick="btn_search_Click"/>
                     </li>
                     <li>
@@ -191,7 +194,9 @@
                                 Title <asp:LinkButton ID="lnk_title" runat="server" CommandName="sorting_title"><span class="glyphicon glyphicon-sort"></span></asp:LinkButton>
                             </HeaderTemplate>
                             <ItemTemplate>
-                                <asp:Label ID="lb_title" runat="server" Text='<%# Bind("3LD") %>'></asp:Label>
+                                <button type='button' class='btn btn-default btn-sm'><span class='glyphicon glyphicon-tag'></span>
+                                    <asp:Label CommandName="fillbug_title" CommandArgument="<%# ((GridViewRow) Container).RowIndex %>" ID="lb_title" runat="server" Text='<%# Bind("3LD") %>'></asp:Label>
+                                </button>                                
                             </ItemTemplate>
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Billing">
@@ -222,11 +227,6 @@
                                 </asp:Label>
                                 <asp:TextBox ID="txt_numberofbugs" runat="server" class="form-control"
                                     Visible="false"></asp:TextBox>
-                                    <asp:RequiredFieldValidator ErrorMessage="ID should not be null" 
-                                            validationgroup="updatevalidationgroup"
-                                            ControlToValidate="txt_numberofbugs"
-                                            Display="Dynamic" runat="server" 
-                                            CssClass="label label-danger"/>
                                     <asp:CompareValidator ControlToValidate="txt_numberofbugs" 
                                         validationgroup="updatevalidationgroup"
                                         runat="server" ErrorMessage="Please enter number only" 

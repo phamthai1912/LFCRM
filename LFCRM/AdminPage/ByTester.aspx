@@ -45,8 +45,13 @@
 
         <div class="topright-grid">
             <ul>
-                <li>
+                <li style="text-align:right;">
                     <asp:Label ID="lb_userstatus" runat="server" Visible="false" CssClass="label label-danger"></asp:Label>
+                    <asp:RequiredFieldValidator ErrorMessage="Name should not be null" 
+                                            validationgroup="searchuser"
+                                            ControlToValidate="txt_username"
+                                            Display="Dynamic" runat="server" 
+                                            CssClass="label label-danger"/><br />                    
                 </li>
                 <li>
                     <asp:TextBox ID="txt_username" placeholder="Full Name" AutoPostBack="true" runat="server" class="form-control" style="width:200px;"></asp:TextBox>
@@ -61,29 +66,15 @@
                         FirstRowSelected="false"
                         ServicePath="~/AutoComplete.asmx" TargetControlID="txt_username">
                     </ajaxToolkit:AutoCompleteExtender>
-                    <asp:RequiredFieldValidator ErrorMessage="Name should not be null" 
-                                            validationgroup="searchuser"
-                                            ControlToValidate="txt_username"
-                                            Display="Dynamic" runat="server" 
-                                            CssClass="label label-danger"/>
+                    
                 </li>
                 <li>
                     <asp:TextBox ID="txt_startdate" runat="server" placeholder="Date Start" class="form-control" style="width:100px;"></asp:TextBox>
                     <ajaxToolkit:CalendarExtender ID="txt_startdate_CalendarExtender" runat="server" 
                         BehaviorID="txt_startdate_CalendarExtender" TargetControlID="txt_startdate" 
                         ClientIDMode="Static"
-                        Format="MM/dd/yyyy"/>
-                    <asp:RequiredFieldValidator ErrorMessage="Start date should not be null" 
-                                            validationgroup="searchuser"
-                                            ControlToValidate="txt_startdate"
-                                            Display="Dynamic" runat="server" 
-                                            CssClass="label label-danger"/>
-                    <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server"
-                        validationgroup="searchuser"
-                        ControlToValidate="txt_startdate" ErrorMessage="Invalid date format"
-                        ValidationExpression="(0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])[- /.](19|20)\d\d"
-                        CssClass="label label-danger">
-                    </asp:RegularExpressionValidator>
+                        Format="MM/dd/yyyy"/>                 
+                    
                 </li>
                 <li>
                     <asp:TextBox ID="txt_enddate" runat="server" placeholder="Date End" class="form-control" style="width:100px;"></asp:TextBox>
@@ -91,6 +82,30 @@
                         BehaviorID="txt_enddate_CalendarExtender" TargetControlID="txt_enddate" 
                         ClientIDMode="Static"
                         Format="MM/dd/yyyy"/>
+                    
+                </li>
+                <li>
+                    <asp:Button ID="btn_search" validationgroup="searchuser" runat="server" Text="Search" class="btn btn-success" OnClick="btn_search_Click"/>
+                </li>
+            </ul>
+            <div style="margin-left:340px;">
+                <div style="float:left; margin-right:10px;">
+                <!--Start Date-->
+                    <asp:RequiredFieldValidator ErrorMessage="Start date should not be null" 
+                                            validationgroup="searchuser"
+                                            ControlToValidate="txt_startdate"
+                                            Display="Dynamic" runat="server" 
+                                            CssClass="label label-danger"/>
+                    <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server"
+                        validationgroup="searchuser"
+                        Display="Dynamic"
+                        ControlToValidate="txt_startdate" ErrorMessage="Invalid start date format"
+                        ValidationExpression="(0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])[- /.](19|20)\d\d"
+                        CssClass="label label-danger">
+                    </asp:RegularExpressionValidator>
+                </div>
+                <div>
+                <!--End Date-->
                     <asp:RequiredFieldValidator ErrorMessage="End date should not be null" 
                                             validationgroup="searchuser"
                                             ControlToValidate="txt_enddate"
@@ -98,15 +113,13 @@
                                             CssClass="label label-danger"/>
                     <asp:RegularExpressionValidator ID="RegularExpressionValidator2" runat="server"
                         validationgroup="searchuser"
-                        ControlToValidate="txt_enddate" ErrorMessage="Invalid date format"
+                        Display="Dynamic"
+                        ControlToValidate="txt_enddate" ErrorMessage="Invalid end date format"
                         ValidationExpression="(0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])[- /.](19|20)\d\d"
                         CssClass="label label-danger">
                     </asp:RegularExpressionValidator>
-                </li>
-                <li>
-                    <asp:Button ID="btn_search" validationgroup="searchuser" runat="server" Text="Search" class="btn btn-success" OnClick="btn_search_Click"/>
-                </li>
-            </ul>
+                </div>
+            </div>
         </div><br /><br />
 
         <table class="table table-bordered table-responsive table-condensed table-hover">

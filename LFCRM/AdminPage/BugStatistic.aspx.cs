@@ -27,6 +27,15 @@ namespace LFCRM.AdminPage
                 ViewState["bill"] = 0;
                 ViewState["working"] = 0;
 
+                //Check Sorting
+                ViewState["_bugs"] = 0;
+                ViewState["_date"] = 0;
+                ViewState["_employeeid"] = 0;
+                ViewState["_name"] = 0;
+                ViewState["_title"] = 0;
+                ViewState["_bill"] = 0;
+                ViewState["_working"] = 0;
+
                 lb_datestatus.Text = "Bug Statistics of "+DateTime.Now.ToString("MMM")+", "+DateTime.Now.Year.ToString();
                 load_grid("");
             }
@@ -36,15 +45,16 @@ namespace LFCRM.AdminPage
         protected void txt_date_TextChanged(object sender, EventArgs e)
         {
             String dd = txt_date.Text;
-            if (dd == null)
+            String title = txt_title.Text;
+            if (dd == "")
                 lb_datestatus.Text = "Bug Statistics of " + DateTime.Now.ToString("MMM") + ", " + DateTime.Now.Year.ToString();
             else
             {
                 DateTime newdate = Convert.ToDateTime(txt_date.Text);
                 lb_datestatus.Text = "Bug Statistics of " + newdate.ToString("MMM") + ", " + newdate.Year.ToString();
             }
-            if(txt_newsearch.Text != "")
-                GridView1.DataSource = statistic.searchName(txt_newsearch.Text, dd);
+            if(txt_title.Text != "")
+                GridView1.DataSource = statistic.searchTitle(txt_newsearch.Text, dd, title);
             else 
                 GridView1.DataSource = statistic.getResourceAlocation(dd);
             GridView1.DataBind();
@@ -109,18 +119,83 @@ namespace LFCRM.AdminPage
                                 statistic.addBugs(date, employeeid, titlid, numberbugs);
                             statistic.updateBugs(date, employeeid, titlid, numberbugs);
                         }
+                        if (numberbugs == "")
+                        {
+                            statistic.deleteBugs(date, employeeid, titlid);
+                        }
                     }
                 }
             }
             btn_updatebugs.Visible = false;
 
             String dd = txt_date.Text;
+            String title = txt_title.Text;
             if (txt_newsearch.Text != "")
             {
-                GridView1.DataSource = statistic.searchName(txt_newsearch.Text, dd);
+                GridView1.DataSource = statistic.searchTitle(txt_newsearch.Text, dd, title);
                 GridView1.DataBind();
             }
             else load_grid(dd);
+
+            CheckSortingGrid(GridView1);
+        }
+
+        public void CheckSortingGrid(GridView grid)
+        {
+            //Check Soring Grid
+            DataTable dt = getDataTablefromGridview(grid);
+            if ((int)ViewState["_bugs"] != 0)
+            {
+                if ((int)ViewState["_bugs"] % 2 == 0)
+                    SortingGridview(dt, "Bugs ASC");
+                else
+                    SortingGridview(dt, "Bugs DESC");
+            }
+            if ((int)ViewState["_date"] != 0)
+            {
+                if ((int)ViewState["_date"] % 2 == 0)
+                    SortingGridview(dt, "Date ASC");
+                else
+                    SortingGridview(dt, "Date DESC");
+            }
+            if ((int)ViewState["_employeeid"] != 0)
+            {
+                if ((int)ViewState["_employeeid"] % 2 == 0)
+                    SortingGridview(dt, "EmployeeID ASC");
+                else
+                    SortingGridview(dt, "EmployeeID DESC");
+            }
+            if ((int)ViewState["_name"] != 0)
+            {
+                if ((int)ViewState["_name"] % 2 == 0)
+                    SortingGridview(dt, "FullName ASC");
+                else
+                    SortingGridview(dt, "FullName DESC");
+            }
+            if ((int)ViewState["_title"] != 0)
+            {
+                if ((int)ViewState["_title"] % 2 == 0)
+                    SortingGridview(dt, "3LD ASC");
+                else
+                    SortingGridview(dt, "3LD DESC");
+            }
+            if ((int)ViewState["_bill"] != 0)
+            {
+                if ((int)ViewState["_bill"] % 2 == 0)
+                    SortingGridview(dt, "ProjectRoleName ASC");
+                else
+                    SortingGridview(dt, "ProjectRoleName DESC");
+            }
+            if ((int)ViewState["_working"] != 0)
+            {
+                if ((int)ViewState["_working"] % 2 == 0)
+                    SortingGridview(dt, "Value ASC");
+                else
+                    SortingGridview(dt, "Value DESC");
+            }
+
+            grid.DataSource = dt;
+            grid.DataBind();
         }
 
         protected void OnCheckedChanged(object sender, EventArgs e)
@@ -194,9 +269,11 @@ namespace LFCRM.AdminPage
         protected void btn_search_Click(object sender, EventArgs e)
         {
             String dd = txt_date.Text;
+            String title = txt_title.Text;
 
-            GridView1.DataSource = statistic.searchName(txt_newsearch.Text, dd);
+            GridView1.DataSource = statistic.searchTitle(txt_newsearch.Text, dd, title);
             GridView1.DataBind();
+            CheckSortingGrid(GridView1);
         }
 
         protected void GridView1_RowCommand(object sender, GridViewCommandEventArgs e)
@@ -204,92 +281,190 @@ namespace LFCRM.AdminPage
 
             if (e.CommandName.Equals("sorting_bugs"))
             {
+                //Check Sorting
+                ViewState["_date"] = 0;
+                ViewState["_employeeid"] = 0;
+                ViewState["_name"] = 0;
+                ViewState["_title"] = 0;
+                ViewState["_bill"] = 0;
+                ViewState["_working"] = 0;
+
                 DataTable dt = getDataTablefromGridview(GridView1);
 
                 ViewState["bugs"] = (int)ViewState["bugs"] + 1;
 
                 if ((int)ViewState["bugs"] % 2 == 0)
+                {
                     SortingGridview(dt, "Bugs ASC");
+                    ViewState["_bugs"] = 2;
+                }
                 else
+                {
                     SortingGridview(dt, "Bugs DESC");
+                    ViewState["_bugs"] = 1;
+                }
                 GridView1.DataSource = dt;
                 GridView1.DataBind();
             }
             if (e.CommandName.Equals("sorting_date"))
             {
+                //Check Sorting
+                ViewState["_bugs"] = 0;                
+                ViewState["_employeeid"] = 0;
+                ViewState["_name"] = 0;
+                ViewState["_title"] = 0;
+                ViewState["_bill"] = 0;
+                ViewState["_working"] = 0;
+
                 DataTable dt = getDataTablefromGridview(GridView1);
 
                 ViewState["date"] = (int)ViewState["date"] + 1;
 
                 if ((int)ViewState["date"] % 2 == 0)
+                {
                     SortingGridview(dt, "Date ASC");
+                    ViewState["_date"] = 2;
+                }
                 else
+                {
                     SortingGridview(dt, "Date DESC");
+                    ViewState["_date"] = 1;
+                }
                 GridView1.DataSource = dt;
                 GridView1.DataBind();
             }
             if (e.CommandName.Equals("sorting_id"))
             {
+                //Check Sorting
+                ViewState["_bugs"] = 0;
+                ViewState["_date"] = 0;                
+                ViewState["_name"] = 0;
+                ViewState["_title"] = 0;
+                ViewState["_bill"] = 0;
+                ViewState["_working"] = 0;
+
                 DataTable dt = getDataTablefromGridview(GridView1);
 
                 ViewState["employeeid"] = (int)ViewState["employeeid"] + 1;
 
                 if ((int)ViewState["employeeid"] % 2 == 0)
+                {
                     SortingGridview(dt, "EmployeeID ASC");
+                    ViewState["_employeeid"] = 2;
+                }
                 else
+                {
                     SortingGridview(dt, "EmployeeID DESC");
+                    ViewState["_employeeid"] = 1;
+                }
                 GridView1.DataSource = dt;
                 GridView1.DataBind();
             }
             if (e.CommandName.Equals("sorting_fullname"))
             {
+                //Check Sorting
+                ViewState["_bugs"] = 0;
+                ViewState["_date"] = 0;
+                ViewState["_employeeid"] = 0;                
+                ViewState["_title"] = 0;
+                ViewState["_bill"] = 0;
+                ViewState["_working"] = 0;
+
                 DataTable dt = getDataTablefromGridview(GridView1);
 
                 ViewState["name"] = (int)ViewState["name"] + 1;
 
                 if ((int)ViewState["name"] % 2 == 0)
+                {
                     SortingGridview(dt, "FullName ASC");
+                    ViewState["_name"] = 2;
+                }
                 else
+                {
                     SortingGridview(dt, "FullName DESC");
+                    ViewState["_name"] = 1;
+                }
                 GridView1.DataSource = dt;
                 GridView1.DataBind();
             }
             if (e.CommandName.Equals("sorting_title"))
             {
+                //Check Sorting
+                ViewState["_bugs"] = 0;
+                ViewState["_date"] = 0;
+                ViewState["_employeeid"] = 0;
+                ViewState["_name"] = 0;
+                ViewState["_bill"] = 0;
+                ViewState["_working"] = 0;
+
                 DataTable dt = getDataTablefromGridview(GridView1);
 
                 ViewState["title"] = (int)ViewState["title"] + 1;
 
                 if ((int)ViewState["title"] % 2 == 0)
+                {
                     SortingGridview(dt, "3LD ASC");
+                    ViewState["_title"] = 2;
+                }
                 else
+                {
                     SortingGridview(dt, "3LD DESC");
+                    ViewState["_title"] = 1;
+                }
                 GridView1.DataSource = dt;
                 GridView1.DataBind();
             }
             if (e.CommandName.Equals("sorting_billing"))
             {
+                //Check Sorting
+                ViewState["_bugs"] = 0;
+                ViewState["_date"] = 0;
+                ViewState["_employeeid"] = 0;
+                ViewState["_name"] = 0;
+                ViewState["_title"] = 0;                
+                ViewState["_working"] = 0;
+
                 DataTable dt = getDataTablefromGridview(GridView1);
 
                 ViewState["bill"] = (int)ViewState["bill"] + 1;
 
                 if ((int)ViewState["bill"] % 2 == 0)
+                {
                     SortingGridview(dt, "ProjectRoleName ASC");
+                    ViewState["_bill"] = 2;
+                }
                 else
+                {
                     SortingGridview(dt, "ProjectRoleName DESC");
+                    ViewState["_bill"] = 1;
+                }
                 GridView1.DataSource = dt;
                 GridView1.DataBind();
             }
             if (e.CommandName.Equals("sorting_working"))
             {
+                //Check Sorting
+                ViewState["_bugs"] = 0;
+                ViewState["_date"] = 0;
+                ViewState["_employeeid"] = 0;
+                ViewState["_name"] = 0;
+                ViewState["_title"] = 0;
+                ViewState["_bill"] = 0;                
+
                 DataTable dt = getDataTablefromGridview(GridView1);
 
                 ViewState["working"] = (int)ViewState["working"] + 1;
 
                 if ((int)ViewState["working"] % 2 == 0)
+                {
                     SortingGridview(dt, "Value ASC");
+                    ViewState["_working"] = 2;
+                }
                 else
+                {
                     SortingGridview(dt, "Value DESC");
+                    ViewState["_working"] = 1;
+                }
                 GridView1.DataSource = dt;
                 GridView1.DataBind();
             }

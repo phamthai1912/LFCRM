@@ -19,7 +19,9 @@ namespace LFCRM.AdminPage
         {
             if (!IsPostBack)
             {
-                
+                //check admin permission
+                if ((bool)Session["LoggedIn"] == false) Response.Redirect("../UserPage/Login.aspx");
+                if (((bool)Session["LoggedIn"] == true) && ((string)Session["UserRole"] != "Admin")) Response.Redirect("../UserPage/Default.aspx");
             }
         }
 

@@ -66,13 +66,19 @@
                 </ProgressTemplate>
             </asp:UpdateProgress>
 
-            <table>
+            <table style="width: 1180px;">
                 <tr>
-                    <td style="width: 1180px; text-align: right" colspan="2">
-                        <div style="text-align: right">
-                            <asp:TextBox ID="txt_date" placeholder="Select a months" runat="server" AutoPostBack="true" class="form-control" Width="200px" OnTextChanged="txt_date_TextChanged"></asp:TextBox>
-                            <ajaxToolkit:CalendarExtender ID="txt_date_CalendarExtender" runat="server" BehaviorID="txt_date_CalendarExtender" TargetControlID="txt_date" Format="MM/yyyy" DefaultView="Months" OnClientShown="onCalendarShown" OnClientHidden="onCalendarHidden" />
-                            
+                    <td style='width:1180px;' colspan="3">
+                        <div class="topright-grid">
+                            <ul>
+                                <li>
+                                    <asp:DropDownList ID="ddl_TitleList" runat="server" AutoPostBack="true" class="form-control" OnSelectedIndexChanged="ddl_TitleList_SelectedIndexChanged"></asp:DropDownList>
+                                </li>
+                                <li>  
+                                    <asp:TextBox ID="txt_date" placeholder="Select a months" runat="server" AutoPostBack="true" class="form-control" Width="180px" OnTextChanged="txt_date_TextChanged"></asp:TextBox>
+                                    <ajaxToolkit:CalendarExtender ID="txt_date_CalendarExtender" runat="server" BehaviorID="txt_date_CalendarExtender" TargetControlID="txt_date" Format="MM/yyyy" DefaultView="Months" OnClientShown="onCalendarShown" OnClientHidden="onCalendarHidden" />
+                                </li>
+                            </ul>
                         </div>
                     </td>
                 </tr>
@@ -85,9 +91,45 @@
                         <br /><br />
                     </td>
                     <td style='width:10px;'></td>
-                    <td style='vertical-align:top'>
+                    <td style='vertical-align:top; width: 120px;'>
                         <br />
-                        <asp:Label ID="lbl_Title" runat="server" Text="" AutoPostBack="true"></asp:Label>
+                        <table >
+                            <tr>
+                                <td>
+                                    <asp:Label ID="lbl_Title" runat="server" Text="" AutoPostBack="true"></asp:Label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <table visible="false" class='table table-striped table-bordered table-responsive table-condensed table-hover' runat="server" id="tb_Reference">
+                                        <tr style='background-color: #00502F; color:white; font-weight: bold; text-align:center'>
+                                            <td colspan="2">Reference</td>
+                                        </tr>
+                                        <tr>
+                                            <td>T</td>
+                                            <td>Training</td>
+                                        </tr>
+                                        <tr>
+                                            <td>N</td>
+                                            <td>N/A</td>
+                                        </tr>
+                                        <tr>
+                                            <td>B</td>
+                                            <td>Bugs</td>
+                                        </tr>
+                                        <tr>
+                                            <td>D</td>
+                                            <td>Days</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="background-image:url(../Image/2T.png);background-repeat:no-repeat;background-size:100% 100%;"></td>
+                                            <td>Multi-titles</td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                        
                     </td>
                 </tr>
             </table>

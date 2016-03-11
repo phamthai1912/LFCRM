@@ -99,6 +99,14 @@ namespace LFCRM.Class
             dbconnect.ExeCuteNonQuery(sql);
         }
 
+        public void deleteBugs(String _date, String _employeeid, String _titleid)
+        {
+            String userid = getUserID(_employeeid);
+
+            String sql = "DELETE FROM tbl_BugTracking WHERE Date = '" + _date + "' AND UserID = '" + userid + "' AND TitleID = '" + _titleid + "'";
+            dbconnect.ExeCuteNonQuery(sql);
+        }
+
         public String getNumberBugs(String text)
         {
             String[] temp;
@@ -146,6 +154,51 @@ namespace LFCRM.Class
             DataSet dt = dbconnect.getDataSet(sql);
 
             return dt;
+        }
+
+        public DataSet searchTitle(String _search, String _date, String _title)
+        {
+            DataSet ds = new DataSet();
+
+            String[] temp;
+            temp = _search.Split(' ');
+            String newsearch = "";
+            for (int i = 0; i < temp.Length; i++)
+            {
+                newsearch = newsearch + "%" + temp[i];
+            }
+            String sql = "SELECT CONVERT(VARCHAR(10), Date, 101) AS Date,EmployeeID,FullName,tbl_ResourceAllocation.TitleID,[3LD],ProjectRoleName,Value " +
+                "FROM tbl_User, tbl_ResourceAllocation, tbl_ProjectRole, tbl_WorkingHours,tbl_Title " +
+                "WHERE tbl_ResourceAllocation.UserID = tbl_User.UserID " +
+                "AND tbl_Title.TitleID = tbl_ResourceAllocation.TitleID " +
+                "AND tbl_ResourceAllocation.ProjectRoleID = tbl_ProjectRole.ProjectRoleID " +
+                "AND tbl_ResourceAllocation.WorkingHoursID = tbl_WorkingHours.WorkingHoursID " +
+                "AND RIGHT(CONVERT(VARCHAR(10), Date, 103), 7) = '" + _date + "' " +
+                "AND FullName LIKE '" + newsearch + "%' " +
+                "AND [3LD] = '"+_title+"' "+
+                "ORDER BY Date DESC";
+
+            if (_title == "")
+            {
+                ds = searchName(_search, _date);
+            }
+            else
+            {
+                if(_date == "")
+                    sql = "SELECT CONVERT(VARCHAR(10), Date, 101) AS Date,EmployeeID,FullName,tbl_ResourceAllocation.TitleID,[3LD],ProjectRoleName,Value " +
+                           "FROM tbl_User, tbl_ResourceAllocation, tbl_ProjectRole, tbl_WorkingHours,tbl_Title " +
+                           "WHERE tbl_ResourceAllocation.UserID = tbl_User.UserID " +
+                           "AND tbl_Title.TitleID = tbl_ResourceAllocation.TitleID " +
+                           "AND tbl_ResourceAllocation.ProjectRoleID = tbl_ProjectRole.ProjectRoleID " +
+                           "AND tbl_ResourceAllocation.WorkingHoursID = tbl_WorkingHours.WorkingHoursID " +
+                           "AND FullName LIKE '" + newsearch + "%'" +
+                           "AND [3LD] = '" + _title + "' " +
+                           "ORDER BY Date DESC";
+
+                ds = dbconnect.getDataSet(sql);
+            }
+
+            return ds;
         }
     }
 }

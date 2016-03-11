@@ -176,6 +176,7 @@
     <Content Include="AdminPage\BugStatistic.aspx" />
     <Content Include="AdminPage\ByTester.aspx" />
     <Content Include="AdminPage\Category.aspx" />
+    <Content Include="AdminPage\CoreTracking.aspx" />
     <Content Include="AdminPage\PerformanceTracking.aspx" />
     <Content Include="AdminPage\ResourceAllocation.aspx" />
     <Content Include="AdminPage\Resources.aspx" />
@@ -344,6 +345,13 @@
     <Compile Include="AdminPage\Category.aspx.designer.cs">
       <DependentUpon>Category.aspx</DependentUpon>
     </Compile>
+    <Compile Include="AdminPage\CoreTracking.aspx.cs">
+      <DependentUpon>CoreTracking.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdminPage\CoreTracking.aspx.designer.cs">
+      <DependentUpon>CoreTracking.aspx</DependentUpon>
+    </Compile>
     <Compile Include="AdminPage\PerformanceTracking.aspx.cs">
       <DependentUpon>PerformanceTracking.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -384,6 +392,7 @@
     <Compile Include="Class\csByTester.cs" />
     <Compile Include="Class\csCategory.cs" />
     <Compile Include="Class\csCommonClass.cs" />
+    <Compile Include="Class\csCoreTracking.cs" />
     <Compile Include="Class\csPerformanceTracking.cs" />
     <Compile Include="Class\csResource.cs" />
     <Compile Include="Class\csResourceAllocation.cs" />

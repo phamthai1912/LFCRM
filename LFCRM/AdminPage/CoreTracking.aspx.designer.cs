@@ -10,7 +10,7 @@
 namespace LFCRM.AdminPage {
     
     
-    public partial class BugStatistic {
+    public partial class CoreTracking {
         
         /// <summary>
         /// ScriptManager1 control.
@@ -40,15 +40,6 @@ namespace LFCRM.AdminPage {
         protected global::System.Web.UI.UpdateProgress UpdateProgress1;
         
         /// <summary>
-        /// lb_datestatus control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lb_datestatus;
-        
-        /// <summary>
         /// txt_date control.
         /// </summary>
         /// <remarks>
@@ -67,49 +58,13 @@ namespace LFCRM.AdminPage {
         protected global::AjaxControlToolkit.CalendarExtender txt_date_CalendarExtender;
         
         /// <summary>
-        /// txt_newsearch control.
+        /// lb_status control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txt_newsearch;
-        
-        /// <summary>
-        /// txt_title control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txt_title;
-        
-        /// <summary>
-        /// btn_search control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btn_search;
-        
-        /// <summary>
-        /// btn_updatebugs control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btn_updatebugs;
-        
-        /// <summary>
-        /// Panel1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel Panel1;
+        protected global::System.Web.UI.WebControls.Label lb_status;
         
         /// <summary>
         /// GridView1 control.
