@@ -22,6 +22,29 @@ namespace LFCRM.AdminPage
                 //check admin permission
                 if ((bool)Session["LoggedIn"] == false) Response.Redirect("../UserPage/Login.aspx");
                 if (((bool)Session["LoggedIn"] == true) && ((string)Session["UserRole"] != "Admin")) Response.Redirect("../UserPage/Default.aspx");
+
+                //show current month
+                //string date = DateTime.Now.ToString("MM/yyyy");
+                //string month = DateTime.Today.ToString("MM");
+                //string year = DateTime.Today.ToString("yyyy");
+
+                //lbl_header.Text = "Performance Tracking on " + (Convert.ToDateTime(date)).ToString("MMM, yyyy");
+                //txt_date.Text = date;
+                //tb_Reference.Visible = true;
+
+                //ddl_TitleList.Items.Clear();
+                //ListItem l = new ListItem();
+                //l.Value = "";
+                //l.Text = "- All titles -";
+                //ddl_TitleList.Items.Add(l);
+                //CC.AddDBToDDL(ddl_TitleList, "Select distinct tbl_title.TitleID, [3LD] "
+                //                            + "From tbl_resourceallocation, tbl_title "
+                //                            + "where tbl_resourceallocation.titleID = tbl_title.titleID "
+                //                            + "AND MONTH(date) = " + month
+                //                            + "AND YEAR(date) = " + year);
+
+                //printPTbyMonth(Convert.ToInt32(month), Convert.ToInt32(year), "");
+                //printTitlebyMonth(Convert.ToInt32(month), Convert.ToInt32(year));
             }
         }
 
@@ -81,7 +104,7 @@ namespace LFCRM.AdminPage
                         string role = Role_Hour.Rows[0].ItemArray[0].ToString();
                         string hour = Role_Hour.Rows[0].ItemArray[1].ToString();
 
-                        if (role == "Off") { if (b_TitleID=="") { no_bug = "Off"; back_color = "grey"; text_color = "white"; } }
+                        if (role == "Off") { if (b_TitleID == "") { no_bug = "Ø"; back_color = "grey"; text_color = "white"; } }
                         //else if ((role == "Billable") || (role == "Core") || (role == "Backup"))
                         else
                         {
@@ -113,8 +136,10 @@ namespace LFCRM.AdminPage
                     {
                         string str_tooltip = "";
                         bool m = false;
+                        bool n = false;
                         int sum_bug = 0;
-                        no_day++;
+
+                        if (b_TitleID == "") no_day++;
 
                         for (int k = 0; k < Role_Hour.Rows.Count; k++)
                         {
@@ -122,32 +147,74 @@ namespace LFCRM.AdminPage
                             string hour = Role_Hour.Rows[k].ItemArray[1].ToString();
                             string titleID = Role_Hour.Rows[k].ItemArray[2].ToString();
 
-                            if ((titleID == "") && (role == "Off")) str_tooltip = str_tooltip + "Off - " + hour + "h \r\n";
+                            if ((titleID == "") && (role == "Off"))
+                            {
+                                if (b_TitleID == "") str_tooltip = str_tooltip + "Off - " + hour + "h \r\n";
+                            }
                             else if (titleID != "")
                             {
-                                //if (b_TitleID != "") titleID = b_TitleID;
-
-                                DataTable data = PT.get_Mul_NoBug_ColorCode(UID, date, titleID);
-
-                                if (data.Rows.Count > 0)
+                                if (b_TitleID == "")
                                 {
-                                    str_tooltip = str_tooltip + RA.get3LDbyID(titleID) + " - " + hour + "h - " + data.Rows[0].ItemArray[0].ToString() + " bug(s) \r\n";
-                                    sum_bug = sum_bug + (int)data.Rows[0].ItemArray[0];
+                                    DataTable data = PT.get_Mul_NoBug_ColorCode(UID, date, titleID);
+
+                                    if (data.Rows.Count > 0)
+                                    {
+                                        str_tooltip = str_tooltip + RA.get3LDbyID(titleID) + " - " + hour + "h - " + data.Rows[0].ItemArray[0].ToString() + " bug(s) \r\n";
+                                        sum_bug = sum_bug + (int)data.Rows[0].ItemArray[0];
+                                    }
+                                    else
+                                    {
+                                        str_tooltip = str_tooltip + RA.get3LDbyID(titleID) + " - " + hour + "h - " + "Not filled bug yet \r\n";
+                                        m = true;
+                                    }
                                 }
                                 else
                                 {
-                                    str_tooltip = str_tooltip + RA.get3LDbyID(titleID) + " - " + hour + "h - " + "Not filled bug yet \r\n";
-                                    m = true;
+                                    if(!n)
+                                    {
+                                        titleID = b_TitleID;
+                                        DataTable data = PT.get_Mul_NoBug_ColorCode(UID, date, titleID);
+                                        if (data.Rows.Count > 0)
+                                        {
+                                            str_tooltip = str_tooltip + RA.get3LDbyID(titleID) + " - " + hour + "h - " + data.Rows[0].ItemArray[0].ToString() + " bug(s) \r\n";
+                                            sum_bug = sum_bug + (int)data.Rows[0].ItemArray[0];
+                                            n = true;
+                                            no_day++;
+                                        }
+                                        else n = false;
+                                    }
                                 }
                             }
                         }
 
-                        if (m) { no_bug = "N"; text_color = "red"; }
-                        else { no_bug = sum_bug.ToString(); sum += Convert.ToInt32(no_bug); text_color = "black"; }
+                        if (b_TitleID == "")
+                        {
+                            if (m) { no_bug = "N"; text_color = "red"; }
+                            else
+                            {
+                                no_bug = sum_bug.ToString();
+                                sum += Convert.ToInt32(no_bug);
+                                text_color = "black";
+                            }
 
-                        bg_image = "background-image:url(../Image/2T.png);background-repeat:no-repeat;background-size:100% 100%;";
-                        text_color = text_color + "; font-weight: bold;";
-                        tooltip = "data-toggle='tooltip' title='" + str_tooltip + "'";
+                            bg_image = "background-image:url(../Image/2T.png);background-repeat:no-repeat;background-size:100% 100%;";
+                            text_color = text_color + "; font-weight: bold;";
+                            tooltip = "data-toggle='tooltip' title='" + str_tooltip + "'";
+                        }
+                        else 
+                        { 
+                            if (n)
+                            {
+                                no_bug = sum_bug.ToString();
+                                sum += Convert.ToInt32(no_bug);
+                                text_color = "black";
+
+                                bg_image = "background-image:url(../Image/2T.png);background-repeat:no-repeat;background-size:100% 100%;";
+                                text_color = text_color + "; font-weight: bold;";
+                                tooltip = "data-toggle='tooltip' title='" + str_tooltip + "'";
+                            }
+                            else no_bug = "";
+                        }
                     }
 
                     content_PT = content_PT + "<td style='background-color: " + back_color + "; color: "+text_color+"; "+ bg_image +"' "+tooltip+">" + no_bug + "</td>";
@@ -183,6 +250,7 @@ namespace LFCRM.AdminPage
         {
             string[] s = txt_date.Text.Split('/');
 
+            lbl_header.Text = "Performance Tracking on " + (Convert.ToDateTime(txt_date.Text)).ToString("MMM, yyyy");
             tb_Reference.Visible = true;
 
             ddl_TitleList.Items.Clear();

@@ -91,11 +91,7 @@ namespace LFCRM.AdminPage
                 }
             }
         }
-
-        protected void GridView1_RowCreated(object sender, GridViewRowEventArgs e)
-        {
-        }
-
+        
         public void loadGridCoreTracking(String _monthyear)
         {
             DateTime dt = Convert.ToDateTime(_monthyear);
@@ -162,12 +158,13 @@ namespace LFCRM.AdminPage
                         String titleid = core.getTitleID(listuserid[count].ToString(), date[j - 1].ToString());
                         if (titleid != "")
                         {
-                            Int16 numbermember = Int16.Parse(core.getNumberMember(titleid, date[j - 1].ToString()));
+                            float numberHoursmember = float.Parse(core.getNumberHoursMember(titleid, date[j - 1].ToString()));
+                            float numbermember = numberHoursmember / 8;
                             if (numbermember >= 3)
                             {
                                 totalmember = totalmember + numbermember;
                                 totaldays++;
-                                totalbilling[j-1] = (int.Parse(totalbilling[j-1].ToString()) + numbermember) + "";
+                                totalbilling[j-1] = (float.Parse(totalbilling[j-1].ToString()) + numbermember) + "";
                                 dr[j] = numbermember + "";
                             }
                             else dr[j] = "";

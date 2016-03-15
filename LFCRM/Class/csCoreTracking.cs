@@ -43,18 +43,21 @@ namespace LFCRM.Class
             else return "";
         }
 
-        public String getNumberMember(String _titleid, String _date)
+        public String getNumberHoursMember(String _titleid, String _date)
         {
-            String sql = "SELECT COUNT(UserID) AS NUMBER " +
-                        "FROM tbl_ResourceAllocation,tbl_ProjectRole " +
+            String sql = "SELECT SUM(Value) AS NUMBER " +
+                        "FROM tbl_ResourceAllocation,tbl_ProjectRole,tbl_WorkingHours " +
                         "WHERE Date = '" + _date + "' " +
                         "AND tbl_ResourceAllocation.ProjectRoleID = tbl_ProjectRole.ProjectRoleID "+
+                        "AND tbl_ResourceAllocation.WorkingHoursID = tbl_WorkingHours.WorkingHoursID "+
                         "AND TitleID = '" + _titleid + "' " +
                         "AND (ProjectRoleName = 'Core' OR ProjectRoleName = 'Billable')";
 
             DataTable tb = dbconnect.getDataTable(sql);
             if (tb.Rows.Count != 0)
+            {
                 return tb.Rows[0][0].ToString();
+            }
             return "";
         }
     }

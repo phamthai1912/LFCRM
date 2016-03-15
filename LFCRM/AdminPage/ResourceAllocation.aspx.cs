@@ -497,16 +497,7 @@ namespace LFCRM.AdminPage
                     AddTitletoResource(i.ToString());
 
                 //---------------------- Get Hint -----------------------------------------
-                DataTable tb_Hint = RA.getHintbyTitle(tb.Text);
-                if (tb_Hint.Rows.Count > 0)
-                {
-                    for (int i = 0; i < tb_Hint.Rows.Count; i++)
-                    {
-                        tb.ToolTip = tb.ToolTip + tb_Hint.Rows[i].ItemArray[1].ToString() + " - (" + tb_Hint.Rows[i].ItemArray[0].ToString() + ")(" + tb_Hint.Rows[i].ItemArray[2].ToString() + ")" + " \r\n";
-                    }
-                    //tb.ToolTip = str_ToolTip;
-                    tb.Attributes.Add("style", "white-space:pre-wrap;");
-                }
+                GetHint(tb, tb.Text);
             }
 
             //---------------------- highlight duplicate-----------------------------------
@@ -1055,6 +1046,9 @@ namespace LFCRM.AdminPage
                 lbl1.Text = dt.Rows[i].ItemArray[4].ToString();
                 lbl2.Text = dt.Rows[i].ItemArray[5].ToString();
 
+                //---------------------- Get Hint -----------------------------------------
+                GetHint(tb1, tb1.Text);
+
                 //if (tb2.Text != "")
                 //{
                 //    if (Convert.ToDouble(tb2.Text) < Convert.ToDouble(lbl1.Text)) lbl1.ForeColor = Color.Red;
@@ -1106,29 +1100,17 @@ namespace LFCRM.AdminPage
             }
         }
 
-        private string ReadSignature()
+        public void GetHint(TextBox tb, string text)
         {
-            string appDataDir = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Microsoft\\Signatures";
-            string signature = string.Empty;
-            DirectoryInfo diInfo = new DirectoryInfo(appDataDir);
-
-            if (diInfo.Exists)
+            DataTable tb_Hint = RA.getHintbyTitle(text);
+            if (tb_Hint.Rows.Count > 0)
             {
-                FileInfo[] fiSignature = diInfo.GetFiles("*.htm");
-
-                if (fiSignature.Length > 0)
+                tb.ToolTip = "";
+                for (int i = 0; i < tb_Hint.Rows.Count; i++)
                 {
-                    StreamReader sr = new StreamReader(fiSignature[0].FullName, Encoding.Default);
-                    signature = sr.ReadToEnd();
-
-                    if (!string.IsNullOrEmpty(signature))
-                    {
-                        string fileName = fiSignature[0].Name.Replace(fiSignature[0].Extension, string.Empty);
-                        signature = signature.Replace(fileName + "_files/", appDataDir + "/" + fileName + "_files/");
-                    }
+                    tb.ToolTip = tb.ToolTip + tb_Hint.Rows[i].ItemArray[1].ToString() + " - (" + tb_Hint.Rows[i].ItemArray[0].ToString() + ")(" + tb_Hint.Rows[i].ItemArray[2].ToString() + ")" + " \r\n";
                 }
             }
-            return signature;
         }
     }
 }

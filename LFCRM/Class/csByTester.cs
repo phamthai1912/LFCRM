@@ -94,12 +94,13 @@ namespace LFCRM.Class
         }
 
         //Get Time BugHunter
-        public DataTable getTimeBugHunter(String _id)
+        public DataTable getTimeBugHunter(String _id, String _start, String _end)
         {
-            String sql = "SELECT SUBSTRING(CONVERT(VARCHAR(11), Month, 113), 4, 8) AS Month "+
+            String sql = "SELECT SUBSTRING(CONVERT(VARCHAR(11), Month, 113), 4, 8) "+
                         "FROM tbl_BugHunter,tbl_User "+
                         "WHERE tbl_BugHunter.UserID = tbl_User.UserID "+
                         "AND tbl_User.EmployeeID = '" + _id + "' " +
+                        "AND (Month BETWEEN '" + _start + "' AND '" + _end + "') " +
                         "ORDER BY Month ASC";
 
             DataTable tb = dbconnect.getDataTable(sql);

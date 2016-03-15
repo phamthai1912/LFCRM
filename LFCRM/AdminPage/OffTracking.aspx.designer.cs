@@ -10,7 +10,7 @@
 namespace LFCRM.AdminPage {
     
     
-    public partial class PerformanceTracking {
+    public partial class OffTracking {
         
         /// <summary>
         /// ScriptManager1 control.
@@ -31,15 +31,6 @@ namespace LFCRM.AdminPage {
         protected global::System.Web.UI.UpdatePanel UpdatePanel1;
         
         /// <summary>
-        /// UpdateProgress1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.UpdateProgress UpdateProgress1;
-        
-        /// <summary>
         /// lbl_header control.
         /// </summary>
         /// <remarks>
@@ -49,13 +40,13 @@ namespace LFCRM.AdminPage {
         protected global::System.Web.UI.WebControls.Label lbl_header;
         
         /// <summary>
-        /// ddl_TitleList control.
+        /// ddl_OffCategory control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddl_TitleList;
+        protected global::System.Web.UI.WebControls.DropDownList ddl_OffCategory;
         
         /// <summary>
         /// txt_date control.
@@ -67,22 +58,13 @@ namespace LFCRM.AdminPage {
         protected global::System.Web.UI.WebControls.TextBox txt_date;
         
         /// <summary>
-        /// txt_date_CalendarExtender control.
+        /// lbl_OT control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.CalendarExtender txt_date_CalendarExtender;
-        
-        /// <summary>
-        /// lbl_PT control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_PT;
+        protected global::System.Web.UI.WebControls.Label lbl_OT;
         
         /// <summary>
         /// Label1 control.
@@ -92,15 +74,6 @@ namespace LFCRM.AdminPage {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Label1;
-        
-        /// <summary>
-        /// lbl_Title control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_Title;
         
         /// <summary>
         /// tb_Reference control.

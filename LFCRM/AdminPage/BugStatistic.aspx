@@ -157,7 +157,6 @@
                 <asp:GridView ID="GridView1" GridLines="Horizontal" runat="server" AutoGenerateColumns="False" AllowSorting="True"
                     CssClass="table table-striped table-bordered table-responsive table-condensed table-hover" OnRowDataBound="GridView1_RowDataBound" OnRowCommand="GridView1_RowCommand">
                     <Columns>
-
                         <asp:TemplateField HeaderText="Date">
                             <HeaderTemplate>
                                 Date <asp:LinkButton ID="lnk_date" runat="server" CommandName="sorting_date"><span class="glyphicon glyphicon-sort"></span></asp:LinkButton>
@@ -194,9 +193,10 @@
                                 Title <asp:LinkButton ID="lnk_title" runat="server" CommandName="sorting_title"><span class="glyphicon glyphicon-sort"></span></asp:LinkButton>
                             </HeaderTemplate>
                             <ItemTemplate>
-                                <button type='button' class='btn btn-default btn-sm'><span class='glyphicon glyphicon-tag'></span>
-                                    <asp:Label CommandName="fillbug_title" CommandArgument="<%# ((GridViewRow) Container).RowIndex %>" ID="lb_title" runat="server" Text='<%# Bind("3LD") %>'></asp:Label>
-                                </button>                                
+                                <asp:LinkButton ID="lb_title" runat="server" Text='<%# Bind("3LD") %>' CssClass="btn btn-default btn-sm">
+                                    <span class='glyphicon glyphicon-tag'></span>
+                                </asp:LinkButton>
+                                                               
                             </ItemTemplate>
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Billing">
@@ -250,4 +250,76 @@
             <!--</div>                        -->
     </ContentTemplate>
  </asp:UpdatePanel>
+    <!-----------------------------MODAL UPDATE BUG TITLE-------------------------------->     
+    <div id="BugTitle" class="modal fade">
+        <div class="modal-dialog" >
+            <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title">Update Bugs Title</h4>
+            </div>
+            <asp:UpdatePanel ID="UpdatePanel4" runat="server">
+                <ContentTemplate>
+                    <div class="modal-body" style=" margin-top: 10px; margin-bottom: 50px;">
+                        <asp:Label ID="lb_modal_titleid" runat="server" Visible="false"></asp:Label>
+                        <asp:Panel ID="Panel3" runat="server" ScrollBars="Auto" Height="400px">
+                        <asp:GridView ID="GridView2" runat="server" AutoGenerateColumns="false"
+                            CssClass="table table-striped table-bordered table-responsive table-condensed table-hover" 
+                            OnRowDataBound="GridView2_RowDataBound">
+                            <Columns>
+                                <asp:TemplateField HeaderText="Date">
+                                    <ItemTemplate>
+                                        <asp:Label ID="lb_modal_date" runat="server" Text='<%# Bind("Date") %>'></asp:Label>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Title">
+                                    <ItemTemplate>
+                                        <asp:Label ID="lb_modal_title" runat="server" Text='<%# Bind("3LD") %>'></asp:Label>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Current Bugs">
+                                    <ItemTemplate>
+                                        <asp:Label ID="lb_modal_currentbugs" runat="server"></asp:Label>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Total Bugs">
+                                    <ItemTemplate>
+                                        <asp:TextBox ID="txt_modal_totalbugs" AutoPostBack="true" runat="server" CssClass="form-control"></asp:TextBox>
+                                        <asp:CompareValidator ControlToValidate="txt_modal_totalbugs" 
+                                            validationgroup="modalupdatetitlebugs"
+                                            runat="server" ErrorMessage="Please enter number only" 
+                                            Display="Dynamic"
+                                            Operator="DataTypeCheck" Type="Integer" CssClass="label label-danger">
+                                        </asp:CompareValidator>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <%--<asp:TemplateField HeaderText="Save">
+                                    <ItemTemplate>
+                                        <asp:Button ID="bt_modal_save" 
+                                            CommandName="modal_savebugs"
+                                            CommandArgument="<%# ((GridViewRow) Container).RowIndex %>"
+                                            validationgroup="modalupdatetitlebugs" 
+                                            runat="server" Text="Save" class="btn btn-success small"/>
+                                    </ItemTemplate>
+                                </asp:TemplateField>--%>
+                            </Columns>
+                        </asp:GridView>
+                        </asp:Panel>
+                        <center>
+                            <asp:Label ID="lb_modal_status" runat="server" CssClass="label label-success" Visible="false"></asp:Label>
+                            <asp:Label ID="lb_modal_status2" runat="server" CssClass="label label-danger" Visible="false"></asp:Label>
+                        </center>
+                    </div>
+                    <div class="modal-footer">
+                        <asp:Button ID="btn_save" runat="server" Text="Save" class="btn btn-success" OnClick="btn_save_Click"/>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </ContentTemplate>
+                <Triggers> 
+                    <asp:AsyncPostBackTrigger ControlID="btn_save" EventName="Click"/>
+                </Triggers>
+            </asp:UpdatePanel>
+            </div>
+        </div>
+    </div>
 </asp:Content>

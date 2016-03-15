@@ -40,7 +40,8 @@
             }
     </script>
 
-    <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="Data Source=LGDN14091\SQLEXPRESS;Initial Catalog=LFCRM;User ID=sa;Password=qwe123" 
+    <asp:SqlDataSource ID="SqlDataSource1" runat="server" 
+        ConnectionString="<%$ ConnectionStrings:LFCRMConnectionString %>"
         ProviderName="System.Data.SqlClient" 
         SelectCommand="SELECT [3LD],TitleName,TOCKCode,Category,ColorCode
 FROM tbl_Title,tbl_TitleCategory
@@ -48,7 +49,9 @@ WHERE tbl_Title.TitleCategoryID = tbl_TitleCategory.TitleCategoryID
 ORDER BY [3LD] DESC" 
         >
 </asp:SqlDataSource>
-    <asp:SqlDataSource ID="SqlDataSource2" runat="server" ConnectionString="Data Source=LGDN14091\SQLEXPRESS;Initial Catalog=LFCRM;User ID=sa;Password=qwe123" ProviderName="System.Data.SqlClient" SelectCommand="SELECT [Category] FROM [tbl_TitleCategory] ORDER BY [Category]"></asp:SqlDataSource>
+    <asp:SqlDataSource ID="SqlDataSource2" runat="server" 
+        ConnectionString="<%$ ConnectionStrings:LFCRMConnectionString %>"
+        ProviderName="System.Data.SqlClient" SelectCommand="SELECT [Category] FROM [tbl_TitleCategory] ORDER BY [Category]"></asp:SqlDataSource>
     
     <asp:UpdatePanel ID="UpdatePanel2" runat="server" Visible="True" onkeydown = "return (event.keyCode!=13)">
         <ContentTemplate>

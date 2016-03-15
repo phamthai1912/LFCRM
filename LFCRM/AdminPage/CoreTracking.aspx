@@ -76,7 +76,7 @@
         <hr />
         <asp:GridView ID="GridView1"
             CssClass="table table-striped table-bordered table-responsive table-condensed table-hover" 
-            runat="server" OnRowDataBound="GridView1_RowDataBound" OnRowCreated="GridView1_RowCreated">
+            runat="server" OnRowDataBound="GridView1_RowDataBound">
             <Columns>
             </Columns>
         </asp:GridView>

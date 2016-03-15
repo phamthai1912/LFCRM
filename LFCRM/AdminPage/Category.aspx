@@ -40,7 +40,7 @@
         }
     </script>
     <asp:SqlDataSource ID="SqlDataSource1" runat="server" 
-        ConnectionString="Data Source=LGDN14091\SQLEXPRESS;Initial Catalog=LFCRM;User ID=sa;Password=qwe123" 
+        ConnectionString="<%$ ConnectionStrings:LFCRMConnectionString %>"
         ProviderName="System.Data.SqlClient" 
         SelectCommand="SELECT [TitleCategoryID],[Category], [Color] FROM [tbl_TitleCategory]" 
         ></asp:SqlDataSource>

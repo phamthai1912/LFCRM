@@ -56,7 +56,7 @@ namespace LFCRM.Class
         public void conncet()
         {
             if (con == null)
-                con = new SqlConnection("Server=LGDN14091\\SQLEXPRESS;Database=LFCRM;User Id=sa;Password=qwe123");
+                con = new SqlConnection(ConfigurationManager.ConnectionStrings["LFCRMConnectionString"].ConnectionString);
             if (con.State == ConnectionState.Closed)
                 con.Open();
         }

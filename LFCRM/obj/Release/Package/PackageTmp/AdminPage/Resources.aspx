@@ -33,7 +33,7 @@
     </script>
 
     <asp:SqlDataSource ID="SqlDataSource1" runat="server" 
-        ConnectionString="Data Source=LGDN14091\SQLEXPRESS;Initial Catalog=LFCRM;User ID=sa;Password=qwe123" 
+        ConnectionString="<%$ ConnectionStrings:LFCRMConnectionString %>"
         ProviderName="System.Data.SqlClient" 
         SelectCommand="SELECT EmployeeID,FullName,Email,PhoneNumber,RoleName,Active
 FROM tbl_User,tbl_UserRole
@@ -41,7 +41,7 @@ WHERE tbl_User.UserRoleID = tbl_UserRole.UserRoleID
 ORDER BY EmployeeID ASC"></asp:SqlDataSource>
 
     <asp:SqlDataSource ID="SqlDataSource2" runat="server" 
-        ConnectionString="Data Source=LGDN14091\SQLEXPRESS;Initial Catalog=LFCRM;User ID=sa;Password=qwe123" 
+        ConnectionString="<%$ ConnectionStrings:LFCRMConnectionString %>"
         ProviderName="System.Data.SqlClient" SelectCommand="SELECT RoleName FROM tbl_UserRole ORDER BY RoleName DESC"></asp:SqlDataSource>
 
     <asp:UpdatePanel ID="UpdatePanel1" runat="server" Visible="True" onkeydown = "return (event.keyCode!=13)">

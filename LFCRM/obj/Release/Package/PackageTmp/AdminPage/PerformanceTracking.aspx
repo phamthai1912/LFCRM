@@ -69,17 +69,30 @@
             <table style="width: 1180px;">
                 <tr>
                     <td style='width:1180px;' colspan="3">
-                        <div class="topright-grid">
-                            <ul>
-                                <li>
-                                    <asp:DropDownList ID="ddl_TitleList" runat="server" AutoPostBack="true" class="form-control" OnSelectedIndexChanged="ddl_TitleList_SelectedIndexChanged"></asp:DropDownList>
-                                </li>
-                                <li>  
-                                    <asp:TextBox ID="txt_date" placeholder="Select a months" runat="server" AutoPostBack="true" class="form-control" Width="180px" OnTextChanged="txt_date_TextChanged"></asp:TextBox>
-                                    <ajaxToolkit:CalendarExtender ID="txt_date_CalendarExtender" runat="server" BehaviorID="txt_date_CalendarExtender" TargetControlID="txt_date" Format="MM/yyyy" DefaultView="Months" OnClientShown="onCalendarShown" OnClientHidden="onCalendarHidden" />
-                                </li>
-                            </ul>
-                        </div>
+                        <table style='width:1180px;'>
+                            <tr>
+                                <td>
+                                    <div style="text-align:left">
+                                        <h3><asp:Label ID="lbl_header" runat="server"></asp:Label></h3>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="topright-grid">
+                                        <ul>
+                                            <li>
+                                                <asp:DropDownList ID="ddl_TitleList" runat="server" AutoPostBack="true" class="form-control" OnSelectedIndexChanged="ddl_TitleList_SelectedIndexChanged"></asp:DropDownList>
+                                            </li>
+                                            <li>  
+                                                <asp:TextBox ID="txt_date" placeholder="Select a months" runat="server" AutoPostBack="true" class="form-control" Width="180px" OnTextChanged="txt_date_TextChanged"></asp:TextBox>
+                                                <ajaxToolkit:CalendarExtender ID="txt_date_CalendarExtender" runat="server" BehaviorID="txt_date_CalendarExtender" TargetControlID="txt_date" Format="MM/yyyy" DefaultView="Months" OnClientShown="onCalendarShown" OnClientHidden="onCalendarHidden" />
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                        <hr />
+                        
                     </td>
                 </tr>
                 <tr>
@@ -104,6 +117,10 @@
                                     <table visible="false" class='table table-striped table-bordered table-responsive table-condensed table-hover' runat="server" id="tb_Reference">
                                         <tr style='background-color: #00502F; color:white; font-weight: bold; text-align:center'>
                                             <td colspan="2">Reference</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Ø</td>
+                                            <td>Off</td>
                                         </tr>
                                         <tr>
                                             <td>T</td>

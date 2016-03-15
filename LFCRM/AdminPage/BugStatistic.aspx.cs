@@ -37,7 +37,7 @@ namespace LFCRM.AdminPage
                 ViewState["_working"] = 0;
 
                 lb_datestatus.Text = "Bug Statistics of "+DateTime.Now.ToString("MMM")+", "+DateTime.Now.Year.ToString();
-                load_grid("");
+                load_grid(DateTime.Now.ToString("MM/yyyy"));
             }
                 
         }
@@ -76,7 +76,7 @@ namespace LFCRM.AdminPage
                 String employeeID = ((Label)e.Row.FindControl("lb_employeeid")).Text;
                 String titleID = ((Label)e.Row.FindControl("lb_titleid")).Text;
 
-                Label lbtitle = ((Label)e.Row.FindControl("lb_title"));
+                LinkButton lbtitle = ((LinkButton)e.Row.FindControl("lb_title"));
                 Label lb = e.Row.Cells[7].FindControl("lb_nobugs") as Label;
 
                 lb.Text = statistic.getNoBugs(date, employeeID, titleID);
@@ -104,15 +104,13 @@ namespace LFCRM.AdminPage
                     bool isChecked = row.Cells[8].Controls.OfType<CheckBox>().FirstOrDefault().Checked;
                     if (isChecked)
                     {
-
                         String date = ((Label)row.FindControl("lb_date")).Text;
                         String employeeid = ((Label)row.FindControl("lb_employeeid")).Text;
                         String titlid = ((Label)row.FindControl("lb_titleid")).Text;
-                        Label lbtitle = ((Label)row.FindControl("lb_title"));
+                        LinkButton lbtitle = ((LinkButton)row.FindControl("lb_title"));
                         String numberbugs = row.Cells[7].Controls.OfType<TextBox>().FirstOrDefault().Text;
-
                         String currentbug = row.Cells[7].Controls.OfType<Label>().FirstOrDefault().Text;
-
+                        
                         if (numberbugs != "")
                         {
                             if (currentbug == "N/A")
@@ -128,18 +126,71 @@ namespace LFCRM.AdminPage
             }
             btn_updatebugs.Visible = false;
 
-            String dd = txt_date.Text;
-            String title = txt_title.Text;
-            if (txt_newsearch.Text != "")
-            {
-                GridView1.DataSource = statistic.searchTitle(txt_newsearch.Text, dd, title);
-                GridView1.DataBind();
-            }
-            else load_grid(dd);
-
+            //String dd = txt_date.Text;
+            //String title = txt_title.Text;
+            //if (txt_newsearch.Text != "" || txt_title.Text != "")
+            //{
+            //    GridView1.DataSource = statistic.searchTitle(txt_newsearch.Text, dd, title);
+            //    GridView1.DataBind();
+            //}
+            //else load_grid(dd);
+            UpdatePanel1.Update();
             CheckSortingGrid(GridView1);
         }
 
+        //Get new totalbugs of title
+        //public String getNewTotalBugs(GridView gridview, String _titleid, String _date)
+        //{
+        //    int total = 0;
+        //    foreach (GridViewRow row in gridview.Rows)
+        //    {
+        //        if (row.RowType == DataControlRowType.DataRow)
+        //        {
+        //            bool isChecked = row.Cells[8].Controls.OfType<CheckBox>().FirstOrDefault().Checked;
+        //            if (isChecked)
+        //            {
+        //                String titleid = ((Label)row.FindControl("lb_titleid")).Text;
+        //                String date = ((LinkButton)row.FindControl("lb_date")).Text;
+        //                String bugs = row.Cells[7].Controls.OfType<TextBox>().FirstOrDefault().Text;
+        //                if (_titleid == titleid && _date == date)
+        //                {
+        //                    total = total + int.Parse(bugs);
+        //                }
+        //            }
+        //        }
+        //    }
+
+        //    return total.ToString();
+        //}
+
+        //Check bugs updated for core or not
+        //public Boolean checkCoreBugs(GridView gridview,String _titleid, String _date)
+        //{
+        //    Boolean condition = false;
+        //    foreach (GridViewRow row in gridview.Rows)
+        //    {
+        //        if (row.RowType == DataControlRowType.DataRow)
+        //        {
+        //            bool isChecked = row.Cells[8].Controls.OfType<CheckBox>().FirstOrDefault().Checked;
+        //            if (isChecked)
+        //            {
+        //                String billing = ((Label)row.FindControl("lb_billing")).Text;
+        //                String titleid = ((Label)row.FindControl("lb_titleid")).Text;
+        //                String date = ((LinkButton)row.FindControl("lb_date")).Text;
+        //                if (billing == "Core" && _titleid == titleid && _date == date)
+        //                {
+        //                    condition = true;
+        //                    break;                            
+        //                }
+        //                else condition = false;
+        //            }
+        //        }
+        //    }
+
+        //    return condition;
+        //}
+
+        //Sorting Gridview after saving
         public void CheckSortingGrid(GridView grid)
         {
             //Check Soring Grid
@@ -223,7 +274,7 @@ namespace LFCRM.AdminPage
                 {
                     bool isChecked = row.Cells[8].Controls.OfType<CheckBox>().FirstOrDefault().Checked;
                     row.Cells[7].Controls.OfType<Label>().FirstOrDefault().Visible = !isChecked;
-                    Label lbtitle = ((Label)row.FindControl("lb_title"));
+                    LinkButton lbtitle = ((LinkButton)row.FindControl("lb_title"));
                     if (lbtitle.Text != "")
                     { 
                         if (row.Cells[7].Controls.OfType<TextBox>().ToList().Count > 0)
@@ -468,8 +519,33 @@ namespace LFCRM.AdminPage
                 GridView1.DataSource = dt;
                 GridView1.DataBind();
             }
+
+            //if (e.CommandName.Equals("total_bugtitle"))
+            //{
+            //    int index = Convert.ToInt32(e.CommandArgument.ToString());
+            //    GridViewRow gvrow = GridView1.Rows[index];
+
+            //    String titleid = ((Label)gvrow.Cells[3].FindControl("lb_titleid")).Text;
+            //    String _date = ((Label)gvrow.Cells[0].FindControl("lb_date")).Text;
+            //    DateTime date = Convert.ToDateTime(_date);
+            //    lb_modal_titleid.Text = titleid;
+
+            //    GridView2.DataSource = statistic.getListDateOfTitle(titleid, date.ToString("MM/yyyy"));
+            //    GridView2.DataBind();
+
+            //    lb_modal_status.Visible = false;
+            //    lb_modal_status2.Visible = false;
+
+            //    //Show modal
+            //    System.Text.StringBuilder sb = new System.Text.StringBuilder();
+            //    sb.Append(@"<script type='text/javascript'>");
+            //    sb.Append("$('#BugTitle').modal('show');");
+            //    sb.Append(@"</script>");
+            //    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "BugTitleModalScript", sb.ToString(), false);
+            //}
         }
 
+        //Sorting Gridview
         public void SortingGridview(DataTable dt,String type)
         {
             dt.DefaultView.Sort = type;
@@ -496,7 +572,7 @@ namespace LFCRM.AdminPage
                 String name = ((Label)gvrow.FindControl("lb_fullname")).Text;
                 String titlid = ((Label)gvrow.FindControl("lb_titleid")).Text;
 
-                Label lbtt = gvrow.Cells[4].FindControl("lb_title") as Label;
+                LinkButton lbtt = gvrow.Cells[4].FindControl("lb_title") as LinkButton;
                 String title = lbtt.Text;
                 String billing = ((Label)gvrow.FindControl("lb_billing")).Text;
                 String working = ((Label)gvrow.FindControl("lb_working")).Text;
@@ -504,6 +580,106 @@ namespace LFCRM.AdminPage
                 String bugs = lb.Text;
 
                 dt.Rows.Add(date, employeeID, name, titlid, title, billing, working, bugs);
+            }
+
+            return dt;
+        }
+
+        //Modal Total Bugs Titles
+        protected void GridView2_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.DataItem != null)
+            {
+                String titleid = lb_modal_titleid.Text;
+                String date = ((Label)e.Row.Cells[0].FindControl("lb_modal_date")).Text;
+                String currentbug = statistic.getCurrentBugTitle(titleid, date);
+                String totalbug = statistic.getTotalBugsTitle(titleid, date);
+
+                Label lbcurrentbug = (Label)e.Row.FindControl("lb_modal_currentbugs");
+                lbcurrentbug.Text = currentbug;
+
+                TextBox txttotalbug = (TextBox)e.Row.FindControl("txt_modal_totalbugs");
+                txttotalbug.Text = totalbug;
+            }
+        }
+
+        protected void btn_save_Click(object sender, EventArgs e)
+        {
+            DataTable dt = getTotalBugsfromGridview(GridView2);
+            if (lb_modal_status2.Visible == false)
+            {
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    if (dt.Rows[i][3].ToString() != "")
+                    {
+                        String date = dt.Rows[i][0].ToString();
+                        String titleid = dt.Rows[i][1].ToString();
+                        String totalbugs = dt.Rows[i][3].ToString();
+                        String currentbugs = dt.Rows[i][2].ToString();
+                        if (statistic.checkTotalBugsTitle(titleid, date) == true)
+                            statistic.updateTotalBugsTitle(titleid, date, totalbugs);
+                        else statistic.addTotalBugsTitle(titleid, date, totalbugs);
+
+                        statistic.updateBugsOfCoreTitle(titleid, date, totalbugs, currentbugs);
+                    }
+                }
+                lb_modal_status.Text = "The total bugs saved successfully";
+                lb_modal_status.Visible = true;
+                lb_modal_status2.Visible = false;
+
+                //Show modal
+                System.Text.StringBuilder sb = new System.Text.StringBuilder();
+                sb.Append(@"<script type='text/javascript'>");
+                sb.Append("$('#BugTitle').modal('hide');");
+                sb.Append(@"</script>");
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "BugTitleModalScript", sb.ToString(), false);
+
+                UpdatePanel1.Update();
+                CheckSortingGrid(GridView1);
+
+            }
+            else
+            {
+                lb_modal_status.Visible = false;
+            }
+        }
+
+        //Get data from gridview Modal
+        public DataTable getTotalBugsfromGridview(GridView gridview)
+        {
+            DataTable dt = new DataTable();
+            dt.Columns.Add("Date");
+            dt.Columns.Add("Title");
+            dt.Columns.Add("CurrentBugs");
+            dt.Columns.Add("TotalBugs");
+
+            for (int i = 0; i < gridview.Rows.Count; i++)
+            {
+                GridViewRow gvrow = gridview.Rows[i];
+                String date = ((Label)gvrow.FindControl("lb_modal_date")).Text;
+                String titleid = lb_modal_titleid.Text;
+                String currentbug = ((Label)gvrow.FindControl("lb_modal_currentbugs")).Text;
+                String totalbugs = ((TextBox)gvrow.FindControl("txt_modal_totalbugs")).Text;
+
+                if (totalbugs != "")
+                {
+                    int _current = int.Parse(currentbug);
+                    int _total = int.Parse(totalbugs);
+                    if (_total < _current)
+                    {
+                        ((TextBox)gvrow.FindControl("txt_modal_totalbugs")).Attributes["style"] = "background-color: #F00;";
+                        lb_modal_status2.Text = "The total bugs should be bigger than current bugs";
+                        lb_modal_status2.Visible = true;
+                        break;
+                    }
+                    else
+                    {
+                        ((TextBox)gvrow.FindControl("txt_modal_totalbugs")).Attributes["style"] = "background-color: #ffffff;";
+                        lb_modal_status2.Visible = false;
+                    }
+                }
+
+                dt.Rows.Add(date, titleid, currentbug, totalbugs);
             }
 
             return dt;

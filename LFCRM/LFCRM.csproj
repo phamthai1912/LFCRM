@@ -177,6 +177,7 @@
     <Content Include="AdminPage\ByTester.aspx" />
     <Content Include="AdminPage\Category.aspx" />
     <Content Include="AdminPage\CoreTracking.aspx" />
+    <Content Include="AdminPage\OffTracking.aspx" />
     <Content Include="AdminPage\PerformanceTracking.aspx" />
     <Content Include="AdminPage\ResourceAllocation.aspx" />
     <Content Include="AdminPage\Resources.aspx" />
@@ -351,6 +352,13 @@
     </Compile>
     <Compile Include="AdminPage\CoreTracking.aspx.designer.cs">
       <DependentUpon>CoreTracking.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AdminPage\OffTracking.aspx.cs">
+      <DependentUpon>OffTracking.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdminPage\OffTracking.aspx.designer.cs">
+      <DependentUpon>OffTracking.aspx</DependentUpon>
     </Compile>
     <Compile Include="AdminPage\PerformanceTracking.aspx.cs">
       <DependentUpon>PerformanceTracking.aspx</DependentUpon>

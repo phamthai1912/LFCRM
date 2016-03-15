@@ -107,8 +107,10 @@ namespace LFCRM.AdminPage
         public void loadBugHunter(String _id)
         {
             StringBuilder html = new StringBuilder();
+            String _start = txt_startdate.Text;
+            String _end = txt_enddate.Text;
 
-            DataTable tb = tester.getTimeBugHunter(_id);
+            DataTable tb = tester.getTimeBugHunter(_id, _start, _end);
             String hunter = "";
             if (tb != null)
             {

@@ -44,7 +44,7 @@
                             <a href="/AdminPage/PerformanceTracking"><span>Performance Tracking</span></a>
                         </li>
                     </ul>
-		       </li>
+		        </li>
                 <li><a href="/AdminPage/BillingList"><span>Billing List</span></a>
                 </li>
                 <li class='active has-sub'>
@@ -60,6 +60,9 @@
                 </li>
                 <li>
                     <a href="/AdminPage/CoreTracking"><span>Core Tracking</span></a>
+                </li>
+                <li>
+                    <a href="/AdminPage/OffTracking"><span>PTO/DTO Tracking</span></a>
                 </li>
 		    </ul>
 		    </div>
