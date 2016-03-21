@@ -63,7 +63,7 @@
                                 <tr>
                                     <td style="width: 270px;">                            
                                         <div style='text-align: left;'>
-                                            <asp:ImageButton ID="btn_MultAdd" runat="server" ImageUrl="../Image/mulitplus.ico" Height="37px" Width="37px" OnClick="btn_MultAdd_Click" ToolTip="2222  &#013; aaa" />
+                                            <asp:ImageButton ID="btn_MultAdd" runat="server" ImageUrl="../Image/mulitplus.ico" Height="37px" Width="37px" OnClick="btn_MultAdd_Click"/>
                                         </div></td>
                                     <td style="width: 500px;">
                                         <div style='text-align: right;'>

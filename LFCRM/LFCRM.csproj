@@ -231,7 +231,6 @@
     <Content Include="Scripts\WebForms.js" />
     <Content Include="Scripts\WebUIValidation.js" />
     <Content Include="style.css" />
-    <Content Include="WebForm1.aspx" />
     <Content Include="WebFormUserControl\Footer.ascx" />
     <Content Include="UserPage\Default.aspx" />
     <Content Include="UserPage\Login.aspx" />
@@ -401,19 +400,13 @@
     <Compile Include="Class\csCategory.cs" />
     <Compile Include="Class\csCommonClass.cs" />
     <Compile Include="Class\csCoreTracking.cs" />
+    <Compile Include="Class\csOffTracking.cs" />
     <Compile Include="Class\csPerformanceTracking.cs" />
     <Compile Include="Class\csResource.cs" />
     <Compile Include="Class\csResourceAllocation.cs" />
     <Compile Include="Class\csDBConnect.cs" />
     <Compile Include="Class\csLogin.cs" />
     <Compile Include="Class\csTitleManager.cs" />
-    <Compile Include="WebForm1.aspx.cs">
-      <DependentUpon>WebForm1.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="WebForm1.aspx.designer.cs">
-      <DependentUpon>WebForm1.aspx</DependentUpon>
-    </Compile>
     <Compile Include="WebFormUserControl\Footer.ascx.cs">
       <DependentUpon>Footer.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

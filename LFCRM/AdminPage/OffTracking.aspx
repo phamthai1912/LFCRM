@@ -1,4 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="OffTracking.aspx.cs" Inherits="LFCRM.AdminPage.OffTracking" %>
+
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="cph_Body" runat="server">
 
     <script src="../Scripts/bootstrap.min.js"></script>
@@ -11,6 +13,7 @@
             $('[rel=tooltip]').tooltip();
         });
     </script>
+
     <script type="text/javascript">
         function onCalendarHidden() {
             var cal = $find("txt_date_CalendarExtender");
@@ -54,19 +57,19 @@
                     break;
             }
         }
-                            </script>
+    </script>
 
     <asp:UpdatePanel ID="UpdatePanel1" runat="server">
 
     <ContentTemplate>
-            <%--<asp:UpdateProgress ID="UpdateProgress1" runat="server">
+            <asp:UpdateProgress ID="UpdateProgress1" runat="server">
                 <ProgressTemplate>
                     <div style="position: fixed; top: 0px; bottom: 0px; left: 0px; right: 0px; overflow: hidden; padding: 0; margin: 0; background-color: #F0F0F0; filter: alpha(opacity=50); opacity: 0.5; z-index: 100000;"></div>
                     <div style="position: fixed; top: 40%; left: 40%; height:15%; width:15%; z-index: 100001;  background-color: #FFFFFF; background-image: url('../Image/loading.gif'); background-repeat: no-repeat; background-position:center;"></div>
                 </ProgressTemplate>
-            </asp:UpdateProgress>--%>
+            </asp:UpdateProgress>
 
-            <table style="width: 1180px;">
+            <table style="width: 1180px;" id="tb_OT" runat="server">
                 <tr>
                     <td style='width:1180px;' colspan="3">
                         <table style='width:1180px;'>
@@ -79,12 +82,12 @@
                                 <td>
                                     <div class="topright-grid">
                                         <ul>
-                                            <li>
-                                                <asp:DropDownList ID="ddl_OffCategory" runat="server" AutoPostBack="true" class="form-control" ></asp:DropDownList>
+                                            <li>  
+                                                <asp:TextBox ID="txt_date" placeholder="Select a month" runat="server" AutoPostBack="true" class="form-control" Width="180px" OnTextChanged="txt_date_TextChanged"></asp:TextBox>
+                                                <ajaxToolkit:CalendarExtender ID="txt_date_CalendarExtender" runat="server" BehaviorID="txt_date_CalendarExtender" TargetControlID="txt_date" Format="MM/yyyy" DefaultView="Months" OnClientShown="onCalendarShown" OnClientHidden="onCalendarHidden" />
                                             </li>
                                             <li>  
-                                                <asp:TextBox ID="txt_date" placeholder="Select a months" runat="server" AutoPostBack="true" class="form-control" Width="180px"></asp:TextBox>
-                                                <ajaxToolkit:CalendarExtender ID="txt_date_CalendarExtender" runat="server" BehaviorID="txt_date_CalendarExtender" TargetControlID="txt_date" Format="MM/yyyy" DefaultView="Months" OnClientShown="onCalendarShown" OnClientHidden="onCalendarHidden" />
+                                                <asp:Button ID="btn_Add" runat="server" Text="+" CssClass="btn btn-success" OnClick="btn_Add_Click" />
                                             </li>
                                         </ul>
                                     </div>
@@ -92,38 +95,85 @@
                             </tr>
                         </table>
                         <hr />
-                        
                     </td>
                 </tr>
                 <tr>
                     <td style='vertical-align:top'>
-                        <br />
                         <asp:Label ID="lbl_OT" runat="server" Text="" AutoPostBack="true"></asp:Label>
                         
-                        <asp:Label ID="Label1" runat="server" Text="" AutoPostBack="true"></asp:Label>
+                        <asp:Label ID="Label1" runat="server" AutoPostBack="true"></asp:Label>
                         <br /><br />
                     </td>
-                    <td style='width:10px;'></td>
+                <%--<td style='width:10px;'></td>
                     <td style='vertical-align:top; width: 120px;'>
-                        <br />
                                     <table visible="false" class='table table-striped table-bordered table-responsive table-condensed table-hover' runat="server" id="tb_Reference">
                                         <tr style='background-color: #00502F; color:white; font-weight: bold; text-align:center'>
                                             <td colspan="2">Reference</td>
                                         </tr>
                                         <tr>
-                                            <td style="background-image:url(../Image/2T.png);background-repeat:no-repeat;background-size:100% 100%;"></td>
+                                            <td style="background-color: green"></td>
                                             <td>PTO</td>
                                         </tr>
                                         <tr>
-                                            <td style="background-image:url(../Image/2T.png);background-repeat:no-repeat;background-size:100% 100%;"></td>
+                                            <td style="background-color: lightyellow"></td>
                                             <td>DTO</td>
                                         </tr>
                                     </table>
-                    </td>
+                    </td>--%>
                 </tr>
             </table>
 
         </ContentTemplate>
     </asp:UpdatePanel>
+
+    <div id="editModal" class="modal fade">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h4 class="modal-title">Add Upcoming PTO</h4>
+                    </div>
+                    
+                    <asp:UpdatePanel ID="UpdatePanel2" runat="server">
+						<ContentTemplate>
+							<div class="modal-body" style=" margin-top: 10px; margin-bottom: 10px;">
+                                
+                                <table style='width: 570px' class='table table-striped table-bordered table-responsive table-condensed table-hover'>
+                                    <tr>
+                                        <td style="text-align:left">Full Name: </td>
+                                        <td><asp:TextBox ID="TextBox1" runat="server" class="form-control" ></asp:TextBox></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align:left">From: </td>
+                                        <td><asp:TextBox ID="txt_From" runat="server" class="form-control" AutoPostBack="true" OnTextChanged="txt_From_TextChanged" ></asp:TextBox>
+                                            <ajaxToolkit:CalendarExtender ID="cld_From" runat="server" TargetControlID="txt_From" Format="dd/MM/yyyy" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align:left">To: </td>
+                                        <td><asp:TextBox ID="txt_To" runat="server" class="form-control" AutoPostBack="true" OnTextChanged="txt_To_TextChanged"></asp:TextBox>
+                                            <ajaxToolkit:CalendarExtender ID="cld_To" runat="server" TargetControlID="txt_To" Format="dd/MM/yyyy" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align:left">Type: </td>
+                                        <td><asp:DropDownList ID="ddl_Type" runat="server" class="form-control" >
+                                                <asp:ListItem Value="8">Full day</asp:ListItem>
+                                                <asp:ListItem Value="4">Half day</asp:ListItem>
+                                            </asp:DropDownList>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <asp:Label ID="lbl_Message" runat="server" AutoPostBack="true" Text="aaaa"></asp:Label>
+							</div>
+							<div class="modal-footer"><asp:Button ID="btn_AddUpcomingPTO" runat="server" Text="Add" class="btn btn-success" OnClick="btn_AddUpcomingPTO_Click"/></div>
+						</ContentTemplate>
+                        <Triggers> 
+                            <asp:AsyncPostBackTrigger ControlID="btn_AddUpcomingPTO" EventName="Click"/>
+                        </Triggers>
+                    </asp:UpdatePanel>
+                </div>
+            </div>
+        </div>
 
 </asp:Content>

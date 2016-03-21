@@ -58,8 +58,16 @@
                         </li>
                     </ul>
                 </li>
-                <li>
-                    <a href="/AdminPage/CoreTracking"><span>Core Tracking</span></a>
+                <li class='active has-sub'>
+                    <a href="#"><span>Tracking</span></a>
+                    <ul>
+                        <li>
+                            <a href="/AdminPage/CoreTracking"><span>Core Tracking</span></a>
+                        </li>
+                        <li>
+                            <a href="/AdminPage/OffTracking"><span>PTO Tracking - TBD</span></a>
+                        </li>
+                    </ul>
                 </li>
 		    </ul>
 		    </div>

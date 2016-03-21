@@ -83,7 +83,7 @@
                                                 <asp:DropDownList ID="ddl_TitleList" runat="server" AutoPostBack="true" class="form-control" OnSelectedIndexChanged="ddl_TitleList_SelectedIndexChanged"></asp:DropDownList>
                                             </li>
                                             <li>  
-                                                <asp:TextBox ID="txt_date" placeholder="Select a months" runat="server" AutoPostBack="true" class="form-control" Width="180px" OnTextChanged="txt_date_TextChanged"></asp:TextBox>
+                                                <asp:TextBox ID="txt_date" placeholder="Select a month" runat="server" AutoPostBack="true" class="form-control" Width="180px" OnTextChanged="txt_date_TextChanged"></asp:TextBox>
                                                 <ajaxToolkit:CalendarExtender ID="txt_date_CalendarExtender" runat="server" BehaviorID="txt_date_CalendarExtender" TargetControlID="txt_date" Format="MM/yyyy" DefaultView="Months" OnClientShown="onCalendarShown" OnClientHidden="onCalendarHidden" />
                                             </li>
                                         </ul>
@@ -97,7 +97,6 @@
                 </tr>
                 <tr>
                     <td style='vertical-align:top'>
-                        <br />
                         <asp:Label ID="lbl_PT" runat="server" Text="" AutoPostBack="true"></asp:Label>
                         
                         <asp:Label ID="Label1" runat="server" Text="" AutoPostBack="true"></asp:Label>
@@ -105,7 +104,6 @@
                     </td>
                     <td style='width:10px;'></td>
                     <td style='vertical-align:top; width: 120px;'>
-                        <br />
                         <table >
                             <tr>
                                 <td>
