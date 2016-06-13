@@ -11,7 +11,6 @@ using System.Drawing;
 using System.Data;
 using System.IO;
 using System.Text;
-using Microsoft.Office.Interop.Outlook;
 using System.Collections.Specialized;
 using System.Net.Mail;
 using System.Globalization;
@@ -41,8 +40,6 @@ namespace LFCRM.AdminPage
                 ViewState["IDSort"] = 0;
                 ViewState["NameSort"] = 0;
                 ViewState["HoursSort"] = 0;
-
-                lbl_StarofSaving.Text = "Not saved yet";
             }
             else
             {
@@ -126,74 +123,15 @@ namespace LFCRM.AdminPage
         {
             DateTime dateTime = DateTime.UtcNow.Date;
             string date = dateTime.ToString("MM/dd/yyyy");
-            bool ok_ra = false;
-            bool ok_ta = false;
 
-            //---------------------------------- Save Resource Allocation------------------------------
-            if (RA.CheckRADateExist(date))
+            ////----------------------------- Save RA ----------------------------------//
+            if (SaveRAbyDate(date))
             {
-                RA.deleteResourceAllocationByDate(date);
-            }
-
-            if ((int)ViewState["ResourceCounter"] > 0)
-                for (int i = 1; i <= (int)ViewState["ResourceCounter"]; i++)
-                {
-                    Label lb = (Label)ph_DynamicResourceTableRow.FindControl("lbl_ResourceID" + i);
-
-                    if (lb.Text != "N/A")
-                    {
-                        DropDownList ddl1 = (DropDownList)ph_DynamicResourceTableRow.FindControl("ddl_Role" + i);
-                        DropDownList ddl2 = (DropDownList)ph_DynamicResourceTableRow.FindControl("ddl_Title" + i);
-                        DropDownList ddl3 = (DropDownList)ph_DynamicResourceTableRow.FindControl("ddl_WorkingHours" + i);
-
-                        RA.addResourceAllocation(date, RA.getIDbyEmployeeID(lb.Text), ddl1.SelectedValue, RA.getTitleIDby3LD(ddl2.SelectedItem.ToString()), ddl3.SelectedValue);
-                        ok_ra = true;
-                    }
-                    else
-                    {
-                        Label lb2 = (Label)ph_DynamicResourceTableRow.FindControl("lbl_ResourceExist" + i);
-                        lb2.Text = "This field cannot save since not existed";
-                    }
-                }
-
-            //---------------------------------- Save Title Allocation------------------------------
-            if (RA.CheckTADateExist(date))
-            {
-                RA.deleteTitleAllocationByDate(date);
-            }
-
-            if ((int)ViewState["TitleCounter"] > 0)
-                for (int i = 1; i <= (int)ViewState["TitleCounter"]; i++)
-                {
-                    TextBox tb1 = (TextBox)ph_DynamicResourceTableRow.FindControl("txt_Title" + i);
-
-                    if (tb1.Text != "")
-                    {
-                        if (titleManager.LDExist(tb1.Text))
-                        {
-                            TextBox tb2 = (TextBox)ph_DynamicResourceTableRow.FindControl("txt_ExpectedResouces" + i);
-                            Label lb = (Label)ph_DynamicTitleTableRow.FindControl("lbl_ActualResources" + i);
-                            Label lb2 = (Label)ph_DynamicTitleTableRow.FindControl("lbl_TrainResources" + i);
-
-                            RA.addTitleAllocation(date, RA.getTitleIDby3LD(tb1.Text), tb2.Text, lb.Text, lb2.Text);
-                            ok_ta = true;
-                        }
-                        else
-                        {
-                            Label lb3 = (Label)ph_DynamicResourceTableRow.FindControl("lbl_TitleExist" + i);
-                            lb3.Text = "This field cannot save since not existed";
-                        }
-                    }
-                }
-
-            ////----------------------------- Message Box ----------------------------------//
-            if ((ok_ta == true) && (ok_ra == true))
-            {
-                System.Text.StringBuilder sb = new System.Text.StringBuilder();
-                sb.Append(@"<script type='text/javascript'>");
-                sb.Append("alert('Save successfully!');");
-                sb.Append(@"</script>");
-                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "EditHideModalScript", sb.ToString(), false);
+                //System.Text.StringBuilder sb = new System.Text.StringBuilder();
+                //sb.Append(@"<script type='text/javascript'>");
+                //sb.Append("alert('Save successfully!');");
+                //sb.Append(@"</script>");
+                //ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "EditHideModalScript", sb.ToString(), false);
 
                 lbl_StarofSaving.Text = "Last saving at " + DateTime.Now.ToString("HH:mm");
             }
@@ -205,6 +143,48 @@ namespace LFCRM.AdminPage
                 sb.Append(@"</script>");
                 ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "EditHideModalScript", sb.ToString(), false);
             }
+        }
+
+        protected void btn_SaveAs_Yes_Click(object sender, EventArgs e)
+        {
+            ////----------------------------- Save RA ----------------------------------//
+            if (SaveRAbyDate(txt_SaveAs.Text))
+            {
+                //System.Text.StringBuilder sb = new System.Text.StringBuilder();
+                //sb.Append(@"<script type='text/javascript'>");
+                //sb.Append("alert('Save successfully!');");
+                //sb.Append(@"</script>");
+                //ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "EditHideModalScript", sb.ToString(), false);
+
+                System.Text.StringBuilder sb = new System.Text.StringBuilder();
+                sb.Append(@"<script type='text/javascript'>");
+                sb.Append("$('#deletepopup').modal('hide');");
+                sb.Append(@"</script>");
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "DeleteBugScript", sb.ToString(), false);
+
+                lbl_StarofSaving.Text = "Saving as <b>" + txt_SaveAs.Text + "</b> successfully at " + DateTime.Now.ToString("HH:mm");
+            }
+            else
+            {
+                System.Text.StringBuilder sb = new System.Text.StringBuilder();
+                sb.Append(@"<script type='text/javascript'>");
+                sb.Append("alert('Cannot save!');");
+                sb.Append(@"</script>");
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "EditHideModalScript", sb.ToString(), false);
+            }
+
+            txt_SaveAs.Text = "";
+        }
+
+        protected void btn_SaveAs_No_Click(object sender, EventArgs e)
+        {
+            System.Text.StringBuilder sb = new System.Text.StringBuilder();
+            sb.Append(@"<script type='text/javascript'>");
+            sb.Append("$('#deletepopup').modal('hide');");
+            sb.Append(@"</script>");
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "DeleteBugScript", sb.ToString(), false);
+
+            txt_SaveAs.Text = "";
         }
 
         protected void btn_SortbyTitle_Click(object sender, EventArgs e)
@@ -260,6 +240,7 @@ namespace LFCRM.AdminPage
         protected void btn_Clear_Click(object sender, EventArgs e)
         {
             ClearAll();
+            txt_Date.Text = "";
         }
 
         protected void btn_CopyFromThisDay_Click(object sender, EventArgs e)
@@ -342,6 +323,7 @@ namespace LFCRM.AdminPage
                 //--------------------------------------------Export----------------------------------
                 if (title == "- Select Item -") title = "N/A";
                 if (Convert.ToDouble(ddl3.SelectedItem.Text) < 8) hour_color = "red";
+                else if (Convert.ToDouble(ddl3.SelectedItem.Text) > 8) hour_color = "#00CC00";
                 if (tb1.Text != "")
                 {
                     if (temp_title != title)
@@ -553,6 +535,16 @@ namespace LFCRM.AdminPage
             UpdateTotalBillingLabel();
         }
 
+        protected void txt_SaveAs_TextChanged(object sender, EventArgs e)
+        {
+            lbl_DeleteConfirmation.Text = "Are you sure you want to save this to <b>" + txt_SaveAs.Text + "</b> ?";
+            System.Text.StringBuilder sb = new System.Text.StringBuilder();
+            sb.Append(@"<script type='text/javascript'>");
+            sb.Append("$('#deletepopup').modal('show');");
+            sb.Append(@"</script>");
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "DeleteModalScript", sb.ToString(), false);
+        }
+
         protected void ddl_TitleSelectedIndexChannged_event(object sender, EventArgs e)
         {
             //DropDownList ddl1 = (DropDownList)sender;
@@ -561,6 +553,7 @@ namespace LFCRM.AdminPage
             //TableRow tbr = (TableRow)ph_DynamicResourceTableRow.FindControl("tbr_ContentResource" + Regex.Match(ddlId, @"\d+").Value);
             //tbr.Attributes.Add("style", "background-color:" + RA.getColorCode(ddl1.SelectedItem.Text) + ";");
 
+            
             UpdateActualResource();
             UpdateTrainResource();
             UpdateTotalAssignedLabel();
@@ -895,7 +888,7 @@ namespace LFCRM.AdminPage
                 DropDownList ddl2 = (DropDownList)ph_DynamicResourceTableRow.FindControl("ddl_Title" + j.ToString());
                 DropDownList ddl3 = (DropDownList)ph_DynamicResourceTableRow.FindControl("ddl_WorkingHours" + j.ToString());
                 TableRow tbr = (TableRow)ph_DynamicResourceTableRow.FindControl("tbr_ContentResource" + j.ToString());
-                RequiredFieldValidator rfvSelectTitle = (RequiredFieldValidator)ph_DynamicResourceTableRow.FindControl("rfvSelectTitle" + j.ToString());
+                //RequiredFieldValidator rfvSelectTitle = (RequiredFieldValidator)ph_DynamicResourceTableRow.FindControl("rfvSelectTitle" + j.ToString());
                 bool state = Convert.ToBoolean(dt.Rows[i].ItemArray[4].ToString());
 
                 lbl1.Text = dt.Rows[i].ItemArray[0].ToString();
@@ -906,7 +899,7 @@ namespace LFCRM.AdminPage
                 ddl1.Items.FindByText(dt.Rows[i].ItemArray[2].ToString()).Selected = true;
                 ddl2.Items.FindByText(dt.Rows[i].ItemArray[3].ToString()).Selected = true;
                 ddl2.Enabled = state;
-                rfvSelectTitle.Enabled = state;
+                //rfvSelectTitle.Enabled = state;
                 ddl3.Items.FindByText(dt.Rows[i].ItemArray[5].ToString()).Selected = true;
 
                 if (dt.Rows[i].ItemArray[2].ToString() == "Project Leader") ddl1.Attributes.Add("style", "border: 2px solid red;");
@@ -939,20 +932,21 @@ namespace LFCRM.AdminPage
             UpdateTotalOff();
             UpdateTotalAssignedLabel();
             UpdateTotalTrainee();
+            lbl_StarofSaving.Text = "";
         }
 
         public void ChangeRole(string idRow)
         {
             DropDownList ddl1 = (DropDownList)ph_DynamicResourceTableRow.FindControl("ddl_Role" + idRow);
             DropDownList ddl2 = (DropDownList)ph_DynamicResourceTableRow.FindControl("ddl_Title" + idRow);
-            RequiredFieldValidator rfvSelectTitle = (RequiredFieldValidator)ph_DynamicResourceTableRow.FindControl("rfvSelectTitle" + idRow);
+            //RequiredFieldValidator rfvSelectTitle = (RequiredFieldValidator)ph_DynamicResourceTableRow.FindControl("rfvSelectTitle" + idRow);
 
             if (ddl1.SelectedItem.Text == "Off")
             {
                 ddl2.ClearSelection();
                 ddl2.Items.FindByText("- Select Item -").Selected = true;
                 ddl2.Enabled = false;
-                rfvSelectTitle.Enabled = false;
+                //rfvSelectTitle.Enabled = false;
                 //ddl1.BorderColor = Color.Gray;
             }
             else if (ddl1.SelectedItem.Text == "Project Leader")
@@ -960,33 +954,33 @@ namespace LFCRM.AdminPage
                 ddl2.ClearSelection();
                 ddl2.Items.FindByText("- Select Item -").Selected = true;
                 ddl2.Enabled = false;
-                rfvSelectTitle.Enabled = false;
+                //rfvSelectTitle.Enabled = false;
                 ddl1.Attributes.Add("style", "border: 2px solid red;");
             }
             else if (ddl1.SelectedItem.Text == "Core")
             {
                 ddl2.Enabled = true;
-                rfvSelectTitle.Enabled = true;
+                //rfvSelectTitle.Enabled = true;
                 ddl1.Attributes.Add("style", "border: 2px solid red;");
             }
             else if (ddl1.SelectedItem.Text == "Backup")
             {
                 ddl2.Enabled = true;
-                rfvSelectTitle.Enabled = true;
+                //rfvSelectTitle.Enabled = true;
                 ddl1.Attributes.Remove("style");
                 ddl1.Attributes.Add("style", "border: 2px solid #31849B;");
             }
             else if ((ddl1.SelectedItem.Text == "Trainer") || (ddl1.SelectedItem.Text == "Trainee"))
             {
                 ddl2.Enabled = true;
-                rfvSelectTitle.Enabled = true;
+                //rfvSelectTitle.Enabled = true;
                 ddl1.Attributes.Remove("style");
                 //ddl1.BorderColor = Color.Gold;
             }
             else
             {
                 ddl2.Enabled = true;
-                rfvSelectTitle.Enabled = true;
+                //rfvSelectTitle.Enabled = true;
                 ddl1.Attributes.Remove("style");
             }
         }
@@ -1112,5 +1106,84 @@ namespace LFCRM.AdminPage
                 }
             }
         }
+
+        public bool SaveRAbyDate(String date)
+        {
+            bool ok_ra = false;
+            bool ok_ta = false;
+
+            if (((int)ViewState["ResourceCounter"] > 0) || ((int)ViewState["TitleCounter"] > 0))
+            {
+                if (RA.CheckRADateExist(date))
+                {
+                    RA.deleteResourceAllocationByDate(date);
+                }
+
+                if (RA.CheckTADateExist(date))
+                {
+                    RA.deleteTitleAllocationByDate(date);
+                }
+            }
+
+            //---------------------------------- Save Resource Allocation------------------------------
+            if ((int)ViewState["ResourceCounter"] > 0)
+                for (int i = 1; i <= (int)ViewState["ResourceCounter"]; i++)
+                {
+                    Label lb = (Label)ph_DynamicResourceTableRow.FindControl("lbl_ResourceID" + i);
+
+                    if (lb.Text != "N/A")
+                    {
+                        DropDownList ddl1 = (DropDownList)ph_DynamicResourceTableRow.FindControl("ddl_Role" + i);
+                        DropDownList ddl2 = (DropDownList)ph_DynamicResourceTableRow.FindControl("ddl_Title" + i);
+                        DropDownList ddl3 = (DropDownList)ph_DynamicResourceTableRow.FindControl("ddl_WorkingHours" + i);
+
+                        RA.addResourceAllocation(date, RA.getIDbyEmployeeID(lb.Text), ddl1.SelectedValue, RA.getTitleIDby3LD(ddl2.SelectedItem.ToString()), ddl3.SelectedValue);
+                        ok_ra = true;
+                    }
+                    else
+                    {
+                        Label lb2 = (Label)ph_DynamicResourceTableRow.FindControl("lbl_ResourceExist" + i);
+                        lb2.Text = "This cannot save";
+                        lb2.Visible = true;
+                    }
+                }
+
+            //---------------------------------- Save Title Allocation------------------------------
+            if ((int)ViewState["TitleCounter"] > 0)
+                for (int i = 1; i <= (int)ViewState["TitleCounter"]; i++)
+                {
+                    TextBox tb1 = (TextBox)ph_DynamicResourceTableRow.FindControl("txt_Title" + i);
+
+                    if (tb1.Text != "")
+                    {
+                        if (titleManager.LDExist(tb1.Text))
+                        {
+                            TextBox tb2 = (TextBox)ph_DynamicResourceTableRow.FindControl("txt_ExpectedResouces" + i);
+                            Label lb = (Label)ph_DynamicTitleTableRow.FindControl("lbl_ActualResources" + i);
+                            Label lb2 = (Label)ph_DynamicTitleTableRow.FindControl("lbl_TrainResources" + i);
+
+                            RA.addTitleAllocation(date, RA.getTitleIDby3LD(tb1.Text), tb2.Text, lb.Text, lb2.Text);
+                            ok_ta = true;
+                        }
+                        else
+                        {
+                            Label lb3 = (Label)ph_DynamicResourceTableRow.FindControl("lbl_TitleExist" + i);
+                            lb3.Text = "Not existed";
+                            lb3.Visible = true;
+                        }
+                    }
+                    else
+                    {
+                        Label lb3 = (Label)ph_DynamicResourceTableRow.FindControl("lbl_TitleExist" + i);
+                        lb3.Text = "This cannot save";
+                        lb3.Visible = true;
+                    }
+                }
+
+            ////----------------------------- Message Box ----------------------------------//
+            if ((ok_ta == true) || (ok_ra == true)) return true;
+            else return false;
+        }
+
     }
 }

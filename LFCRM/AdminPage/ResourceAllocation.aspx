@@ -2,9 +2,15 @@
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="cph_Body" runat="server">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <script src="../Scripts/bootstrap.min.js"></script>
     <asp:ScriptManager ID="ScriptManager1" runat="server" EnableCdn="true"></asp:ScriptManager>
 
+    <script type="text/javascript">
+        $(window).bind('beforeunload', function () {
+            return 'New information not saved';
+        });
+    </script>
     <script type="text/javascript">
         // It is important to place this JavaScript code after ScriptManager1
         var xPos, yPos;
@@ -49,11 +55,11 @@
     <asp:UpdatePanel ID="UpdatePanel1" runat="server">
         <ContentTemplate>
             <asp:UpdateProgress ID="UpdateProgress1" runat="server">
-                <ProgressTemplate>
-                    <div style="position: fixed; top: 0px; bottom: 0px; left: 0px; right: 0px; overflow: hidden; padding: 0; margin: 0; background-color: #F0F0F0; filter: alpha(opacity=50); opacity: 0.5; z-index: 100000;"></div>
-                    <div style="position: fixed; top: 40%; left: 40%; height:15%; width:15%; z-index: 100001;  background-color: #FFFFFF; background-image: url('../Image/loading.gif'); background-repeat: no-repeat; background-position:center;"></div>
-                </ProgressTemplate>
-            </asp:UpdateProgress>
+            <ProgressTemplate>
+                <div style="position: fixed; top: 0px; bottom: 0px; left: 0px; right: 0px; overflow: hidden; padding: 0; margin: 0; background-color: #F0F0F0; filter: alpha(opacity=50); opacity: 0.5; z-index: 100000;"></div>
+                <div class="dizzy-gillespie"></div>
+            </ProgressTemplate>
+        </asp:UpdateProgress>
 
             <div id="TableResourceAllocation" runat="server" visible="true">
                 <table>
@@ -61,16 +67,21 @@
                         <td style="width: 770px;">
                             <table>
                                 <tr>
-                                    <td style="width: 270px;">                            
+                                    <td style="width: 100px;">                            
                                         <div style='text-align: left;'>
                                             <asp:ImageButton ID="btn_MultAdd" runat="server" ImageUrl="../Image/mulitplus.ico" Height="37px" Width="37px" OnClick="btn_MultAdd_Click"/>
                                         </div></td>
-                                    <td style="width: 500px;">
-                                        <div style='text-align: right;'>
+                                    <td style="width: 370px;">
+                                        <div style='text-align: left;'>
                                             <asp:TextBox ID="txt_Date" runat="server" Height="33px" Width="100px" BorderStyle="Ridge" BorderWidth="1px" TextMode="DateTime"></asp:TextBox>
                                             <ajaxToolkit:CalendarExtender ID="txt_Date_CalendarExtender" runat="server" FirstDayOfWeek="Monday" PopupButtonID="txt_Date" TargetControlID="txt_Date" Format="MM/dd/yyyy" />
                                                 &nbsp; 
                                             <asp:Button ID="btn_CopyFromThisDay" runat="server" Text="Copy from this day" CssClass="btn btn-success" OnClick="btn_CopyFromThisDay_Click"/>                          
+                                        </div>
+                                    </td>
+                                    <td style="width: 300px;">
+                                        <div style='text-align: center;'>
+                                            <asp:Label ID="lbl_StarofSaving" runat="server" Text="" Font-Bold="False" ForeColor="Red" Font-Italic="True"></asp:Label>
                                         </div>
                                     </td>
                                 </tr>
@@ -80,18 +91,17 @@
                         <td style="width: 410px;">
                             <table>
                                 <tr>
-                                    <td style="width: 180px;">
-                                        <div style='text-align: left;'>
-                                            <asp:Label ID="lbl_StarofSaving" runat="server" Text="Not saved jet" Font-Bold="False" ForeColor="Red" Font-Italic="True"></asp:Label>
-                                        </div>
-                                    </td>
-                                    <td style="width: 230px;">
+                                    <td style="width: 410px;">
                                         <div style='text-align: right;'>
                                             <asp:Button ID="btn_Save" runat="server" Text="Save" CssClass="btn btn-success" OnClick="btn_Save_Click" ValidationGroup="RAValidation"/> 
+                                            
+                                            <asp:TextBox ID="txt_SaveAs" runat="server" Height="33px" Width="0px" BorderStyle="Ridge" BorderWidth="0px" TextMode="DateTime" OnTextChanged="txt_SaveAs_TextChanged" AutoPostBack="True"></asp:TextBox>                    
+                                            <asp:Button ID="btn_SaveAs" runat="server" Text="Save As" CssClass="btn btn-success" ValidationGroup="RAValidation"  /> 
+                                            <ajaxToolkit:CalendarExtender ID="txt_SaveAs_CalendarExtender" runat="server" FirstDayOfWeek="Monday" PopupButtonID="btn_SaveAs" TargetControlID="txt_SaveAs" Format="MM/dd/yyyy"/>
                                             &nbsp; 
-                                            <asp:Button ID="btn_Export" runat="server" Text="Export" CssClass="btn btn-success" OnClick="btn_Export_Click" /> 
+                                            <asp:Button ID="btn_Export" runat="server" Text="Export" CssClass="btn btn-info" OnClick="btn_Export_Click" /> 
                                             &nbsp; 
-                                            <asp:Button ID="btn_Clear" runat="server" Text="Clear" CssClass="btn" OnClick="btn_Clear_Click" />
+                                            <asp:Button ID="btn_Clear" runat="server" Text="Clear" CssClass="btn btn-danger" OnClick="btn_Clear_Click" />
                                         </div> 
                                     </td>
                                 </tr>
@@ -128,7 +138,7 @@
                                         <table id="tb_titleTable"  class="table table-striped table-bordered table-responsive table-condensed table-hover">
                                             <tr>
                                                 <td style="width: 160px;"><strong>3LD</strong></td>
-                                                <td><strong>Bill</strong> &nbsp;<span style="color: black"><asp:Button ID="btn_ClearBill" runat="server" Text="Clear" CssClass="btn btn-xs" OnClick="btn_ClearBill_Click"/></span</td>
+                                                <td><strong>Bill</strong> <span style="color: black"><asp:Button ID="btn_ClearBill" runat="server" Text="Clear" CssClass="btn btn-xs" OnClick="btn_ClearBill_Click"/></span></td>
                                                 <td><strong>Actual</strong></td>
                                                 <td><strong>Train</strong></td>
                                                 <td><strong>Action</strong></td>
@@ -194,8 +204,9 @@
             <asp:Label ID="Label1" runat="server" Font-Names="Times New Roman" Font-Size="12pt" ></asp:Label>
         </ContentTemplate>
     </asp:UpdatePanel>
-    
-            <div id="editModal" class="modal fade">
+  
+<%--Add mutilpe resource--%>
+        <div id="editModal" class="modal fade">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -217,4 +228,31 @@
                 </div>
             </div>
         </div>
+
+    <!--Delete Modal-->
+    <div id="deletepopup" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Saving Confirmation</h4>
+                </div>            
+                <asp:UpdatePanel ID="UpdatePanel3" runat="server">
+                    <ContentTemplate>
+                        <div class="modal-body" style=" margin-top: 10px;">
+                            <center>
+                            <h4> <asp:Label ID="lbl_DeleteConfirmation" runat="server"></asp:Label></h4>
+                            </center>
+                        </div>
+                        <div class="modal-footer">
+                            <asp:Button ID="btn_SaveAs_Yes" runat="server" Text="Yes" class="btn btn-success" OnClick="btn_SaveAs_Yes_Click" />
+                            <asp:Button ID="btn_SaveAs_No" runat="server" Text="No" class="btn btn-default" OnClick="btn_SaveAs_No_Click"/>                            
+                        </div>
+                    </ContentTemplate>
+                    <Triggers> 
+                        <asp:AsyncPostBackTrigger ControlID="txt_SaveAs" EventName="TextChanged"/>
+                    </Triggers>
+                </asp:UpdatePanel>
+            </div>
+        </div>
+    </div>
 </asp:Content>

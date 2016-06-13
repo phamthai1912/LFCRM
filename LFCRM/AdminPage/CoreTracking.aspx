@@ -2,13 +2,14 @@
 <%@ Register assembly="AjaxControlToolkit" namespace="AjaxControlToolkit" tagprefix="ajaxToolkit" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="cph_Body" runat="server">
     <asp:ScriptManager ID="ScriptManager1" runat="server" EnableCdn="True"></asp:ScriptManager>
+    <script src="../Scripts/bootstrap.min.js"></script>
 
     <asp:UpdatePanel ID="UpdatePanel1" runat="server" Visible="True" onkeydown = "return (event.keyCode!=13)">
     <ContentTemplate>
         <asp:UpdateProgress ID="UpdateProgress1" runat="server">
             <ProgressTemplate>
                 <div style="position: fixed; top: 0px; bottom: 0px; left: 0px; right: 0px; overflow: hidden; padding: 0; margin: 0; background-color: #F0F0F0; filter: alpha(opacity=50); opacity: 0.5; z-index: 100000;"></div>
-                <div style="position: fixed; top: 40%; left: 40%; height:15%; width:15%; z-index: 100001;  background-color: #FFFFFF; background-image: url('../Image/loading.gif'); background-repeat: no-repeat; background-position:center;"></div>
+                <div class="dizzy-gillespie"></div>
             </ProgressTemplate>
         </asp:UpdateProgress>
         <div class="topright-grid">
@@ -67,7 +68,9 @@
                             }
                         }
                     </script>
-
+                </li>
+                <li>
+                    <asp:Button ID="btn_view" runat="server" Text="View Top Core" CssClass="btn btn-success" OnClick="btn_view_Click" />
                 </li>
             </ul>
         </div>
@@ -80,6 +83,30 @@
             <Columns>
             </Columns>
         </asp:GridView>
+        <br /><br />
     </ContentTemplate>
     </asp:UpdatePanel>
+    <!--Top Core Modal-->
+    <div id="topcore" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Top Core Of This Month</h4>
+                </div>            
+                <asp:UpdatePanel ID="UpdatePanel3" runat="server">
+                    <ContentTemplate>
+                        <div class="modal-body" style=" margin-top: 10px;">
+                            <asp:GridView ID="GridView2" EmptyDataText="Sorry! We cannot find the top core" Width="550px" CssClass="table table-striped table-bordered table-responsive table-condensed table-hover"
+                runat="server" OnRowDataBound="GridView2_RowDataBound"></asp:GridView>
+                        </div>
+                        <div class="modal-footer">                            
+                            <asp:Button runat="server" data-dismiss="modal" Text="Close" class="btn btn-default"/>                            
+                        </div>
+                </ContentTemplate>
+                    <Triggers> 
+                    </Triggers>
+                </asp:UpdatePanel>
+            </div>
+        </div>
+    </div>
 </asp:Content>

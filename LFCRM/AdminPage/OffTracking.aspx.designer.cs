@@ -58,22 +58,22 @@ namespace LFCRM.AdminPage {
         protected global::System.Web.UI.WebControls.Label lbl_header;
         
         /// <summary>
-        /// txt_date control.
+        /// txt_Month control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txt_date;
+        protected global::System.Web.UI.WebControls.TextBox txt_Month;
         
         /// <summary>
-        /// txt_date_CalendarExtender control.
+        /// txt_Month_CalendarExtender control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.CalendarExtender txt_date_CalendarExtender;
+        protected global::AjaxControlToolkit.CalendarExtender txt_Month_CalendarExtender;
         
         /// <summary>
         /// btn_Add control.
@@ -83,6 +83,15 @@ namespace LFCRM.AdminPage {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btn_Add;
+        
+        /// <summary>
+        /// btn_Remove control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btn_Remove;
         
         /// <summary>
         /// lbl_OT control.
@@ -112,13 +121,76 @@ namespace LFCRM.AdminPage {
         protected global::System.Web.UI.UpdatePanel UpdatePanel2;
         
         /// <summary>
-        /// TextBox1 control.
+        /// txt_Name control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox1;
+        protected global::System.Web.UI.WebControls.TextBox txt_Name;
+        
+        /// <summary>
+        /// txt_Name_AutoCompleteExtender control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.AutoCompleteExtender txt_Name_AutoCompleteExtender;
+        
+        /// <summary>
+        /// lbl_UID control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl_UID;
+        
+        /// <summary>
+        /// ddl_Type control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddl_Type;
+        
+        /// <summary>
+        /// tr_HalfDay control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow tr_HalfDay;
+        
+        /// <summary>
+        /// txt_Date control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txt_Date;
+        
+        /// <summary>
+        /// cld_Date control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.CalendarExtender cld_Date;
+        
+        /// <summary>
+        /// tr_FullDayFrom control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow tr_FullDayFrom;
         
         /// <summary>
         /// txt_From control.
@@ -139,6 +211,15 @@ namespace LFCRM.AdminPage {
         protected global::AjaxControlToolkit.CalendarExtender cld_From;
         
         /// <summary>
+        /// tr_FullDayTo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow tr_FullDayTo;
+        
+        /// <summary>
         /// txt_To control.
         /// </summary>
         /// <remarks>
@@ -157,15 +238,6 @@ namespace LFCRM.AdminPage {
         protected global::AjaxControlToolkit.CalendarExtender cld_To;
         
         /// <summary>
-        /// ddl_Type control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddl_Type;
-        
-        /// <summary>
         /// lbl_Message control.
         /// </summary>
         /// <remarks>
@@ -182,5 +254,23 @@ namespace LFCRM.AdminPage {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btn_AddUpcomingPTO;
+        
+        /// <summary>
+        /// UpdatePanel3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel UpdatePanel3;
+        
+        /// <summary>
+        /// lbl_OffMessage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl_OffMessage;
     }
 }

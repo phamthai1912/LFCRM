@@ -22,15 +22,6 @@ namespace LFCRM.AdminPage {
         protected global::System.Web.UI.ScriptManager ScriptManager1;
         
         /// <summary>
-        /// SqlDataSource1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.SqlDataSource SqlDataSource1;
-        
-        /// <summary>
         /// SqlDataSource2 control.
         /// </summary>
         /// <remarks>
@@ -49,13 +40,22 @@ namespace LFCRM.AdminPage {
         protected global::System.Web.UI.UpdatePanel UpdatePanel1;
         
         /// <summary>
-        /// txtSearch control.
+        /// txt_search control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtSearch;
+        protected global::System.Web.UI.WebControls.TextBox txt_search;
+        
+        /// <summary>
+        /// btn_search control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btn_search;
         
         /// <summary>
         /// btn_addresource control.
@@ -155,6 +155,24 @@ namespace LFCRM.AdminPage {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txt_phone;
+        
+        /// <summary>
+        /// txt_edit_birthday control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txt_edit_birthday;
+        
+        /// <summary>
+        /// txt_edit_birthday_CalendarExtender control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.CalendarExtender txt_edit_birthday_CalendarExtender;
         
         /// <summary>
         /// drop_role control.
@@ -380,6 +398,24 @@ namespace LFCRM.AdminPage {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txt_newphone;
+        
+        /// <summary>
+        /// txt_add_birthday control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txt_add_birthday;
+        
+        /// <summary>
+        /// txt_add_birthday_CalendarExtender control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.CalendarExtender txt_add_birthday_CalendarExtender;
         
         /// <summary>
         /// cb_newactive control.

@@ -21,7 +21,15 @@ namespace LFCRM.AdminPage
                 //check admin permission
                 if ((bool)Session["LoggedIn"] == false) Response.Redirect("../UserPage/Login.aspx");
                 if (((bool)Session["LoggedIn"] == true) && ((string)Session["UserRole"] != "Admin")) Response.Redirect("../UserPage/Default.aspx");
+
+                loadTitles();
             }
+        }
+
+        public void loadTitles()
+        {
+            GridView1.DataSource = _titleManager.GetTitles(txt_search.Text);
+            GridView1.DataBind();
         }
 
         protected void GridView1_RowCommand(object sender, GridViewCommandEventArgs e)
@@ -108,6 +116,8 @@ namespace LFCRM.AdminPage
                     sb.Append("$('#editModal').modal('hide');");
                     sb.Append(@"</script>");
                     ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "EditHideModalScript", sb.ToString(), false);
+
+                    loadTitles();
                 }
                 else
                 {
@@ -129,6 +139,8 @@ namespace LFCRM.AdminPage
                 sb.Append("$('#editModal').modal('hide');");
                 sb.Append(@"</script>");
                 ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "EditHideModalScript", sb.ToString(), false);
+
+                loadTitles();
             }
             txt_color.Text = "";
         }
@@ -167,7 +179,8 @@ namespace LFCRM.AdminPage
                 sb.Append("alert('Title Added Successfully');");
                 sb.Append(@"</script>");
                 ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "EditHideModalScript", sb.ToString(), false);
- 
+
+                loadTitles();
             }
         }
 
@@ -269,7 +282,14 @@ namespace LFCRM.AdminPage
                 sb.Append("alert('Title Deleted Successfully');");
                 sb.Append(@"</script>");
                 ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "EditHideModalScript", sb.ToString(), false);
+
+                loadTitles();
             }
+        }
+
+        protected void btn_search_Click(object sender, EventArgs e)
+        {
+            loadTitles();
         }       
     }
 }

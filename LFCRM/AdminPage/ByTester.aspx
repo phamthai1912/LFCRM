@@ -39,7 +39,7 @@
         <asp:UpdateProgress ID="UpdateProgress1" runat="server">
             <ProgressTemplate>
                 <div style="position: fixed; top: 0px; bottom: 0px; left: 0px; right: 0px; overflow: hidden; padding: 0; margin: 0; background-color: #F0F0F0; filter: alpha(opacity=50); opacity: 0.5; z-index: 100000;"></div>
-                <div style="position: fixed; top: 40%; left: 40%; height:15%; width:15%; z-index: 100001;  background-color: #FFFFFF; background-image: url('../Image/loading.gif'); background-repeat: no-repeat; background-position:center;"></div>
+                <div class="dizzy-gillespie"></div>
             </ProgressTemplate>
         </asp:UpdateProgress>
 

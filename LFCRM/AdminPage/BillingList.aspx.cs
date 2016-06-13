@@ -4,7 +4,6 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using Microsoft.Office.Interop.Outlook;
 using System.Net.Mail;
 using System.Diagnostics;
 using System.Text;
@@ -148,20 +147,20 @@ namespace LFCRM.AdminPage
                     "<td style='width:170px;background-color:#4f81bd;border:1px solid #000000;margin-right:0;color:white;font-weight:800;'>" +
                         "<table style='width:100%;margin:0;color:white;font-weight:800;text-align:right;'>" +
                             "<tr style='border-bottom:1px solid #000000;'>" +
-                                "<td style='padding:5px;text-align:right;border-bottom:1px solid #000000;'>Tester(s):</td>" +
+                                "<td style='padding:5px;text-align:right;border-bottom:1px solid #000000;font-family: Tahoma;font-size: 13px;'>Tester(s):</td>" +
                             "</tr>" +
                             "<tr>" +
-                                "<td style='padding:5px;text-align:right;'>Total Hour(s):</td>" +
+                                "<td style='padding:5px;text-align:right;font-family: Tahoma;font-size: 13px;'>Total Hour(s):</td>" +
                             "</tr>" +
                         "</table>" +
                     "</td>" +
                     "<td style='width:100px;background-color:#4f81bd;border:1px solid #000000; margin-right:0;color:white;font-weight:800;'>" +
                         "<table style='width:100%;color:white;font-weight:800;text-align:center;'>" +
                             "<tr>" +
-                                "<td style='border-bottom:1px solid #000000;padding:5px;'>" + totaltester + "</td>" +
+                                "<td style='border-bottom:1px solid #000000;padding:5px;font-family: Tahoma;font-size: 13px;'>" + totaltester + "</td>" +
                             "</tr>" +
                             "<tr>" +
-                                "<td style='padding:5px;'>" + totalhours + "</td>" +
+                                "<td style='padding:5px;font-family: Tahoma;font-size: 13px;'>" + totalhours + "</td>" +
                             "</tr>" +
                         "</table>" +
                     "</td>" +
@@ -287,7 +286,7 @@ namespace LFCRM.AdminPage
                     smtp.EnableSsl = true;
                     System.Net.NetworkCredential NetworkCred = new System.Net.NetworkCredential();
                     NetworkCred.UserName = "tan.thanh.vo@logigear.com";
-                    NetworkCred.Password = "qwert098!@#$";
+                    NetworkCred.Password = "";
                     smtp.UseDefaultCredentials = true;
                     smtp.Credentials = NetworkCred;
                     smtp.Port = 587;

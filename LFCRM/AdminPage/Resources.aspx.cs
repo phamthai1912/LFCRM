@@ -12,10 +12,21 @@ namespace LFCRM.AdminPage
         Class.csResource resource = new Class.csResource();
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (IsPostBack)
+            if (!IsPostBack)
             {
-                
+                //check admin permission
+                if ((bool)Session["LoggedIn"] == false) Response.Redirect("../UserPage/Login.aspx");
+                if (((bool)Session["LoggedIn"] == true) && ((string)Session["UserRole"] != "Admin")) Response.Redirect("../UserPage/Default.aspx");
+
+                loadResource();
             }
+        }
+
+        public void loadResource()
+        {
+
+            GridView1.DataSource = resource.getResource(txt_search.Text);
+            GridView1.DataBind();
         }
 
         protected void GridView1_RowCommand(object sender, GridViewCommandEventArgs e)
@@ -31,8 +42,10 @@ namespace LFCRM.AdminPage
                 txt_name.Text = HttpUtility.HtmlDecode(gvrow.Cells[1].Text).ToString();
                 txt_email.Text = HttpUtility.HtmlDecode(gvrow.Cells[2].Text).ToString();
                 txt_phone.Text = HttpUtility.HtmlDecode(gvrow.Cells[3].Text).ToString();
+                txt_edit_birthday.Text = resource.getBirthday(lb_id.Text);
                 String role = HttpUtility.HtmlDecode(gvrow.Cells[4].Text).ToString();
                 drop_role.SelectedValue = role;
+
 
                 CheckBox cb101 = (CheckBox)gvrow.FindControl("cb_activegrid");
                 cb_active.Checked = cb101.Checked;                
@@ -103,6 +116,7 @@ namespace LFCRM.AdminPage
             sb.Append("$('#PassModal').modal('hide');");
             sb.Append(@"</script>");
             ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "EditModalScript", sb.ToString(), false);
+            loadResource();
 
         }
 
@@ -114,6 +128,7 @@ namespace LFCRM.AdminPage
             String name = txt_name.Text;
             String email = txt_email.Text;
             String phone = txt_phone.Text;
+            String birth = txt_edit_birthday.Text;
             String role = drop_role.SelectedItem.Text;
             String active = cb_active.Checked.ToString();
             
@@ -127,7 +142,7 @@ namespace LFCRM.AdminPage
                 else
                 {
                     lb_id1.Visible = false;
-                    resource.updateResource(userid, id, name, email, phone, role, active);
+                    resource.updateResource(userid, id, name, email, phone, birth, role, active);
                     GridView1.DataBind();
 
                     //Close modal
@@ -136,12 +151,13 @@ namespace LFCRM.AdminPage
                     sb.Append("$('#editModal').modal('hide');");
                     sb.Append(@"</script>");
                     ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "EditHideModalScript", sb.ToString(), false);
+                    loadResource();
                 }
             }
             else
             {
                 lb_id1.Visible = false;
-                resource.updateResource(userid, id, name, email, phone, role, active);
+                resource.updateResource(userid, id, name, email, phone, birth, role, active);
                 GridView1.DataBind();
 
                 //Close modal
@@ -150,6 +166,7 @@ namespace LFCRM.AdminPage
                 sb.Append("$('#editModal').modal('hide');");
                 sb.Append(@"</script>");
                 ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "EditHideModalScript", sb.ToString(), false);
+                loadResource();
             }
         }
 
@@ -172,6 +189,8 @@ namespace LFCRM.AdminPage
                 sb.Append("$('#DeleteModal').modal('hide');");
                 sb.Append(@"</script>");
                 ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "DeleteHideModalScript", sb.ToString(), false);
+
+                loadResource();
             }
         }
 
@@ -181,6 +200,7 @@ namespace LFCRM.AdminPage
             String name = txt_newname.Text;
             String email = txt_newmail.Text;
             String phone = txt_newphone.Text;
+            String birth = txt_add_birthday.Text;
             String role = drop_newrole.SelectedItem.Text;
             String active1 = "True";
             if (cb_newactive.Checked == true)
@@ -195,7 +215,7 @@ namespace LFCRM.AdminPage
             }
             else
             {
-                resource.addResource(id,name,email,phone,role,active1);
+                resource.addResource(id, name, email, phone, birth, role, active1);
                 GridView1.DataBind();
 
                 System.Text.StringBuilder sb = new System.Text.StringBuilder();
@@ -203,6 +223,8 @@ namespace LFCRM.AdminPage
                 sb.Append("$('#AddModal').modal('hide');");
                 sb.Append(@"</script>");
                 ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "AddModalScript", sb.ToString(), false);
+
+                loadResource();
             }
 
         }
@@ -224,9 +246,9 @@ namespace LFCRM.AdminPage
             ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "AddModalScript", sb.ToString(), false);
         }
 
-        protected void txtSearch_TextChanged(object sender, EventArgs e)
+        protected void btn_search_Click(object sender, EventArgs e)
         {
-
+            loadResource();
         }
 
     }

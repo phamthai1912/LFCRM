@@ -18,7 +18,14 @@ namespace LFCRM.AdminPage
                 if ((bool)Session["LoggedIn"] == false) Response.Redirect("../UserPage/Login.aspx");
                 if (((bool)Session["LoggedIn"] == true) && ((string)Session["UserRole"] != "Admin")) Response.Redirect("../UserPage/Default.aspx");
 
+                loadCategory();
             }
+        }
+
+        public void loadCategory()
+        {
+            GridView1.DataSource = category.GetCategories(txt_search.Text);
+            GridView1.DataBind();
         }
 
         protected void GridView1_RowDataBound(object sender, GridViewRowEventArgs e)
@@ -120,6 +127,8 @@ namespace LFCRM.AdminPage
                     sb.Append("$('#editModal').modal('hide');");
                     sb.Append(@"</script>");
                     ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "EditHideModalScript", sb.ToString(), false);
+
+                    loadCategory();
                 }
                 else if (category.checkCategoryExist(cate) == false && colorcode != "")
                 {
@@ -139,6 +148,8 @@ namespace LFCRM.AdminPage
                             sb.Append("$('#editModal').modal('hide');");
                             sb.Append(@"</script>");
                             ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "EditHideModalScript", sb.ToString(), false);
+
+                            loadCategory();
                         }
                         else
                         {
@@ -161,6 +172,8 @@ namespace LFCRM.AdminPage
                         sb.Append("$('#editModal').modal('hide');");
                         sb.Append(@"</script>");
                         ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "EditHideModalScript", sb.ToString(), false);
+
+                        loadCategory();
                     }
                 }
             }
@@ -255,7 +268,7 @@ namespace LFCRM.AdminPage
                 sb.Append("alert('Title Added Successfully');");
                 sb.Append(@"</script>");
                 ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "EditHideModalScript", sb.ToString(), false);
-
+                loadCategory();
             }
         }
 
@@ -316,7 +329,14 @@ namespace LFCRM.AdminPage
                 sb.Append("$('#DeleteModal').modal('hide');");
                 sb.Append(@"</script>");
                 ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "EditHideModalScript", sb.ToString(), false);
+
+                loadCategory();
             }
+        }
+
+        protected void btn_search_Click(object sender, EventArgs e)
+        {
+            loadCategory();
         }
 
     }

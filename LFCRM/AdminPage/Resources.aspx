@@ -4,7 +4,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="cph_Body" runat="server">
     <asp:ScriptManager ID="ScriptManager1" runat="server" EnableCdn="True"></asp:ScriptManager>
     <!--Searching-->
-    <script type="text/javascript">
+    <%--<script type="text/javascript">
         function Search_Gridview(strKey, strGV) {
             var strData = strKey.value.toLowerCase().split(" ");
             var tblData = document.getElementById("<%= GridView1.ClientID %>");
@@ -23,7 +23,7 @@
                 tblData.rows[i].style.display = styleDisplay;
             }
         }
-    </script>
+    </script>--%>
     <!--Tooltip-->
     <script type="text/javascript">
         $(document).ready(function () {
@@ -31,14 +31,6 @@
             $('[rel=tooltip]').tooltip();
         });
     </script>
-
-    <asp:SqlDataSource ID="SqlDataSource1" runat="server" 
-        ConnectionString="<%$ ConnectionStrings:LFCRMConnectionString %>"
-        ProviderName="System.Data.SqlClient" 
-        SelectCommand="SELECT EmployeeID,FullName,Email,PhoneNumber,RoleName,Active
-FROM tbl_User,tbl_UserRole
-WHERE tbl_User.UserRoleID = tbl_UserRole.UserRoleID
-ORDER BY EmployeeID ASC"></asp:SqlDataSource>
 
     <asp:SqlDataSource ID="SqlDataSource2" runat="server" 
         ConnectionString="<%$ ConnectionStrings:LFCRMConnectionString %>"
@@ -52,9 +44,11 @@ ORDER BY EmployeeID ASC"></asp:SqlDataSource>
                     <li>
                         <asp:TextBox runat="server"
                             type="text"  AutoPostBack="true"
-                            placeholder="Search Resources" id="txtSearch" 
-                            onkeyup="Search_Gridview(this, 'GridView1')"
+                            placeholder="Search Resources" id="txt_search"
                             class="form-control" style="width:300px;"></asp:TextBox>
+                    </li>
+                    <li>
+                        <asp:Button ID="btn_search" runat="server" Text="Search" CssClass="btn btn-success" OnClick="btn_search_Click" />
                     </li>
                     <li>
                         <asp:Button ID="btn_addresource" 
@@ -64,7 +58,7 @@ ORDER BY EmployeeID ASC"></asp:SqlDataSource>
                 </ul>
         </div><br /><br />
         <div class="grid-style">
-            <asp:GridView ID="GridView1" runat="server" DataSourceID="SqlDataSource1"
+            <asp:GridView ID="GridView1" runat="server"
                 CssClass="table table-striped table-bordered table-responsive table-condensed table-hover" AutoGenerateColumns="False" OnRowCommand="GridView1_RowCommand" OnRowDataBound="GridView1_RowDataBound">
                 <Columns>
                     <asp:BoundField DataField="EmployeeID" HeaderText="Resource ID" />
@@ -184,6 +178,15 @@ ORDER BY EmployeeID ASC"></asp:SqlDataSource>
                                 </td>
                                 <td class="modal-body">
                                     <asp:TextBox ID="txt_phone" runat="server" class="form-control"></asp:TextBox>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="modal-body">
+                                    Birthday:
+                                </td>
+                                <td class="modal-body">
+                                    <asp:TextBox ID="txt_edit_birthday" runat="server" class="form-control"></asp:TextBox>
+                                    <ajaxToolkit:CalendarExtender runat="server" BehaviorID="txt_edit_birthday_CalendarExtender" TargetControlID="txt_edit_birthday" ID="txt_edit_birthday_CalendarExtender" Format="MM/dd/yyyy" DefaultView="Years"></ajaxToolkit:CalendarExtender>
                                 </td>
                             </tr>
                             <tr>
@@ -409,6 +412,15 @@ ORDER BY EmployeeID ASC"></asp:SqlDataSource>
                                 </td>
                                 <td class="modal-body">
                                     <asp:TextBox ID="txt_newphone" runat="server" class="form-control"></asp:TextBox>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="modal-body">
+                                    Birthday:
+                                </td>
+                                <td class="modal-body">
+                                    <asp:TextBox ID="txt_add_birthday" runat="server" class="form-control"></asp:TextBox>
+                                    <ajaxToolkit:CalendarExtender runat="server" BehaviorID="txt_add_birthday_CalendarExtender" TargetControlID="txt_add_birthday" ID="txt_add_birthday_CalendarExtender" Format="MM/dd/yyyy" DefaultView="Years"></ajaxToolkit:CalendarExtender>
                                 </td>
                             </tr>
                             <tr>

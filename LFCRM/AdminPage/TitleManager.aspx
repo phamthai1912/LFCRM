@@ -6,7 +6,7 @@
     <br />
     <asp:ScriptManager ID="ScriptManager1" runat="server" EnableCdn="True" />
     <!--Searching-->
-    <script type="text/javascript">
+    <%--<script type="text/javascript">
         function Search_Gridview(strKey, strGV) {
             var strData = strKey.value.toLowerCase().split(" ");
             var tblData = document.getElementById("<%= GridView1.ClientID %>");
@@ -25,7 +25,7 @@
                 tblData.rows[i].style.display = styleDisplay;
             }
         }
-    </script>
+    </script>--%>
     <!--Tooltip-->
     <script type="text/javascript">
         $(document).ready(function () {
@@ -39,16 +39,6 @@
                 sender.get_element().value = "#" + sender.get_selectedColor();
             }
     </script>
-
-    <asp:SqlDataSource ID="SqlDataSource1" runat="server" 
-        ConnectionString="<%$ ConnectionStrings:LFCRMConnectionString %>"
-        ProviderName="System.Data.SqlClient" 
-        SelectCommand="SELECT [3LD],TitleName,TOCKCode,Category,ColorCode
-FROM tbl_Title,tbl_TitleCategory
-WHERE tbl_Title.TitleCategoryID = tbl_TitleCategory.TitleCategoryID
-ORDER BY [3LD] DESC" 
-        >
-</asp:SqlDataSource>
     <asp:SqlDataSource ID="SqlDataSource2" runat="server" 
         ConnectionString="<%$ ConnectionStrings:LFCRMConnectionString %>"
         ProviderName="System.Data.SqlClient" SelectCommand="SELECT [Category] FROM [tbl_TitleCategory] ORDER BY [Category]"></asp:SqlDataSource>
@@ -62,9 +52,11 @@ ORDER BY [3LD] DESC"
                 <li>
                     <asp:TextBox runat="server"
                             type="text"  AutoPostBack="true"
-                            placeholder="Search " id="TextBox1" 
-                            onkeyup="Search_Gridview(this, 'GridView1')"
+                            placeholder="Search " id="txt_search" 
                             class="form-control" style="width:300px;"></asp:TextBox>
+                </li>
+                <li>
+                    <asp:Button ID="btn_search" runat="server" Text="Search" CssClass="btn btn-success" OnClick="btn_search_Click" />
                 </li>
                 <li>
                     <asp:Button ID="btn_addnew" 
@@ -73,9 +65,9 @@ ORDER BY [3LD] DESC"
                 </li>
             </ul>
         </div><br /><br />
-        <div class="grid-style">
-        <asp:GridView ID="GridView1" runat="server" DataSourceID="SqlDataSource1" AutoGenerateColumns="False"
-            OnRowCommand="GridView1_RowCommand"
+        <asp:Panel ID="Panel1" runat="server" ScrollBars="Auto" Height="470px">
+        <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False"
+            OnRowCommand="GridView1_RowCommand" GridLines="Horizontal"
             CssClass="table table-striped table-bordered table-responsive table-condensed table-hover" 
             DataKeyNames="3LD" OnRowDataBound="GridView1_RowDataBound" AllowSorting="True"
             >
@@ -107,7 +99,7 @@ ORDER BY [3LD] DESC"
                 </asp:TemplateField>
             </Columns>
         </asp:GridView>
-        </div>
+        </asp:Panel>
     </ContentTemplate>
     </asp:UpdatePanel>
 

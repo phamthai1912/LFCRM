@@ -6,7 +6,7 @@
     <asp:ScriptManager ID="ScriptManager1" runat="server" EnableCdn="True">
     </asp:ScriptManager>
     <!--Searching-->
-    <script type="text/javascript">
+    <%--<script type="text/javascript">
         function Search_Gridview(strKey, strGV) {
             var strData = strKey.value.toLowerCase().split(" ");
             var tblData = document.getElementById("<%= GridView1.ClientID %>");
@@ -25,7 +25,7 @@
                 tblData.rows[i].style.display = styleDisplay;
             }
         }
-    </script>
+    </script>--%>
     <!--Tooltip-->
     <script type="text/javascript">
         $(document).ready(function () {
@@ -39,11 +39,6 @@
             sender.get_element().value = "#" + sender.get_selectedColor();
         }
     </script>
-    <asp:SqlDataSource ID="SqlDataSource1" runat="server" 
-        ConnectionString="<%$ ConnectionStrings:LFCRMConnectionString %>"
-        ProviderName="System.Data.SqlClient" 
-        SelectCommand="SELECT [TitleCategoryID],[Category], [Color] FROM [tbl_TitleCategory]" 
-        ></asp:SqlDataSource>
 
     <asp:UpdatePanel ID="UpdatePanel2" runat="server" Visible="True" onkeydown = "return (event.keyCode!=13)">
         <ContentTemplate>
@@ -53,9 +48,11 @@
                     <li>
                         <asp:TextBox runat="server"
                             type="text"  AutoPostBack="true"
-                            placeholder="Search Category" id="txtSearch" 
-                            onkeyup="Search_Gridview(this, 'GridView1')"
+                            placeholder="Search Category" id="txt_search" 
                             class="form-control" style="width:300px;"></asp:TextBox>
+                    </li>
+                    <li>
+                        <asp:Button ID="btn_search" runat="server" Text="Search" CssClass="btn btn-success" OnClick="btn_search_Click" />
                     </li>
                     <li>
                         <asp:Button ID="btn_addnew" 
@@ -69,7 +66,7 @@
             DataKeyNames="Category"
             AutoGenerateColumns="False" 
             CssClass="table table-striped table-bordered table-responsive table-condensed table-hover"
-            DataSourceID="SqlDataSource1" OnRowDataBound="GridView1_RowDataBound" OnRowCommand="GridView1_RowCommand">
+            OnRowDataBound="GridView1_RowDataBound" OnRowCommand="GridView1_RowCommand">
             <Columns>
                 <asp:BoundField DataField="Category" HeaderText="Category" SortExpression="Category" />
                 <asp:BoundField DataField="Color" HeaderText="Color" SortExpression="Color" />
