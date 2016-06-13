@@ -12,6 +12,31 @@ namespace LFCRM.Class
     {
         Class.csDBConnect dbconnect = new Class.csDBConnect();
 
+        public DataSet GetTitles(string searchstring)
+        {
+            String search = GetSearchString(searchstring);
+            String sql = "SELECT [3LD],TitleName,TOCKCode,Category,ColorCode "+
+                        "FROM tbl_Title,tbl_TitleCategory "+
+                        "WHERE tbl_Title.TitleCategoryID = tbl_TitleCategory.TitleCategoryID "+
+                        "AND ([3LD] LIKE '" + search.Replace("'", "''") + "%' OR TitleName LIKE '" + search.Replace("'", "''") + "%' OR TOCKCode LIKE '" + search.Replace("'", "''") + "%' OR Category LIKE '" + search.Replace("'", "''") + "%') " +
+                        "ORDER BY [3LD] DESC";
+            DataSet ds = dbconnect.getDataSet(sql);
+            return ds;
+        }
+
+        public string GetSearchString(string searchstring)
+        {
+            String[] temp;
+            temp = searchstring.Split(' ');
+            string searchstring1 = "";
+            for (int i = 0; i < temp.Length; i++)
+            {
+                searchstring1 = searchstring1 + "%" + temp[i];
+            }
+
+            return searchstring1;
+        }
+
         public void updateTitle(String _titleid,String _3ld, String titlename, String tockcode, String Category, String Color)
         {
             string CategoryID = getCateID(Category);

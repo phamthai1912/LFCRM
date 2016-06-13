@@ -200,14 +200,15 @@ namespace LFCRM.Class
         //Get Total Bug of User based on Date and Month
         public String getTotalBugUser(String _id, String _3ld, String _start, String _end, String _month)
         {
-            String sql = "SELECT SUM(NumberOfBugs) as Number " +
-                        "FROM tbl_BugTracking,tbl_User,tbl_Title " +
-                        "WHERE tbl_User.UserID = tbl_BugTracking.UserID " +
-                        "AND tbl_BugTracking.TitleID = tbl_Title.TitleID " +
+            String sql = "SELECT COUNT(BugTitleID) as Number " +
+                        "FROM tbl_BugTitle,tbl_User,tbl_Title "+
+                        "WHERE tbl_BugTitle.UserEnterID = tbl_User.UserID "+
+                        "AND tbl_BugTitle.TitleID = tbl_Title.TitleID "+
                         "AND [3LD] = '" + _3ld + "' " +
                         "AND EmployeeID = '" + _id + "' " +
-                        "AND (Date BETWEEN '" + _start + "' AND '" + _end + "') " +
-                        "AND RIGHT(CONVERT(VARCHAR(10), Date, 103), 7) = '" + _month + "' ";
+                        "AND BugStatusID = '1' "+
+                        "AND (DateEnter BETWEEN '" + _start + "' AND '" + _end + "') " +
+                        "AND RIGHT(CONVERT(VARCHAR(10), DateEnter, 103), 7) = '" + _month + "'";
 
             String total = "0";
             DataTable tb = dbconnect.getDataTable(sql);
@@ -327,24 +328,26 @@ namespace LFCRM.Class
         //Get Tottal Bug of team on Title according to Date and Month
         public String getTotalBugTeam(String _employeeid, String _3ld, String _start, String _end, String _month)
         {
-            String sql = "SELECT SUM(A.Number)" +
-                        "FROM (SELECT FullName,CONVERT(VARCHAR(10), Date, 101) as Date, SUM(NumberOfBugs) as Number " +
-                        "FROM tbl_BugTracking,tbl_User,tbl_Title " +
-                        "WHERE tbl_User.UserID = tbl_BugTracking.UserID " +
-                        "AND tbl_BugTracking.TitleID = tbl_Title.TitleID " +
-                        "AND [3LD] = '" + _3ld + "' " +
-                        "AND (Date BETWEEN '" + _start + "' AND '" + _end + "') " +
-                        "GROUP BY CONVERT(VARCHAR(10), Date, 101),Fullname) as A " +
-                        "INNER JOIN (SELECT FullName,CONVERT(VARCHAR(10), Date, 101) as Date, SUM(NumberOfBugs) as Number " +
-                        "FROM tbl_BugTracking,tbl_User,tbl_Title " +
-                        "WHERE tbl_User.UserID = tbl_BugTracking.UserID " +
-                        "AND tbl_BugTracking.TitleID = tbl_Title.TitleID " +
-                        "AND [3LD] = '" + _3ld + "' " +
-                        "AND EmployeeID = '" + _employeeid + "' " +
-                        "AND (Date BETWEEN '" + _start + "' AND '" + _end + "') " +
-                        "GROUP BY CONVERT(VARCHAR(10), Date, 101),Fullname) As B " +
-                        "ON A.Date = B.Date " +
-                        "WHERE RIGHT(CONVERT(VARCHAR(10), CONVERT(Datetime, A.Date, 120), 103), 7) = '" + _month + "' ";
+            String sql = "SELECT SUM(A.Number) "+
+                    "FROM (SELECT FullName,CONVERT(VARCHAR(10), DateEnter, 101) as Date, COUNT(BugTitleID) as Number "+
+                    "FROM tbl_BugTitle,tbl_User,tbl_Title "+
+                    "WHERE tbl_BugTitle.UserEnterID = tbl_User.UserID "+
+                    "AND tbl_BugTitle.TitleID = tbl_Title.TitleID "+
+                    "AND [3LD] = '" + _3ld + "' " +
+                    "AND BugStatusID = '1' "+
+                    "AND (DateEnter BETWEEN '" + _start + "' AND '" + _end + "') " +
+                    "GROUP BY CONVERT(VARCHAR(10), DateEnter, 101),Fullname) as A "+
+                    "INNER JOIN (SELECT FullName,CONVERT(VARCHAR(10), DateEnter, 101) as Date, COUNT(BugTitleID) as Number "+
+                    "FROM tbl_BugTitle,tbl_User,tbl_Title "+
+                    "WHERE tbl_BugTitle.UserEnterID = tbl_User.UserID "+
+                    "AND tbl_BugTitle.TitleID = tbl_Title.TitleID "+
+                    "AND [3LD] = '" + _3ld + "' " +
+                    "AND EmployeeID = '" + _employeeid + "' " +
+                    "AND BugStatusID = '1' "+
+                    "AND (DateEnter BETWEEN '" + _start + "' AND '" + _end + "') " +
+                    "GROUP BY CONVERT(VARCHAR(10), DateEnter, 101),Fullname) As B "+
+                    "ON A.Date = B.Date "+
+                    "WHERE RIGHT(CONVERT(VARCHAR(10), CONVERT(Datetime, A.Date, 120), 103), 7) = '" + _month + "'";
 
             String total = "0";
             DataTable tb = dbconnect.getDataTable(sql);

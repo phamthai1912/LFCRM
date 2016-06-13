@@ -34,7 +34,7 @@ namespace LFCRM.Class
             //custom logging logic can go here
         }
 
-        public DataTable getRole_Hour(string UID, string date)
+        public DataTable getRoleHour(string UID, string date)
         {
             DataTable dt = dbconnect.getDataTable("Select ProjectRoleName, Value, TitleID"
                                                    + " From tbl_ResourceAllocation, tbl_ProjectRole, tbl_WorkingHours"
@@ -48,13 +48,64 @@ namespace LFCRM.Class
 
         public DataTable getUserListbyMonth(int month, int year)
         {
-            DataTable dt = dbconnect.getDataTable("Select distinct(a.UserID), b.EmployeeID"
-                                                   + " from tbl_ResourceAllocation a, tbl_User b"
-                                                   + " where MONTH(date) = '"+month+"'"
-                                                   + " AND a.UserID = b.UserID"
-                                                   + " AND YEAR(date) = '"+year+"'"
-                                                   + " AND ProjectRoleID <> 4");
+            DataTable dt = dbconnect.getDataTable("Select distinct(a.UserID), b.EmployeeID, b.FullName"
+                                                    + " from tbl_ResourceAllocation a, tbl_User b"
+                                                    + " where MONTH(date) = '"+month+"'"
+                                                    + " AND YEAR(date) = '"+year+"'"
+                                                    + " AND a.UserID = b.UserID"
+                                                    + " UNION"
+                                                    + " Select distinct(a.UserID), b.EmployeeID, b.FullName"
+                                                    + " from tbl_OffTracking a, tbl_User b"
+                                                    + " where MONTH(date) = '"+month+"'"
+                                                    + " AND YEAR(date) = '"+year+"'"
+                                                    + " AND a.UserID = b.UserID");
             return dt;
+        }
+
+        public void addOffTracking(string date, string UserID, int WorkingHoursID)
+        {
+            string sql = "INSERT INTO tbl_OffTracking (Date,UserID,WorkingHoursID) " +
+                        "VALUES ('" + date + "','" + UserID + "','" + WorkingHoursID + "')";
+
+            dbconnect.ExeCuteNonQuery(sql);
+        }
+
+        public Boolean checkOffUserExistByDate(string date, string UID)
+        {
+            string sql = "SELECT * FROM tbl_OffTracking WHERE Date = '" + date + "' AND UserID = '" + UID + "'";
+            DataTable tbcolor = dbconnect.getDataTable(sql);
+
+            if (tbcolor.Rows.Count == 0)
+                return false;
+            else
+                return true;
+        }
+
+        public DataTable getRoleHourFromTracking(string UID, string date)
+        {
+            DataTable dt = dbconnect.getDataTable("SELECT value"
+                                                    +" FROM tbl_OffTracking a, tbl_WorkingHours b"
+                                                    +" WHERE Date = '"+date+"'"
+                                                    + " AND UserID='"+UID+"'"
+                                                    +" AND a.WorkingHoursID = b. WorkingHoursID");
+            return dt;
+        }
+
+        public DataTable getOffTracking()
+        {
+            DataTable dt = dbconnect.getDataTable("SELECT EmployeeID, FullName, date, value, OffID "
+                                                    +" FROM tbl_OffTracking a, tbl_User b, tbl_WorkingHours c"
+                                                    +" WHERE a.UserID = b.UserID"
+                                                    +" AND a.WorkingHoursId = c.WorkingHoursID"
+                                                    + " AND date > '" + DateTime.Now + "' "
+                                                    +" Order by EmployeeID, date");
+            return dt;
+        }
+
+        public void deleteOffTrackingByID(string offID)
+        {
+            String sql = "DELETE FROM tbl_OffTracking WHERE OffID = '" + offID + "'";
+            dbconnect.ExeCuteNonQuery(sql);
         }
     }
 }

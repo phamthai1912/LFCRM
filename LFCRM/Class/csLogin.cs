@@ -69,6 +69,86 @@ namespace LFCRM.Class
             return UserRole;
         }
 
+        public string GetUserRoleProject(string ID)
+        {
+            string sql = "SELECT ProjectRoleName " +
+                    "FROM tbl_ResourceAllocation,tbl_ProjectRole,tbl_User " +
+                    "WHERE tbl_ResourceAllocation.ProjectRoleID = tbl_ProjectRole.ProjectRoleID " +
+                    "AND tbl_ResourceAllocation.UserID = tbl_User.UserID " +
+                    "AND EmployeeID = '" + ID + "'" +
+                    "AND Date = '" + DateTime.Now.ToString("MM/dd/yyyy") + "'" +
+                    "AND ProjectRoleName = 'Core'";
+            
+            DataTable tb = dbconnect.getDataTable(sql);
+            if (tb.Rows.Count != 0)
+            {
+                if (tb.Rows[0][0].ToString() != "")
+                    return tb.Rows[0][0].ToString();
+                else return "";
+            }
+            else return "";
+        }
+
+        public string GetTitleID(string employeeid)
+        {
+            string date = DateTime.Now.ToString("MM/dd/yyyy");
+            string sql = "SELECT TitleID "+
+                        "FROM tbl_ResourceAllocation,tbl_User "+
+                        "WHERE tbl_ResourceAllocation.UserID = tbl_User.UserID "+
+                        "AND EmployeeID = '" + employeeid + "'  " +
+                        "AND Date = '" + date + "'";
+
+            DataTable tb = dbconnect.getDataTable(sql);
+            if (tb.Rows.Count != 0)
+            {
+                if (tb.Rows[0][0].ToString() == "")
+                    return tb.Rows[0][0].ToString();
+                else return "";
+            }
+            else return "";
+        }
+
+        public string Get3LDTitle(string employeeid)
+        {
+            string date = DateTime.Now.ToString("MM/dd/yyyy");
+            string sql = "SELECT [3LD] " +
+                        "FROM tbl_ResourceAllocation,tbl_User,tbl_Title " +
+                        "WHERE tbl_ResourceAllocation.UserID = tbl_User.UserID " +
+                        "AND tbl_ResourceAllocation.TitleID = tbl_Title.TitleID "+
+                        "AND EmployeeID = '" + employeeid + "'  " +
+                        "AND Date = '" + date + "'";
+
+            DataTable tb = dbconnect.getDataTable(sql);
+            if (tb.Rows.Count != 0)
+            {
+                if (tb.Rows[0][0].ToString() != "")
+                    return tb.Rows[0][0].ToString();
+                else return "";
+            }
+            else return "";
+        }
+
+        public string GetUserRoleOnTitle(string _3ld, string employeeid)
+        {
+            string sql = "SELECT ProjectRoleName " +
+                        "FROM tbl_ResourceAllocation,tbl_ProjectRole,tbl_Title,tbl_User " +
+                        "WHERE tbl_ResourceAllocation.ProjectRoleID = tbl_ProjectRole.ProjectRoleID " +
+                        "AND tbl_ResourceAllocation.TitleID = tbl_Title.TitleID " +
+                        "AND tbl_ResourceAllocation.UserID = tbl_User.UserID " +
+                        "AND [3LD] = '" + _3ld + "' " +
+                        "AND EmployeeID = '" + employeeid + "' " +
+                        "AND ProjectRoleName = 'Core' " +
+                        "GROUP BY ProjectRoleName";
+            DataTable tb = dbconnect.getDataTable(sql);
+            if (tb.Rows.Count != 0)
+            {
+                if (tb.Rows[0][0].ToString() != "")
+                    return tb.Rows[0][0].ToString();
+                else return "";
+            }
+            else return "";
+        }
+
         public void Dispose()
         {
             throw new NotImplementedException();

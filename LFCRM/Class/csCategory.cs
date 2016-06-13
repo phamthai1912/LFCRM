@@ -34,6 +34,27 @@ namespace LFCRM.Class
             //custom logging logic can go here
         }
 
+        public DataSet GetCategories(string searchstring)
+        {
+            String search = GetSearchString(searchstring);
+            String sql = "SELECT TitleCategoryID,Category, Color FROM tbl_TitleCategory WHERE (Category LIKE '" + search.Replace("'", "''") + "%')";
+            DataSet ds = dbconnect.getDataSet(sql);
+            return ds;
+        }
+
+        public string GetSearchString(string searchstring)
+        {
+            String[] temp;
+            temp = searchstring.Split(' ');
+            string searchstring1 = "";
+            for (int i = 0; i < temp.Length; i++)
+            {
+                searchstring1 = searchstring1 + "%" + temp[i];
+            }
+
+            return searchstring1;
+        }
+
         public void updateCategory(String categoryid, String categoryname, String Color)
         {
             String sql = "UPDATE tbl_TitleCategory " +

@@ -48,6 +48,7 @@ namespace LFCRM.Class
             Label lbl3 = new Label();
             Label lbl4 = new Label();
             Button btn = new Button();
+            Button btn2 = new Button();
             
             TableRow tbr = new TableRow();
             TableCell tbc1 = new TableCell();
@@ -57,8 +58,8 @@ namespace LFCRM.Class
             TableCell tbc5 = new TableCell();
             AutoCompleteExtender autoCompleteExtender = new AjaxControlToolkit.AutoCompleteExtender();
             FilteredTextBoxExtender fteExpectedResouces = new FilteredTextBoxExtender();
-            RequiredFieldValidator rfvInputTitle = new RequiredFieldValidator();
-            RequiredFieldValidator rfvInputExpected = new RequiredFieldValidator();
+            //RequiredFieldValidator rfvInputTitle = new RequiredFieldValidator();
+            //RequiredFieldValidator rfvInputExpected = new RequiredFieldValidator();
 
             tb1.ID = "txt_Title" + Id;
             tb1.AutoPostBack = true;
@@ -72,9 +73,12 @@ namespace LFCRM.Class
             lbl3.ID = "lbl_TitleExist" + Id;
             lbl3.Text = "It does not exist";
             lbl3.Visible = false;
+            lbl4.Text = " ";
             btn.ID = "btn_RemoveTitle" + Id;
+            btn2.ID = "btn_AutoAllocation" + Id;
             tbr.ID = "tbr_ContentTitle" + Id;
             btn.Text = " - ";
+            btn2.Text = "A";
 
             autoCompleteExtender.ID = "at_TitleExtender" + Id;
             autoCompleteExtender.TargetControlID = tb1.ID;
@@ -86,39 +90,43 @@ namespace LFCRM.Class
 
             fteExpectedResouces.ID = "fte_ExpectedResouces" + Id;
             fteExpectedResouces.TargetControlID = "txt_ExpectedResouces" + Id;
-            fteExpectedResouces.FilterType = FilterTypes.Numbers;
+            fteExpectedResouces.FilterType = FilterTypes.Numbers | FilterTypes.Custom;
+            fteExpectedResouces.ValidChars = ".";
 
-            rfvInputTitle.InitialValue = "";
-            rfvInputTitle.ID = "rfvInputTitle" + Id;
-            rfvInputTitle.Display = ValidatorDisplay.Dynamic;
-            rfvInputTitle.ValidationGroup = "RAValidation";
-            rfvInputTitle.ControlToValidate = "txt_Title" + Id;
-            rfvInputTitle.ErrorMessage = "Input a title";
-            rfvInputTitle.CssClass = "label label-danger";
+            //rfvInputTitle.InitialValue = "";
+            //rfvInputTitle.ID = "rfvInputTitle" + Id;
+            //rfvInputTitle.Display = ValidatorDisplay.Dynamic;
+            //rfvInputTitle.ValidationGroup = "RAValidation";
+            //rfvInputTitle.ControlToValidate = "txt_Title" + Id;
+            //rfvInputTitle.ErrorMessage = "Input a title";
+            //rfvInputTitle.CssClass = "label label-danger";
 
-            rfvInputExpected.InitialValue = "";
-            rfvInputExpected.ID = "rfvInputExpected" + Id;
-            rfvInputExpected.Display = ValidatorDisplay.Dynamic;
-            rfvInputExpected.ValidationGroup = "RAValidation";
-            rfvInputExpected.ControlToValidate = "txt_ExpectedResouces" + Id;
-            rfvInputExpected.ErrorMessage = "Input a number";
-            rfvInputExpected.CssClass = "label label-danger";
+            //rfvInputExpected.InitialValue = "";
+            //rfvInputExpected.ID = "rfvInputExpected" + Id;
+            //rfvInputExpected.Display = ValidatorDisplay.Dynamic;
+            //rfvInputExpected.ValidationGroup = "RAValidation";
+            //rfvInputExpected.ControlToValidate = "txt_ExpectedResouces" + Id;
+            //rfvInputExpected.ErrorMessage = "Input a number";
+            //rfvInputExpected.CssClass = "label label-danger";
 
             autoCompleteExtender.CompletionListCssClass = "form-control";
             tb1.ControlStyle.CssClass = "form-control";
             tb2.ControlStyle.CssClass = "form-control";
             lbl3.ControlStyle.CssClass = "label label-danger";
-            btn.ControlStyle.CssClass = "btn btn-success";
+            btn.ControlStyle.CssClass = "btn btn-success btn-sm";
+            btn2.ControlStyle.CssClass = "btn btn-info btn-sm";
 
             tbc1.Controls.Add(autoCompleteExtender);
             tbc1.Controls.Add(tb1);
-            tbc1.Controls.Add(rfvInputTitle);
+            //tbc1.Controls.Add(rfvInputTitle);
             tbc1.Controls.Add(lbl3);
             tbc2.Controls.Add(tb2);
-            tbc2.Controls.Add(rfvInputExpected);
+            //tbc2.Controls.Add(rfvInputExpected);
             tbc2.Controls.Add(fteExpectedResouces);
             tbc3.Controls.Add(lbl2);
             tbc4.Controls.Add(lbl1);
+            //tbc5.Controls.Add(btn2);
+            tbc5.Controls.Add(lbl4);
             tbc5.Controls.Add(btn);
             tbr.Cells.Add(tbc1);
             tbr.Cells.Add(tbc2);
@@ -146,8 +154,8 @@ namespace LFCRM.Class
             TableCell tbc5 = new TableCell();
             TableCell tbc6 = new TableCell();
             AutoCompleteExtender autoCompleteExtender = new AjaxControlToolkit.AutoCompleteExtender();
-            RequiredFieldValidator rfvSelectTitle = new RequiredFieldValidator();
-            RequiredFieldValidator rfvResourceName = new RequiredFieldValidator();
+            //RequiredFieldValidator rfvSelectTitle = new RequiredFieldValidator();
+            //RequiredFieldValidator rfvResourceName = new RequiredFieldValidator();
 
             lbl.ID = "lbl_ResourceID" + Id;
             lbl.Text="N/A";
@@ -175,24 +183,24 @@ namespace LFCRM.Class
             autoCompleteExtender.CompletionSetCount = 5;
             autoCompleteExtender.MinimumPrefixLength = 1;
 
-            rfvSelectTitle.InitialValue = "- Select Item -";
-            rfvSelectTitle.ID = "rfvSelectTitle"+Id;
-            rfvSelectTitle.Display = ValidatorDisplay.Dynamic;
-            rfvSelectTitle.ValidationGroup = "RAValidation";
-            rfvSelectTitle.ControlToValidate = "ddl_Title" + Id;
-            rfvSelectTitle.ErrorMessage = "Select a title";
-            rfvSelectTitle.CssClass = "label label-danger";
+            //rfvSelectTitle.InitialValue = "- Select Item -";
+            //rfvSelectTitle.ID = "rfvSelectTitle"+Id;
+            //rfvSelectTitle.Display = ValidatorDisplay.Dynamic;
+            //rfvSelectTitle.ValidationGroup = "RAValidation";
+            //rfvSelectTitle.ControlToValidate = "ddl_Title" + Id;
+            //rfvSelectTitle.ErrorMessage = "Select a title";
+            //rfvSelectTitle.CssClass = "label label-danger";
 
-            rfvResourceName.InitialValue = "";
-            rfvResourceName.ID = "rfvInputName" + Id;
-            rfvResourceName.Display = ValidatorDisplay.Dynamic;
-            rfvResourceName.ValidationGroup = "RAValidation";
-            rfvResourceName.ControlToValidate = "txt_Resource" + Id;
-            rfvResourceName.ErrorMessage = "Input a name";
-            rfvResourceName.CssClass = "label label-danger";
+            //rfvResourceName.InitialValue = "";
+            //rfvResourceName.ID = "rfvInputName" + Id;
+            //rfvResourceName.Display = ValidatorDisplay.Dynamic;
+            //rfvResourceName.ValidationGroup = "RAValidation";
+            //rfvResourceName.ControlToValidate = "txt_Resource" + Id;
+            //rfvResourceName.ErrorMessage = "Input a name";
+            //rfvResourceName.CssClass = "label label-danger";
 
             ddl1 = commonClass.AddDBToDDL(ddl1, "SELECT ProjectRoleID, ProjectRoleName FROM tbl_ProjectRole");
-            ddl3 = commonClass.AddDBToDDL(ddl3, "SELECT WorkingHoursID, Value FROM tbl_WorkingHours ORDER BY Value Desc");
+            ddl3 = commonClass.AddDBToDDL(ddl3, "SELECT WorkingHoursID, Value FROM tbl_WorkingHours");
 
             autoCompleteExtender.CompletionListCssClass = "form-control";
             tb.ControlStyle.CssClass = "form-control";
@@ -200,16 +208,16 @@ namespace LFCRM.Class
             ddl1.ControlStyle.CssClass = "form-control";
             ddl2.ControlStyle.CssClass = "form-control";
             ddl3.ControlStyle.CssClass = "form-control";
-            btn.ControlStyle.CssClass = "btn btn-success";
+            btn.ControlStyle.CssClass = "btn btn-success btn-sm";
 
             tbc1.Controls.Add(lbl);
             tbc1.Controls.Add(autoCompleteExtender);
             tbc2.Controls.Add(tb);
-            tbc2.Controls.Add(rfvResourceName);
+            //tbc2.Controls.Add(rfvResourceName);
             tbc2.Controls.Add(lbl2);
             tbc3.Controls.Add(ddl1);
             tbc4.Controls.Add(ddl2);
-            tbc4.Controls.Add(rfvSelectTitle);
+            //tbc4.Controls.Add(rfvSelectTitle);
             tbc5.Controls.Add(ddl3);
             tbc6.Controls.Add(btn);
             tbr.Cells.Add(tbc1);
